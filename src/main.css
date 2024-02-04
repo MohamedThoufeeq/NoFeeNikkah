@@ -1,0 +1,15 @@
+#root {
+    /* background-image: linear-gradient(rgb(0, 213, 255), rgb(0, 149, 255), rgba(93, 0, 255, 0.557)); */
+    background-image: url('background.jpg.jpg');
+    background-position: center; /* Center the image */
+    background-repeat: repeat; /* Do not repeat the image */
+    background-size: contain;
+}
+#main-container {
+    margin: 0;
+    /* height: 100vh; */
+    display: block;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit';
+   }
