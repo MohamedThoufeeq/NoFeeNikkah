@@ -86,3 +86,7 @@
     flex-wrap: wrap;
     
 }
+#profile-card-back {
+    display: none;
+    text-align: center;
+}

@@ -91,7 +91,7 @@ function Search() {
         </div>
       </form>
       <div id="result-container">
-        <SearchResult getDataFromBackend={getDataFromBackend(searchurl)} />
+        <SearchResult getDataFromBackend={getDataFromBackend(searchurl)}  />
       </div>
     </div>
   );

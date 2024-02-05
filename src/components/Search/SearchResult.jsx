@@ -1,8 +1,8 @@
 import ProfileCard from "./ProfileCard";
 
 function SearchResult(props){
-    const SampleJsonProfiles = props.getDataFromBackend;
-    console.log('profile', SampleJsonProfiles.profiles[0]);
+    console.log('profile', props.getDataFromBackend.profiles[3]);
+    const SampleJsonProfiles = props.getDataFromBackend.profiles[3];
     return (
         <div id="result">
             <ProfileCard SampleJsonProfiles={SampleJsonProfiles} />
