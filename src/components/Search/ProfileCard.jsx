@@ -1,30 +1,44 @@
+import { useState } from "react";
 import "../css/ProfileCard.css";
-function ProfileCard(props) {
+function ProfileCard({index, profile}) {
   var profileCardBack;
   var profileCardFront;
- 
-  const profile = props.SampleJsonProfiles;
+  
+  const [isHovered, setIsHovered] = useState(false);
+
+  // const profile = props.SampleJsonProfiles;
   console.log(profile)
   const handleProfileCardHoverEnter = (e) => {
     console.log(e);
-    profileCardFront = document.getElementById("profile-card-front");
-    profileCardBack = document.getElementById("profile-card-back");
-    
+    setIsHovered(true);
     e.preventDefault();
-    profileCardFront.style.display = "none";
-    profileCardBack.style.display = "flex";
+
+    e.currentTarget.querySelector("#profile-card-front").style.display = "none";
+    e.currentTarget.querySelector("#profile-card-back").style.display = "flex";
+
+    // profileCardFront = document.getElementById("profile-card-front");
+    // profileCardBack = document.getElementById("profile-card-back");
+    
+    // profileCardFront.style.display = "none";
+    // profileCardBack.style.display = "flex";
   };
   const handleProfileCardHoverLeave = (e) => {
-    
+    setIsHovered(false);
     e.preventDefault();
-    profileCardFront.style.display = "flex";
-    profileCardBack.style.display = "none";
+
+    e.currentTarget.querySelector("#profile-card-front").style.display = "flex";
+    e.currentTarget.querySelector("#profile-card-back").style.display = "none";
+
+    // profileCardFront = document.getElementById("profile-card-front");
+    // profileCardBack = document.getElementById("profile-card-back");
+    // profileCardFront.style.display = "flex";
+    // profileCardBack.style.display = "none";
   };
   var fullage = profile.age;
   var age = fullage.substring(0,2);
   return (
     <div
-      id="profile-card"
+      id="profile-card" className={isHovered ? "hovered" : ""}
       onMouseEnter={(e) => handleProfileCardHoverEnter(e)}
       onMouseLeave={(e) => handleProfileCardHoverLeave(e)}
     >
