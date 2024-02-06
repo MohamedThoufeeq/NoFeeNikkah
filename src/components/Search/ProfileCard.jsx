@@ -15,6 +15,7 @@ function ProfileCard({index, profile}) {
 
     e.currentTarget.querySelector("#profile-card-front").style.display = "none";
     e.currentTarget.querySelector("#profile-card-back").style.display = "flex";
+    e.currentTarget.querySelector("#profile-card-back").style.height = e.currentTarget.querySelector("#profile-card-front").style.height;
 
     // profileCardFront = document.getElementById("profile-card-front");
     // profileCardBack = document.getElementById("profile-card-back");
@@ -34,8 +35,14 @@ function ProfileCard({index, profile}) {
     // profileCardFront.style.display = "flex";
     // profileCardBack.style.display = "none";
   };
-  var fullage = profile.age;
-  var age = fullage.substring(0,2);
+  const fullage = profile.age;
+  const age = fullage.substring(0,2);
+  // const aboutMeLength = profile.aboutMe.length;
+  // console.log("ABout me length", aboutMeLength)
+  // const myExpectationLength = profile.myExpectation.length;
+  // const aboutMe = aboutMeLength > 120 ? profile.aboutMe.substring(0,120) : profile.aboutMe;
+  // console.log("aboutMe : ", aboutMe);
+  // const myExpectation = myExpectationLength > 120 ? profile.myExpectation.substring(0,120) : profile.myExpectation;
   return (
     <div
       id="profile-card" className={isHovered ? "hovered" : ""}
@@ -43,10 +50,10 @@ function ProfileCard({index, profile}) {
       onMouseLeave={(e) => handleProfileCardHoverLeave(e)}
     >
       <div id="profile-card-front">
+        <span id="main-data">
         <div id="profile-image">
           <img src="../../public/profile_img_boy.jpg" alt="Profile Picture" />
         </div>
-        <span id="main-data">
           <h5 id="name">{profile.fullname}</h5>
           <p>📍{profile.city}, {profile.state}, {profile.country}</p>
         </span>
@@ -70,12 +77,18 @@ function ProfileCard({index, profile}) {
       </div>
       <div id="profile-card-back">
         <span>
+          <p>About Me</p>
+        </span>
+        <p>
+          {profile.aboutMe && profile.aboutMe.length > 120 ? `${profile.aboutMe.substring(0,120)}` : profile.aboutMe}...
+        </p>
+        <span>
           <p>My Expectations</p>
         </span>
         <p>
-          {profile.myExpectation}
+        {profile.myExpectation && profile.myExpectation.length > 120 ? `${profile.myExpectation.substring(0,120)}` : profile.myExpectation}...
         </p>
-        <a href="/profile/id" className="btn btn-dark">
+        <a href={`/profile/${profile.id}`} className="btn btn-dark">
           {profile.fullname}
         </a>
       </div>

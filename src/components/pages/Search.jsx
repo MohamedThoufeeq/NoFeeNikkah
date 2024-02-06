@@ -53,7 +53,7 @@ function Search() {
   }
   return (
     <div id="search-page-container">
-      <form id="search-form" action="/filter">
+      <div id="search-form" action="/filter">
         <div id="search-form-container">
         <div className="onefield">
             <label htmlFor="gender">Searching for:</label>
@@ -84,12 +84,12 @@ function Search() {
             <input type="text" name="occupation" placeholder="Expected Occupation"  onChange={(e) => setOccupation(e.target.value)} />
           </div>
           
-        </div>
+      </div>
         <div className="onefield" id='submit-button'>
           <label htmlFor=""></label><br />
           <button className="btn btn-dark" type="submit" onClick={(e)=>handleSubmit(e)}>search</button>
         </div>
-      </form>
+        </div>
       <div id="result-container">
         <SearchResult getDataFromBackend={getDataFromBackend(searchurl)}  />
       </div>

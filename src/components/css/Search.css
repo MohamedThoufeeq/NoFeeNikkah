@@ -4,12 +4,10 @@
     justify-content: center;
     background: none;
     background-color: transparent;
-    backdrop-filter: blur(4px);
     min-height: fit-content;
     margin: 0 30px;
     padding: 5px 10px;
-    border-radius: 15px;
-    box-shadow: 1px 0 10px 10px rgba(60, 60, 60, 0.35);
+
 }
 #search-form {
     display: flex;
@@ -17,6 +15,11 @@
     flex-direction: column;
     justify-content: center;
     gap: 20px;
+    backdrop-filter: blur(2px);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 15px;
+    /* width: 90%; */
+    margin: 20px 30px;
 }
 #country-state-city {
     display: flex;
@@ -71,10 +74,11 @@
     background: none;
     margin: 10px 10px;
     height: fit-content;
-    border-radius: 20px;
-    box-shadow: 1px 0 10px 10px rgba(60, 60, 60, 0.35);
+    border-radius: 10px;
+    /* box-shadow: 0px 0 8px 0px rgba(60, 60, 60, 0.35); */
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     background-color: transparent;
-    backdrop-filter: blur(1px);
+    /* backdrop-filter: blur(1px); */
 
     display: flex;
     justify-content: center;
@@ -85,8 +89,4 @@
     justify-content: center;
     flex-wrap: wrap;
     
-}
-#profile-card-back {
-    display: none;
-    text-align: center;
 }
