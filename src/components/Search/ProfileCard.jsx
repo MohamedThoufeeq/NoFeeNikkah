@@ -34,7 +34,7 @@ function ProfileCard({index, profile}) {
       <div id="profile-card-front">
         <span id="main-data">
         <div id="profile-image">
-          <img src="../../public/profile_img_boy.jpg" alt="Profile Picture" />
+          <img src={profile.gender && profile.gender == 'male' ? '../../public/profile_img_boy.jpg' : '../../public/profile_img_girl.jpg'} alt="Profile Picture" />
         </div>
           <h5 id="name">{profile.fullname}</h5>
           <p>📍{profile.city}, {profile.state}, {profile.country}</p>

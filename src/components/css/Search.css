@@ -9,6 +9,7 @@
     padding: 5px 10px;
 
 }
+
 #search-form {
     display: flex;
     flex-wrap: wrap;
@@ -21,7 +22,8 @@
     border-radius: 15px;
     margin: 20px 30px;
 }
-#search-form #search-header{
+
+#search-form #search-header {
     text-align: center;
     width: fit-content;
     background-color: #ffffff95;
@@ -29,15 +31,32 @@
     margin-top: 20px;
     border-radius: 10px;
 }
+
 #search-form #search-header h4 {
     margin-bottom: 0;
 }
+
 #header-bar {
     display: flex;
+    background-color: #ffffff95;
+    border-radius: 10px;
+    padding: 10px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: center;
 }
+
+@media screen and (max-width : 460px) {
+    #header-bar {
+        flex-direction: column;
+    }
+
+}
+
 #filters {
     margin: 0 10px;
 }
+
 #filters select {
     border-radius: 7px;
 }
@@ -47,15 +66,19 @@
     flex-wrap: wrap;
     justify-content: center;
 }
+
 .onefield {
     /* display: flex; */
     /* margin: 20px; */
     margin-bottom: 10px;
 }
+
 .onefield label {
     color: #e01a2d;
 }
-.onefield select, .onefield input{
+
+.onefield select,
+.onefield input {
     border: 0;
     display: flex;
     width: 150px;
@@ -63,6 +86,7 @@
     font-size: 14px;
     border-radius: 5px;
 }
+
 .onefield button {
     display: flex;
     height: 30px;
@@ -75,14 +99,18 @@
     letter-spacing: 1px;
     border: 0;
 }
+
 .onefield button:hover {
     color: black;
-    background-color: #e01a2d;;
+    background-color: #e01a2d;
+    ;
 }
+
 #submit-button {
     display: flex;
     justify-content: center;
 }
+
 #submit-button button {
     padding-bottom: 11px;
     width: 150px;
@@ -105,19 +133,25 @@
     justify-content: center;
     flex-wrap: wrap;
 }
+
 #result {
-display: flex;
-justify-content: center;
-flex-direction: column;
-align-items: center;
-    
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
 }
+
+#result span {}
+
 #profile-cards {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 }
-#result span h4{
+
+#result span h4 {
+    color: #e01a2d;
     text-align: center;
     background-color: #ffffffb0;
     padding: 0 50px;
