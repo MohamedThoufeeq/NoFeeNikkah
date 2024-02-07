@@ -53,7 +53,10 @@ function Search() {
   }
   return (
     <div id="search-page-container">
-      <div id="search-form" action="/filter">
+      <div id="search-form">
+      <span id="search-header">
+                <h4>Search Form</h4>
+            </span>
         <div id="search-form-container">
         <div className="onefield">
             <label htmlFor="gender">Searching for:</label>

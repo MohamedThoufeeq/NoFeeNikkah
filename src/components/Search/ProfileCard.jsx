@@ -1,13 +1,10 @@
 import { useState } from "react";
 import "../css/ProfileCard.css";
 function ProfileCard({index, profile}) {
-  var profileCardBack;
-  var profileCardFront;
   
   const [isHovered, setIsHovered] = useState(false);
 
-  // const profile = props.SampleJsonProfiles;
-  console.log(profile)
+  // console.log(profile)
   const handleProfileCardHoverEnter = (e) => {
     console.log(e);
     setIsHovered(true);
@@ -17,11 +14,6 @@ function ProfileCard({index, profile}) {
     e.currentTarget.querySelector("#profile-card-back").style.display = "flex";
     e.currentTarget.querySelector("#profile-card-back").style.height = e.currentTarget.querySelector("#profile-card-front").style.height;
 
-    // profileCardFront = document.getElementById("profile-card-front");
-    // profileCardBack = document.getElementById("profile-card-back");
-    
-    // profileCardFront.style.display = "none";
-    // profileCardBack.style.display = "flex";
   };
   const handleProfileCardHoverLeave = (e) => {
     setIsHovered(false);
@@ -30,19 +22,9 @@ function ProfileCard({index, profile}) {
     e.currentTarget.querySelector("#profile-card-front").style.display = "flex";
     e.currentTarget.querySelector("#profile-card-back").style.display = "none";
 
-    // profileCardFront = document.getElementById("profile-card-front");
-    // profileCardBack = document.getElementById("profile-card-back");
-    // profileCardFront.style.display = "flex";
-    // profileCardBack.style.display = "none";
   };
   const fullage = profile.age;
   const age = fullage.substring(0,2);
-  // const aboutMeLength = profile.aboutMe.length;
-  // console.log("ABout me length", aboutMeLength)
-  // const myExpectationLength = profile.myExpectation.length;
-  // const aboutMe = aboutMeLength > 120 ? profile.aboutMe.substring(0,120) : profile.aboutMe;
-  // console.log("aboutMe : ", aboutMe);
-  // const myExpectation = myExpectationLength > 120 ? profile.myExpectation.substring(0,120) : profile.myExpectation;
   return (
     <div
       id="profile-card" className={isHovered ? "hovered" : ""}
