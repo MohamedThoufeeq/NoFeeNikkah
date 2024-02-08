@@ -1,5 +1,5 @@
 #navbar-container {
-  padding: 40px;
+  padding: 20px;
   background: none;
   background-color: transparent;
 }
@@ -134,4 +134,10 @@ span {
 #profile-container svg {
   vertical-align: baseline;
   color: #e01a2d;
+}
+@media screen and (max-width : 450px) {
+  #navbar-container {
+    padding: 10px;
+  }
+  
 }

@@ -7,6 +7,7 @@ function MyProfile(){
     let bmi = (profile.weight / ((profile.height * profile.height) / 10000)).toFixed(2);
 
     return (
+        <div id="myprofile">
         <div id="my-profile-container">
             <div id="my-profile-header">
                 <div id="header-img" className='mt-10'>
@@ -15,10 +16,12 @@ function MyProfile(){
                 <span id="name">
                     <h2>{profile.fullname}</h2>
                 </span>
+                <span id='interest'><a className='btn btn-success interest-btn hover' href={`http:localhost:8080/ap/${profile.id}/senInterest/${profile.id}`}> Send Interest</a> </span>
             </div>
-            <div id="border"></div>
+            <div id="border" ></div>
             <div id="my-profile-main">
-                <div id="categories">
+                <div id="category-group">
+                    <div id="categories">
                     <p id='title'>Basic Information</p>
                     <div id="category">
                         <span id='name'>Date Of Birth</span>
@@ -53,8 +56,8 @@ function MyProfile(){
                         <p id='value'>🩸{profile.bloodGroup}</p>
                     </div>
 
-                </div>
-                <div id="categories">
+                    </div>
+                    <div id="categories">
                     <p id='title'>Professional background</p>
                     <div id="category">
                         <span id='name'>Education</span>
@@ -80,8 +83,8 @@ function MyProfile(){
                         <span id='name'>Experience</span>
                         <p id='value'>✅{profile.workExperience} Years</p>
                     </div>
-                </div>
-                <div id="categories">
+                    </div>
+                    <div id="categories">
                     <p id="title">Contact Information</p>
                     <div id="category">
                         <span id='name'>Father's Occupation</span>
@@ -93,7 +96,8 @@ function MyProfile(){
                     </div>
                     <div id="category">
                         <span id='name'>Parent's Contact Number</span>
-                        <p id='value'>📞{profile.parentNumber}</p>
+                        <p id='value'>📞{profile.parentNumber.substring(0,5)+'*****'}</p>
+                        Check the bottom note
                     </div>
                     <div id="category">
                         <span id='name'>Email Id</span>
@@ -101,16 +105,31 @@ function MyProfile(){
                     </div>
                     <div id="category">
                         <span id='name'>Social Media Handles</span>
-                        {/* <p id='value'>📧<a href={profile.socialLinks}>{profile.socialLinks && profile.socialLinks.contains('instagram') ? 'Instagram' : 'Social Media'}</a></p> */}
+                        <p id='value'>📲<a target={'_blank'} 
+                            href={profile.socialLinks}>{profile.socialLinks && profile.socialLinks.includes('instagram') ? 'Instagram' :   profile.socialLinks.includes('facebook') ? 'Facebook' : profile.socialLinks.includes('twitter') ? 'Twitter' : 'Social Media' }  </a></p>
                     </div>
                     <div id="category">
                         <span id='name'>Mobile Number</span>
-                        <p id='value'>📞{profile.mobileNumber}</p>
+                        <p id='value'>📞{profile.mobileNumber.substring(0,5)+'*****'}</p>
+                        Check the bottom note
                     </div>
-
+                    </div>
                 </div>
+                <div id="description">
+                    <div id="description-container">
+                        <span id="title">About Me</span>
+                        <p>{profile.aboutMe}</p>
+                    </div>
+                    <div id="description-container">
+                        <span id="title">My Expectation</span>
+                        <p>{profile.myExpectation}</p>
+                    </div>
+                </div>
+                <p id='value'><b>Note : </b>⚠️We will not expose any of the user's mobile number because of spamming and privacy concerns. Click on the "Show Interest" button which will send your mobile number to them And they will contact you. Otherwise, contact them directly via Email or any of the Social Media handles.</p>
+
             </div>
         </div>
+    </div>
     )
 }
 export default MyProfile

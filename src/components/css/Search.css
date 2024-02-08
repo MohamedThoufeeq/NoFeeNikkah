@@ -38,7 +38,7 @@
 
 #header-bar {
     display: flex;
-    background-color: #ffffff95;
+    background-color: #ffffffe0;
     border-radius: 10px;
     padding: 10px;
     flex-direction: row;
@@ -126,7 +126,7 @@
     border-radius: 10px;
     /* box-shadow: 0px 0 8px 0px rgba(60, 60, 60, 0.35); */
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    background-color: transparent;
+    background-color: #ffffff40;
     /* backdrop-filter: blur(1px); */
 
     display: flex;
@@ -153,7 +153,7 @@
 #result span h4 {
     color: #e01a2d;
     text-align: center;
-    background-color: #ffffffb0;
+    background-color: #ffffffe0;
     padding: 0 50px;
     margin-top: 20px;
     border-radius: 10px;
