@@ -1,5 +1,5 @@
 import { useState } from "react";
-import CountryStateCity from "../Search/CountryStateCityLanguage";
+import CountryStateCity from "../Search/CountryStateCity";
 import "../css/Search.css";
 import GetAllProfileJsonSample from '../../../public/GetAllProfilesSample.json';
 import SearchResult from "../Search/SearchResult";
@@ -24,7 +24,7 @@ function Search() {
   //   setCity(searchData.selectedCity);
   //   setLanguage(searchData.selectedLanguage);
   // };
-  const { render, selectedCountry, selectedState, selectedCity } = CountryStateCity();
+  const { renderCSC, selectedCountry, selectedState, selectedCity } = CountryStateCity();
   
   const handleSubmit = (e) => {
     setCountry(selectedCountry);
@@ -67,7 +67,7 @@ function Search() {
             </select>
           </div>
           <div id="country-state-city">
-            {render} {/* rendering the CountryStateCityLanguage */}
+            {renderCSC} {/* rendering the CountryStateCityLanguage */}
           </div>
           {/* Language Input */}
           <div className="onefield">

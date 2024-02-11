@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import jsondata from "../files/country-state-city.json";
+import '../css/CountryStateCity.css';
 
-function CountryStateCityLanguage() {
+function CountryStateCity() {
   const [data, setData] = useState([]);
   const [state, setState] = useState([]);
   const [city, setCity] = useState([]);
@@ -29,6 +30,7 @@ function CountryStateCityLanguage() {
     let states = [...new Set(Singlecountry.map((item) => item.subcountry))];
     //after removing the duplicate subcountry names(state names). we have saved the data in state state using setState.
     setState(states);
+    document.querySelector("#state-input").style.display='block';
   };
 
   const handleStateChange = (e) => {
@@ -36,6 +38,7 @@ function CountryStateCityLanguage() {
     let singleCity = data.filter((item) => item.subcountry === e.target.value);
     setSelectedState(e.target.value);
     setCity(singleCity);
+    document.querySelector("#city-input").style.display='block';
   };
   const countryData = {selectedCountry,selectedState,selectedCity};
   // props.getCountryData(countryData);
@@ -44,7 +47,7 @@ function CountryStateCityLanguage() {
     selectedCountry,
     selectedState,
     selectedCity,
-    render: (
+    renderCSC: (
       <>
         {/*Country Selection */}
         <div className="onefield">
@@ -61,7 +64,7 @@ function CountryStateCityLanguage() {
         </div>
 
         {/*State Selection */}
-        <div className="onefield">
+        <div className="onefield" id="state-input">
           <label>State: </label>
           <br />
           <select onChange={(e) => handleStateChange(e)}>
@@ -75,7 +78,7 @@ function CountryStateCityLanguage() {
           </select>
         </div>
         {/*City Selection */}
-        <div className="onefield">
+        <div className="onefield" id="city-input">
           <label>City: (optional) </label>
           <br></br>
           <select onChange={(e) => setSelectedCity(e.target.value)}>
@@ -94,4 +97,4 @@ function CountryStateCityLanguage() {
   };
 }
 
-export default CountryStateCityLanguage;
+export default CountryStateCity;

@@ -1,0 +1,25 @@
+.suggestions {
+    position: absolute;
+    /* top: 100%;
+    left: 0;
+    width: 100%; */
+    width: 200px;
+    border: 1px solid #aaa;
+    background-color: white;
+    z-index: 10;
+    height: 300px;
+    overflow-y: scroll;
+}
+
+.suggestions .list {
+    padding: 5px 0px;
+    cursor: pointer;
+    text-align: left;
+    color: black;
+}
+
+.suggestions .list:hover,
+.suggestions .list:focus {
+    background-color: #eee;
+    color: blue;
+}

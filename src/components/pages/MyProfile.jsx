@@ -1,5 +1,8 @@
 import samplejsonprofile from '../../../public/GetAllProfilesSample.json';
 import '../css/MyProfile.css';
+import { FaUserEdit } from "react-icons/fa";
+
+
 function MyProfile(){
     const profile = samplejsonprofile.profiles[3];
 
@@ -9,6 +12,9 @@ function MyProfile(){
     return (
         <div id="myprofile">
         <div id="my-profile-container">
+            <div id="edit" title='Edit Your Profile'>
+            <a href="/edit-myprofile" title='Edit Your Profile'><FaUserEdit/></a>
+            </div>
             <div id="my-profile-header">
                 <div id="header-img" className='mt-10'>
                     <img src="../../../public/profile_img_boy.jpg" alt="Profile Picture" />
@@ -16,7 +22,7 @@ function MyProfile(){
                 <span id="name">
                     <h2>{profile.fullname}</h2>
                 </span>
-                <span id='interest'><a className='btn btn-success interest-btn hover' href={`http:localhost:8080/ap/${profile.id}/senInterest/${profile.id}`}> Send Interest</a> </span>
+                <span id='interest'><a className='btn btn-success interest-btn hover' href={`http:localhost:8080/api/${profile.id}/senInterest/${profile.id}`}> Send Interest</a> </span>
             </div>
             <div id="border" ></div>
             <div id="my-profile-main">

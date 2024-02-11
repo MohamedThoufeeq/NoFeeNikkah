@@ -4,6 +4,7 @@ import Register from './pages/Register';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import OurNavbar2 from './Navbar/Navbar';
 import MyProfile from './pages/MyProfile';
+import EditMyProfile from './pages/EditMyProfile';
 import Search from './pages/Search';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/home" element ={<Home/>} />
           <Route path="/search" element ={<Search/>} />
           <Route path="/myprofile" element ={<MyProfile/>} />
+          <Route path="/edit-myprofile" element ={<EditMyProfile/>} />
         </Routes>
       </BrowserRouter>
     </div>
