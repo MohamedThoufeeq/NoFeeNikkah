@@ -4,3 +4,6 @@
 #city-input {
     display: none;
 }
+.onefield input {
+    width: 190px;
+}

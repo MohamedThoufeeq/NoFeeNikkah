@@ -5,14 +5,17 @@
     width: 100%; */
     width: 200px;
     border: 1px solid #aaa;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.532);
+    backdrop-filter: blur(5px);
     z-index: 10;
-    height: 300px;
+    max-height: 300px;
     overflow-y: scroll;
+    padding-left: 0px;
 }
 
 .suggestions .list {
-    padding: 5px 0px;
+    
+    padding: 5px 10px;
     cursor: pointer;
     text-align: left;
     color: black;
@@ -20,6 +23,6 @@
 
 .suggestions .list:hover,
 .suggestions .list:focus {
-    background-color: #eee;
-    color: blue;
+    background-color: white;
+    color: darkred;
 }

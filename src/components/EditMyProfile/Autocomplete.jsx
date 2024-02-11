@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./AutoComplete.css"
 
-function Autocomplete({ data, label }) {
+function Autocomplete({ data, label , handleCountrySelect, handleStateSelect}) {
   // create state variables for input and suggestions
   const [input, setInput] = useState("");
   const [suggestions, setSuggestions] = useState([]);
@@ -28,10 +28,11 @@ function Autocomplete({ data, label }) {
 
   // create a function to handle the suggestion click
   const handleClick = (value) => {
-    console.log(item);
-    // get the suggestion value
-    // const value = e.target.innerText;
-    // update the input state with the suggestion value
+    if(handleCountrySelect){
+        handleCountrySelect(value);
+    } else if(handleStateSelect) {
+        handleStateSelect(value);
+    }
     setInput(value);
     // clear the suggestions state
     setSuggestions([]);
@@ -44,23 +45,19 @@ function Autocomplete({ data, label }) {
       <input className="border border-dark"
         type="text"
         value={input}
+        onClick={(e)=>handleChange(e)}
         onChange={(e)=>handleChange(e)}
         onFocus={(e)=>handleChange(e)}
-        onBlur={(e) => setSuggestions([])}
       />
       {suggestions.length > 0 && (
         <ul className="suggestions">
           {suggestions.map((item, index) => (
-            <option className="list" value={item} key={index} 
-            onClick={()=>handleClick(item)} 
-            onClickCapture={()=>handleClick(item)} 
-            onFocus={()=>handleClick(item)}>
+            <div className="list" key={index} onClick={()=>handleClick(item)}>
               {item}
-            </option>
+            </div>
           ))}
         </ul>
       )}
-      {/* add some styles to the suggestions list and item elements */}
     </div>
   );
 }
