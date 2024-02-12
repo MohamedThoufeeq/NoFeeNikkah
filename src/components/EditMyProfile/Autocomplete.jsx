@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./AutoComplete.css"
 
-function Autocomplete({ data, label , handleCountrySelect, handleStateSelect}) {
+function Autocomplete({ data, label , handleCountrySelect, handleStateSelect, countryData}) {
   // create state variables for input and suggestions
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState(countryData);
   const [suggestions, setSuggestions] = useState([]);
 
   // create a function to filter the suggestions
@@ -43,8 +43,11 @@ function Autocomplete({ data, label , handleCountrySelect, handleStateSelect}) {
       <label>{label}</label>
       <br />
       <input className="border border-dark"
+        placeholder={'Enter '+label}
+        title = {'Enter '+label}
         type="text"
         value={input}
+        onClickCapture={(e)=>handleChange(e)}
         onClick={(e)=>handleChange(e)}
         onChange={(e)=>handleChange(e)}
         onFocus={(e)=>handleChange(e)}

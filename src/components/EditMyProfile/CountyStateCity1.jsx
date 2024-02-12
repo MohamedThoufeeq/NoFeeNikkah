@@ -8,12 +8,18 @@ function CountryStateCity1(profile) {
   const [state, setState] = useState([]);
   const [city, setCity] = useState([]);
 
-  const [selectedCountry, setSelectedCountry] = useState("");
-  const [selectedState, setSelectedState] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
-
+  const [selectedCountry, setSelectedCountry] = useState(profile.country);
+  const [selectedState, setSelectedState] = useState(profile.state);
+  const [selectedCity, setSelectedCity] = useState(profile.city);
+  
   useEffect(() => {
     setData(jsondata.content);
+    if(selectedCity){
+      document.querySelector("#state-input").style.display = "block";
+    }
+    if(setSelectedCity){
+      document.querySelector("#city-input").style.display = "block";
+    }
   }, []);
 
   //removing duplicate country names
@@ -41,6 +47,7 @@ function CountryStateCity1(profile) {
 
   const countryData = { selectedCountry, selectedState, selectedCity };
 
+  
   return {
     selectedCountry,
     selectedState,
@@ -54,6 +61,7 @@ function CountryStateCity1(profile) {
             label="Country:"
             value={selectedCountry}
             handleCountrySelect={handleCountrySelect}
+            countryData={countryData.selectedCountry}
           />
         </div>
 
@@ -64,6 +72,7 @@ function CountryStateCity1(profile) {
             label="State:"
             value={selectedState}
             handleStateSelect={handleStateSelect}
+            countryData={countryData.selectedState}
           />
         </div>
 
@@ -74,6 +83,7 @@ function CountryStateCity1(profile) {
             label="City:"
             value={selectedCity}
             onChange={(value) => setSelectedCity(value)}
+            countryData={countryData.selectedCity}
           />
         </div>
       </>

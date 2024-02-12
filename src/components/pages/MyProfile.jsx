@@ -98,7 +98,7 @@ function MyProfile(){
                     </div>
                     <div id="category">
                         <span id='name'>Parent's Name</span>
-                        <p id='value'>👨‍👩‍👧‍👧{profile.parentName && profile.parentName.substring(0,1) == 'm' ? 'Mom :  ' : 'Dad :  '} {profile.parentName.substring(2)}</p>
+                        <p id='value'>👨‍👩‍👧‍👧{profile.parentName && profile.parentName.substring(0,1) == 'm' ? 'Mom :  ' : profile.parentName.substring(0,1) == 'd' ? 'Dad :  ' : profile.parentName.substring(0,1) == 'g' ? 'Guardian : ':''} {profile.parentName.substring(2)}</p>
                     </div>
                     <div id="category">
                         <span id='name'>Parent's Contact Number</span>
