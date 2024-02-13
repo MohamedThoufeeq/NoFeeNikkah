@@ -14,10 +14,10 @@ function CountryStateCity1(profile) {
   
   useEffect(() => {
     setData(jsondata.content);
-    if(selectedCity){
+    if(selectedCountry){
       document.querySelector("#state-input").style.display = "block";
     }
-    if(setSelectedCity){
+    if(selectedState){
       document.querySelector("#city-input").style.display = "block";
     }
   }, []);

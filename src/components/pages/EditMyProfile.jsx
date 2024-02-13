@@ -1,15 +1,13 @@
 import samplejsonprofile from '../../../public/GetAllProfilesSample.json';
 import { FaFileUpload } from "react-icons/fa";
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import '../css/EditMyProfile.css'
-import { useState } from 'react';
 import AgeCalculator from '../EditMyProfile/AgeCalculator.js';
 import CountryStateCity from '../EditMyProfile/CountyStateCity1';
-import { useEffect } from 'react';
 
 
 function EditMyProfile(){
-    const profile = samplejsonprofile.profiles[3];
+    const profile = samplejsonprofile.profiles[5];
     
     useEffect(()=> {
         document.querySelector('.textarea').style.width = document.querySelector('#description-container').offsetWidth + 'px'; 
@@ -103,7 +101,10 @@ function EditMyProfile(){
     }
     //mfg - mother , father, guardian
     const [mfg, setMfg] = useState('');
-    const [mfgValue, setMfgValue] = useState(profile.parentName.substring(0,1)=='m' ? 'mom' : profile.parentName.substring(0,1)=='d' ? 'dad' : profile.parentName.substring(0,1)=='g' ? 'guardian' : '');
+    const [mfgValue, setMfgValue] = useState(
+        profile.parentName ? 
+            (profile.parentName.substring(0,1)=='m' ? 'mom' : profile.parentName.substring(0,1)=='d' ? 'dad' : profile.parentName.substring(0,1)=='g' ? 'guardian' : '') 
+                : '');
     const handleMfg = (e) => {
         let mfgvalue = e.target.value == 'mom' ? "m:" : e.target.value == 'dad' ? "d:" : e.target.value == 'guardian' ? "g:" : '';
         setMfg(mfgvalue);
@@ -174,7 +175,32 @@ function EditMyProfile(){
         'myExpectation': myExpectation
     };
     const jsonProfileData = JSON.stringify(profileData);
-    console.log(jsonProfileData);
+    // console.log(jsonProfileData);
+
+    //handleSubmit buttton
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch(`http://localhost:8080/api/${profile.id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: jsonProfileData
+            });
+            if (response.status === 200) {
+                const responseData = await response.json();
+                console.log(responseData);
+                alert('Profile Updated Successfully !');
+            } else {
+                alert('Something Happened, Please try again later');
+            }
+        } catch (error) {
+            console.error(error);
+            // Handle errors
+            alert('Something Happened, Please Retry again');
+        }
+    };
     return (
         
         <div id="myprofile">
@@ -212,7 +238,9 @@ function EditMyProfile(){
                     </div>
                     <div id="category">
                         <span id='name'>Languages Known 🗣️</span>
-                        <input title='Enter All the know languages seperated by comma' placeholder='Enter All the know languages seperated by comma' type="text" name="language" id="language-input" value={languages} onChange={(e)=> handleLanguages(e)}/>
+                        <input title='Enter All the know languages seperated by comma' placeholder='Enter All the know languages seperated by comma' 
+                            type="text" name="language" id="language-input" value={languages} onChange={(e)=> handleLanguages(e)}
+                            style={{width: '250px'}}/>
                         {/* <p id='value'>🗣️{profile.languagesKnown}</p> */}
                     </div>
                     <div id="category">
@@ -229,8 +257,8 @@ function EditMyProfile(){
                     <div id="category">
                         <span id='name'>Physical Information 💪🏻</span>
                         <div id='value'>
-                        <b>Height : </b><input title='Enter height' placeholder='Enter height' type="number" name="height" id="height-input" style={{width : '60px'}} value={height} onChange={(e) => handleHeight(e)} />{' CM'}<br />
-                        <b>Weight : </b><input title='Enter weight' placeholder='Enter weight' type="number" name="weight" id="weight-input" style={{width : '60px'}} value={weight} onChange={(e) => handleWeight(e)} />{' Kg'}<br />
+                        <b>Height : </b><input title='Enter height' placeholder='Enter height' type="number" name="height" id="height-input" style={{width : '100px'}} value={height} onChange={(e) => handleHeight(e)} />{' CM'}<br />
+                        <b>Weight : </b><input title='Enter weight' placeholder='Enter weight' type="number" name="weight" id="weight-input" style={{width : '100px'}} value={weight} onChange={(e) => handleWeight(e)} />{' Kg'}<br />
                            {/* <b> Weight</b> - {profile.weight}{'Kg  '} */}
                            <b> BMI index</b> - {bmi}
                         </div>
@@ -246,7 +274,9 @@ function EditMyProfile(){
                     <p id='title'>Professional background</p>
                     <div id="category">
                         <span id='name'>Education👨🏻‍🎓</span>
-                        <input title='Enter your highest degree of qualification' placeholder='Enter your highest degree' type="text" name="education" id="education-input" value={education} onChange={(e)=> handleEducation(e)}/>
+                        <input title='Enter your highest degree of qualification' placeholder='Enter your highest degree' 
+                        type="text" name="education" id="education-input" value={education} onChange={(e)=> handleEducation(e)}
+                        style={{width: '250px'}}/>
                     </div>
                     <div id="category">
                         <span id='name'>Occupation💼</span>
@@ -267,7 +297,9 @@ function EditMyProfile(){
                     <div id="category">
                         <span id='name'>Work Experience✅</span>
                         <div className="d-flex">
-                            <input title='Enter No. of years of Experience' placeholder='Enter No. of years' style={{width : '70px', margin : '0 10px'}} type="number" name="workExperience" id="workExperience-input" value={workExperience} onChange={(e)=> handleWorkExperience(e)}/>in years
+                            <input title='Enter No. of years of Experience' placeholder='Enter No. of years' 
+                            type="number" name="workExperience" id="workExperience-input" value={workExperience} onChange={(e)=> handleWorkExperience(e)}
+                            style={{width : '150px', margin : '0 10px'}} />in years
                         </div>
                     </div>
                     </div>
@@ -278,17 +310,19 @@ function EditMyProfile(){
                         <input title="Enter your Father's occupation" placeholder="Enter your Father's occupation" type="text" name="fatherOccupation" id="fatherOccupation-input" value={fatherOccupation} onChange={(e)=> handleFatherOccupation(e)}/>
                     </div>
                     <div id="category">
-                        <span id='name'>Parent's Name 👨‍👩‍👧‍👧</span>
+                        <span id='name'>Enter your {mfgValue ? mfgValue : 'Parent'}'s name 👨‍👩‍👧‍👧</span>
                         <select name="mfg" id="mfg-select" value={mfgValue} onChange={(e)=> handleMfg(e)}>
-                            <option name='dad' value="dad">Father</option>
+                            <option name='parent' value="parent">Select Parent</option>
                             <option name='mom' value="mom">Mother</option>
+                            <option name='dad' value="dad">Father</option>
                             <option name='guardian' value="guardian">Guardian</option>
                         </select>
-                        <input title={`Enter your ${mfgValue}'s name`} placeholder={`Enter your ${mfgValue}'s name`} type="text" name="parentName" id="parentName-input" value={parentName.substring(2)} onChange={(e)=> handleParentName(e)}/>
+                        <input title={`Enter your ${mfgValue ? mfgValue : 'Parent'}'s name`} placeholder={`Enter your ${mfgValue ? mfgValue : 'Parent'}'s name`} type="text" name="parentName" id="parentName-input" 
+                            value={ parentName ? parentName.substring(2) : ''} onChange={(e)=> handleParentName(e)}/>
                         {/* <p id='value'>{profile.parentName && profile.parentName.substring(0,1) == 'm' ? 'Mom :  ' : 'Dad :  '} {profile.parentName.substring(2)}</p> */}
                     </div>
                     <div id="category">
-                        <span id='name'>Parent's {mfgValue}'s Number📞</span>
+                        <span id='name'>Enter your {mfgValue ? mfgValue : 'Parent'}'s Number📞</span>
                         <input title='Enter number with country code' placeholder='Enter number with country code' type="number" name="parentNumber" id="parentNumber-input" value={parentNumber} onChange={(e)=> handleParentNumber(e)}/>
                         {/* <p id='value'>📞{profile.parentNumber.substring(0,5)+'*****'}</p> */}
                         Check the bottom note
@@ -300,7 +334,9 @@ function EditMyProfile(){
                     </div>
                     <div id="category">
                         <span id='name'>Social Media Handles📲</span>
-                        <input title="Put your Page's link" placeholder="Put your Page's link" type="text" name="socialLinks" id="socialLinks-input" value={socialLinks} onChange={(e)=> handleSocialLinks(e)}/>
+                        <input title="Put your Page's link" placeholder="Put your Page's link" 
+                        type="text" name="socialLinks" id="socialLinks-input" value={socialLinks} onChange={(e)=> handleSocialLinks(e)}
+                        style={{width: '250px'}}/>
                         Paste your Social Media profile page's link here                       
                         {/* <p id='value'><a target={'_blank'} 
                             href={profile.socialLinks}>{profile.socialLinks && profile.socialLinks.includes('instagram') ? 'Instagram' :   profile.socialLinks.includes('facebook') ? 'Facebook' : profile.socialLinks.includes('twitter') ? 'Twitter' : 'Social Media' }  </a></p> */}
@@ -334,7 +370,7 @@ function EditMyProfile(){
 
             </div>
             <div id="submit" className='d-flex justify-content-center' style={{margin : '20px'}}>
-                    <a className="btn btn-dark">Update Profile</a>
+                <button id='submit-button' className="btn btn-dark" onClick={(e)=>handleSubmit(e)}>Update Profile</button>
             </div>
             <p id='value' style={{margin : '10px'}}><b>Note : </b>⚠️We will not expose any of the user's mobile number because of spamming and privacy concerns. Entering your MobileNumber is upto your preference but we won't disclose or expose any of the user's mobile number to any of the user. The reason we collect your mobile number is to send the SMS if someone clicks on "Show Interest" button.</p>
         </div>

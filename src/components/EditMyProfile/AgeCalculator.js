@@ -38,15 +38,22 @@ const AgeCalculator = (dob) => {
 
   // use a useEffect hook to update the state based on the dob prop
   useEffect(() => {
-    // update the date input value
-    setDateInput(dob);
-    // calculate the age from the date input
-    let age = calculateAge(dob);
-    // format the age in the desired format
-    let output = formatAge(age);
-    // update the age output value
-    setAgeOutput(output);
+    // check if dob is not empty
+    if (dob) {
+      // update the date input value
+      setDateInput(dob);
+      // calculate the age from the date input
+      let age = calculateAge(dob);
+      // format the age in the desired format
+      let output = formatAge(age);
+      // update the age output value
+      setAgeOutput(output);
+    } else {
+      // if dob is empty, set ageOutput to null or any default value
+      setAgeOutput("N/A"); // or set a default value like "N/A"
+    }
   }, [dob]); // pass the dob prop as a dependency
+  
 
   return ageOutput;
 };
