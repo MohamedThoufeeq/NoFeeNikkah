@@ -51,6 +51,7 @@ function Autocomplete({ data, label , handleCountrySelect, handleStateSelect, co
         onClick={(e)=>handleChange(e)}
         onChange={(e)=>handleChange(e)}
         onFocus={(e)=>handleChange(e)}
+        style={{minWidth:'240px'}}
       />
       {suggestions.length > 0 && (
         <ul className="suggestions">

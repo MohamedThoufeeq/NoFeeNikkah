@@ -29,6 +29,13 @@ function EditMyProfile(){
         setImage(URL.createObjectURL(e.target.files[0]));
         document.querySelector('#preview-image').style.filter="brightness(1)";
     }
+
+    //profileName
+    const [profileName, setProfileName] = useState(profile.fullname);
+    const handleProfileName = (e) => {
+        setProfileName(e.target.value);
+    }
+                                                //Basic Information
     //dob, age
     const [dob, setDob] = useState(profile.dateOfBirth);
     const age = AgeCalculator(dob);
@@ -59,11 +66,34 @@ function EditMyProfile(){
     }
     //bmi
     let bmi = (weight / ((height * height) / 10000)).toFixed(2);
+    //pwd
+    const [pwd, setPwd] = useState('no');
+    const handlePwd = (e) => {
+        console.log("Event value : "+e.target.value)
+
+        console.log('pwd before setting : '+pwd);
+        setPwd(e.target.value);
+        console.log('pwd after setting : '+pwd);
+        if(pwd === 'yes'){//If he is PWD , then ask for the Type of PWD
+            console.log('if block , pwd :'+pwd);
+            document.querySelector('#pwd-type-input').style.display='block';
+        } else {
+            console.log('else block , pwd :'+pwd);
+            document.querySelector('#pwd-type-input').style.display='none !important';
+        }
+        console.log(pwd);
+    }
+    //bloodgroup
+    const [pwdType, setPwdType] = useState(profile.pwdType);
+    const handlePwdType = (e) => {
+        setPwdType(e.target.value);
+    }
     //bloodgroup
     const [bloodGroup, setBloodGroup] = useState(profile.bloodGroup);
     const handleBloodGroup = (e) => {
         setBloodGroup(e.target.value);
     }
+                                                    //Professional background
     //education
     const [education, setEducation] = useState(profile.education);
     const handleEducation = (e) => {
@@ -94,6 +124,7 @@ function EditMyProfile(){
     const handleWorkExperience = (e) => {
         setWorkExperience(e.target.value);
     }
+                                                    //Contact Information
     //fatherOccupation
     const [fatherOccupation, setFatherOccupation] = useState(profile.fatherOccupation);
     const handleFatherOccupation = (e) => {
@@ -114,7 +145,6 @@ function EditMyProfile(){
     const [parentName, setParentName] = useState(profile.parentName);
     const handleParentName = (e) => {
         let parentNameValue = mfg + e.target.value;
-        console.log(parentNameValue);
         setParentName(parentNameValue);
     }
     //parentNumber
@@ -137,7 +167,34 @@ function EditMyProfile(){
     const handleMobileNumber = (e) => {
         setMobileNumber(e.target.value);
     }
-    //mobileNumber
+                                                    //Religious information
+    //isRevert
+    const [isRevert, setIsRevert] = useState(profile.isRevert);
+    const handleIsRevert = (e) => {
+        setIsRevert(e.target.value);
+    }
+    //startedPracticing
+    const [startedPracticing, setStartedPracticing] = useState(profile.startedPracticing);
+    const handleStartedPracticing = (e) => {
+        setStartedPracticing(e.target.value);
+    }
+    //sect
+    const [sect, setSect] = useState(profile.sect);
+    const handleSectInput = (e) => {
+        setSect(e.target.value);
+    }
+    //salahPattern
+    const [salahPattern, setSalahPattern] = useState(profile.salahPattern);//veryHigh, high, medium, low, kafir
+    const handleSalahPattern = (e) => {
+        setSalahPattern(e.target.value);
+    }
+    //practicingLevel
+    const [practicingLevel, setPracticingLevel] = useState(profile.practicingLevel);//excellent, veryHigh, high, medium, low, kafir
+    const handlePracticingLevel = (e) => {
+        setPracticingLevel(e.target.value);
+    }
+                                                    //description
+    //aboutMe
     const [aboutMe, setAboutMe] = useState(profile.aboutMe);
     const handleAboutMe = (e) => {
         setAboutMe(e.target.value);
@@ -152,12 +209,30 @@ function EditMyProfile(){
     const handleQuranVerse = (e) => {
         setQuranVerse(e.target.value);
     }
+                                                    //myTaste
+    //scholars
+    const [scholars, setScholars] = useState(profile.scholars);
+    const handleScholars = (e) => {
+        setScholars(e.target.value);
+    }
+    //youtubeChannels
+    const [youtubeChannels, setYoutubeChannels] = useState(profile.youtubeChannels);
+    const handleYoutubeChannels = (e) => {
+        setYoutubeChannels(e.target.value);
+    }
+    //socialMediaInfluencers
+    const [socialMediaInfluencers, setSocialMediaInfluencers] = useState(profile.socialMediaInfluencers);
+    const handleSocialMediaInfluencers = (e) => {
+        setSocialMediaInfluencers(e.target.value);
+    }
+
     const profileData = {
         'dateOfBirth': dob,
         'languagesKnown': languages,
         'maritalStatus': maritalStatus,
         'height': height,
         'weight': weight,
+        'pwd':pwd,
         'bloodGroup': bloodGroup,
         'education': education,
         'occupation': occupation,
@@ -172,14 +247,20 @@ function EditMyProfile(){
         'email': email,
         'mobileNumber': mobileNumber,
         'aboutMe': aboutMe,
-        'myExpectation': myExpectation
+        'myExpectation': myExpectation,
+        'isRevert': isRevert,
+        'startedPracticing': startedPracticing,
+        'sect': sect,
+        'scholars': scholars,
+        'youtubeChannels': youtubeChannels,
+        'socialMediaInfluencers': socialMediaInfluencers
     };
     const jsonProfileData = JSON.stringify(profileData);
-    // console.log(jsonProfileData);
 
     //handleSubmit buttton
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(jsonProfileData)
         try {
             const response = await fetch(`http://localhost:8080/api/${profile.id}`, {
                 method: 'POST',
@@ -216,137 +297,214 @@ function EditMyProfile(){
                     <img src="../../../public/profile_img_boy.jpg" className={image ? 'd-none' : 'd-flex'} alt="Profile Picture" />
                 </div>
                 <span id="name">
-                    <h2>{profile.fullname}</h2>
+                    <h2><input type="text" value={profileName} onChange={(e)=> handleProfileName(e)} /></h2>
                 </span>
             </div>
             <div id="border" ></div>
             <div id="edit-my-profile-main">
                 <div id="category-group">
                     <div id="categories">
-                    <p id='title'>Basic Information</p>
-                    <div id="category">
-                        <span id='name'>Date Of Birth 📆</span>
-                        <input placeholder='Enter DOB' title='Enter DOB' type='date' id='value' value={dob} onChange={(e)=>handleDob(e)}/>
-                    </div>
-                    <div id="category">
-                        <span id='name'>Age 🔢</span>
-                        <p id='value'>{age}</p>
-                    </div>
-                    <div id="category">
-                        <span id='name'>Living in 📍</span>
-                        <div id='value'>{renderCSC}</div>
-                    </div>
-                    <div id="category">
-                        <span id='name'>Languages Known 🗣️</span>
-                        <input title='Enter All the know languages seperated by comma' placeholder='Enter All the know languages seperated by comma' 
-                            type="text" name="language" id="language-input" value={languages} onChange={(e)=> handleLanguages(e)}
-                            style={{width: '250px'}}/>
-                        {/* <p id='value'>🗣️{profile.languagesKnown}</p> */}
-                    </div>
-                    <div id="category">
-                        <span id='name'>Marital Status ⚭</span>
-                        <select name="maritalStatus" id="maritalStatus-input" value={maritalStatus} onChange={(e)=> handleMaritalStatus(e)}>
-                            <option value="single">Single</option>
-                            <option value="married">Married</option>
-                            <option value="divorcee">Divorcee</option>
-                            <option value="widow">Widow</option>
-                            <option value="widower">Widower</option>
-                        </select>
-                        {/* <p id='value'>⚭{profile.maritalStatus}</p> */}
-                    </div>
-                    <div id="category">
-                        <span id='name'>Physical Information 💪🏻</span>
-                        <div id='value'>
-                        <b>Height : </b><input title='Enter height' placeholder='Enter height' type="number" name="height" id="height-input" style={{width : '100px'}} value={height} onChange={(e) => handleHeight(e)} />{' CM'}<br />
-                        <b>Weight : </b><input title='Enter weight' placeholder='Enter weight' type="number" name="weight" id="weight-input" style={{width : '100px'}} value={weight} onChange={(e) => handleWeight(e)} />{' Kg'}<br />
-                           {/* <b> Weight</b> - {profile.weight}{'Kg  '} */}
-                           <b> BMI index</b> - {bmi}
+                        <p id='title'>Basic Information</p>
+                        <div id="category">
+                            <span id='name'>Date Of Birth 📆</span>
+                            <input placeholder='Enter DOB' title='Enter DOB' type='date' id='value' value={dob} onChange={(e)=>handleDob(e)}/>
                         </div>
-                    </div>
-                    <div id="category">
-                        <span id='name'>Blood Group 🩸</span>
-                        <input title='Enter your Blood Group' placeholder='Enter your Blood Group' type="text" name="bloodGroup" id="bloodGroup-input" value={bloodGroup} onChange={(e)=> handleBloodGroup(e)} />
-                        {/* <p id='value'>{profile.bloodGroup}</p> */}
-                    </div>
+                        <div id="category">
+                            <span id='name'>Age 🔢</span>
+                            <p id='value'>{age}</p>
+                        </div>
+                        <div id="category">
+                            <span id='name'>Living in 📍</span>
+                            <div id='value'>{renderCSC}</div>
+                        </div>
+                        <div id="category">
+                            <span id='name'>Languages Known 🗣️</span>
+                            <input title='Enter All the know languages seperated by comma' placeholder='Enter All the know languages seperated by comma' 
+                                type="text" name="language" id="language-input" value={languages} onChange={(e)=> handleLanguages(e)}
+                                style={{width: '250px'}}/>(seperated by comma)
+                            {/* <p id='value'>🗣️{profile.languagesKnown}</p> */}
+                        </div>
+                        <div id="category">
+                            <span id='name'>Marital Status ⚭</span>
+                            <select name="maritalStatus" id="maritalStatus-input" value={maritalStatus} onChange={(e)=> handleMaritalStatus(e)}>
+                                <option value="single">Single</option>
+                                <option value="married">Married</option>
+                                <option value="divorcee">Divorcee</option>
+                                <option value="widow">Widow</option>
+                                <option value="widower">Widower</option>
+                            </select>
+                            {/* <p id='value'>⚭{profile.maritalStatus}</p> */}
+                        </div>
+                        <div id="category">
+                            <span id='name'>Physical Information 💪🏻</span>
+                            <div id='value'>
+                            <b>Height : </b><input title='Enter height' placeholder='Enter height' type="number" name="height" id="height-input" style={{width : '100px'}} value={height} onChange={(e) => handleHeight(e)} />{' CM'}<br />
+                            <b>Weight : </b><input title='Enter weight' placeholder='Enter weight' type="number" name="weight" id="weight-input" style={{width : '100px'}} value={weight} onChange={(e) => handleWeight(e)} />{' Kg'}<br />
+                               {/* <b> Weight</b> - {profile.weight}{'Kg  '} */}
+                               <b> BMI index</b> - {bmi}
+                            </div>
+                            <div class="pwd-switch-field"><b style={{}}>Differently Abled ?</b>
+		                        <input title='Are you Differently Abled ?' type="radio" id="pwd-radio-one" name="pwd-switch-one" value={'yes'} onChange={(e)=> handlePwd(e)}/>
+		                        <label for="pwd-radio-one">Yes</label>
+		                        <input title='Are you Differently Abled ?' type="radio" id="pwd-radio-two" name="pwd-switch-one" value={'no'} onChange={(e)=> handlePwd(e)} />
+		                        <label for="pwd-radio-two">No</label>
+	                        </div>
+                            <div id="pwd-type-input" style={{display:'none'}}>
+                                <label htmlFor="pwd-type">Type Of Disability</label>
+                                <input type="text" name="pwd-type-input" id="pwt-type-input" value={pwdType} onChange={(e)=> handlePwdType(e)} />
+                            </div>
+                        </div>
+                        <div id="category">
+                            <span id='name'>Blood Group 🩸</span>
+                            <input title='Enter your Blood Group' placeholder='Enter your Blood Group' type="text" name="bloodGroup" id="bloodGroup-input" value={bloodGroup} onChange={(e)=> handleBloodGroup(e)} />
+                            {/* <p id='value'>{profile.bloodGroup}</p> */}
+                        </div>
 
                     </div>
                     <div id="categories">
-                    <p id='title'>Professional background</p>
-                    <div id="category">
-                        <span id='name'>Education👨🏻‍🎓</span>
-                        <input title='Enter your highest degree of qualification' placeholder='Enter your highest degree' 
-                        type="text" name="education" id="education-input" value={education} onChange={(e)=> handleEducation(e)}
-                        style={{width: '250px'}}/>
-                    </div>
-                    <div id="category">
-                        <span id='name'>Occupation💼</span>
-                        <input title='Enter your Job/Occupation' placeholder='Enter your Job/Occupation' type="text" name="occupation" id="occupation-input" value={occupation} onChange={(e)=> handleOccupation(e)}/>
-                    </div>
-                    <div id="category">
-                        <span id='name'>Income ₹</span>
-                        <input title='Enter your Salary/Income' placeholder='Enter Salary/Income' type="number" name="income" id="income-input" value={income} onChange={(e)=> handleIncome(e)}/>
-                    </div>
-                    <div id="category">
-                        <span id='name'>Now Working at 🏬</span>
-                        <input title='Enter your Company/Organization' placeholder='Enter Company/Organization' type="text" name="comapeny" id="company-input" value={company} onChange={(e)=> handleCompany(e)}/>
-                    </div>
-                    <div id="category">
-                        <span id='name'>Work Location📍</span>
-                        <input title='Enter your Current Work Location' placeholder='Enter your Work Location' type="text" name="location" id="location-input" value={workLocation} onChange={(e)=> handleWorkLocation(e)}/>
-                    </div>
-                    <div id="category">
-                        <span id='name'>Work Experience✅</span>
-                        <div className="d-flex">
-                            <input title='Enter No. of years of Experience' placeholder='Enter No. of years' 
-                            type="number" name="workExperience" id="workExperience-input" value={workExperience} onChange={(e)=> handleWorkExperience(e)}
-                            style={{width : '150px', margin : '0 10px'}} />in years
+                        <p id='title'>Professional background</p>
+                        <div id="category">
+                            <span id='name'>Education👨🏻‍🎓</span>
+                            <input title='Enter your highest degree of qualification' placeholder='Enter your highest degree' 
+                            type="text" name="education" id="education-input" value={education} onChange={(e)=> handleEducation(e)}
+                            style={{width: '250px'}}/>
+                        </div>
+                        <div id="category">
+                            <span id='name'>Occupation💼</span>
+                            <input title='Enter your Job/Occupation' placeholder='Enter your Job/Occupation' type="text" name="occupation" id="occupation-input" value={occupation} onChange={(e)=> handleOccupation(e)}/>
+                        </div>
+                        <div id="category">
+                            <span id='name'>Income ₹</span>
+                            <input title='Enter your Salary/Income' placeholder='Enter Salary/Income' type="number" name="income" id="income-input" value={income} onChange={(e)=> handleIncome(e)}/>
+                        </div>
+                        <div id="category">
+                            <span id='name'>Now Working at 🏬</span>
+                            <input title='Enter your Company/Organization' placeholder='Enter Company/Organization' type="text" name="comapeny" id="company-input" value={company} onChange={(e)=> handleCompany(e)}/>
+                        </div>
+                        <div id="category">
+                            <span id='name'>Work Location📍</span>
+                            <input title='Enter your Current Work Location' placeholder='Enter your Work Location' type="text" name="location" id="location-input" value={workLocation} onChange={(e)=> handleWorkLocation(e)}/>
+                        </div>
+                        <div id="category">
+                            <span id='name'>Work Experience✅</span>
+                            <div className="d-flex">
+                                <input title='Enter No. of years of Experience' placeholder='Enter No. of years' 
+                                type="number" name="workExperience" id="workExperience-input" value={workExperience} onChange={(e)=> handleWorkExperience(e)}
+                                style={{width : '150px', margin : '0 10px 0 0'}} />years
+                            </div>
                         </div>
                     </div>
+                    <div id="categories">
+                        <p id="title">Contact Information</p>
+                        <div id="category">
+                            <span id='name'>Father's Occupation🏗</span>
+                            <input title="Enter your Father's occupation" placeholder="Enter your Father's occupation" type="text" name="fatherOccupation" id="fatherOccupation-input" value={fatherOccupation} onChange={(e)=> handleFatherOccupation(e)}/>
+                        </div>
+                        <div id="category">
+                            <span id='name'>Enter your {mfgValue ? mfgValue : 'Parent'}'s name 👨‍👩‍👧‍👧</span>
+                            <select name="mfg" id="mfg-select" value={mfgValue} onChange={(e)=> handleMfg(e)}>
+                                <option name='parent' value="parent">Select Parent</option>
+                                <option name='mom' value="mom">Mother</option>
+                                <option name='dad' value="dad">Father</option>
+                                <option name='guardian' value="guardian">Guardian</option>
+                            </select>
+                            <input title={`Enter your ${mfgValue ? mfgValue : 'Parent'}'s name`} placeholder={`Enter your ${mfgValue ? mfgValue : 'Parent'}'s name`} type="text" name="parentName" id="parentName-input" 
+                                value={ parentName ? parentName.substring(2) : ''} onChange={(e)=> handleParentName(e)}/>
+                            {/* <p id='value'>{profile.parentName && profile.parentName.substring(0,1) == 'm' ? 'Mom :  ' : 'Dad :  '} {profile.parentName.substring(2)}</p> */}
+                        </div>
+                        <div id="category">
+                            <span id='name'>Enter your {mfgValue ? mfgValue : 'Parent'}'s Number📞</span>
+                            <input title='Enter number with country code' placeholder='Enter number with country code' type="number" name="parentNumber" id="parentNumber-input" value={parentNumber} onChange={(e)=> handleParentNumber(e)}/>
+                            {/* <p id='value'>📞{profile.parentNumber.substring(0,5)+'*****'}</p> */}
+                            Check the bottom note
+                        </div>
+                        <div id="category">
+                            <span id='name'>Email Id📧</span>
+                            <input title='Enter your Email id' placeholder="Enter your Email id" type="email" name="email" id="email-input" value={email} onChange={(e)=> handleEmail(e)}/>
+                            {/* <p id='value'><a href={'mailto:'+profile.email}>{profile.email}</a></p> */}
+                        </div>
+                        <div id="category">
+                            <span id='name'>Social Media Handles📲</span>
+                            <input title="Put your Page's link" placeholder="Put your Page's link" 
+                            type="text" name="socialLinks" id="socialLinks-input" value={socialLinks} onChange={(e)=> handleSocialLinks(e)}
+                            style={{width: '250px'}}/>
+                            Paste your Social Media profile page's link here                       
+                            {/* <p id='value'><a target={'_blank'} 
+                                href={profile.socialLinks}>{profile.socialLinks && profile.socialLinks.includes('instagram') ? 'Instagram' :   profile.socialLinks.includes('facebook') ? 'Facebook' : profile.socialLinks.includes('twitter') ? 'Twitter' : 'Social Media' }  </a></p> */}
+                        </div>
+                        <div id="category">
+                            <span id='name'>Mobile Number📞</span>
+                            <input title='Enter Mobile Number with country code' placeholder='Enter Mobile number with country code' type="number" name="mobileNumber" id="mobileNumber-input" value={mobileNumber} onChange={(e)=> handleMobileNumber(e)}/>
+                            {/* <p id='value'>{profile.mobileNumber.substring(0,5)+'*****'}</p> */}
+                            Check the bottom note
+                        </div>
                     </div>
                     <div id="categories">
-                    <p id="title">Contact Information</p>
-                    <div id="category">
-                        <span id='name'>Father's Occupation🏗</span>
-                        <input title="Enter your Father's occupation" placeholder="Enter your Father's occupation" type="text" name="fatherOccupation" id="fatherOccupation-input" value={fatherOccupation} onChange={(e)=> handleFatherOccupation(e)}/>
-                    </div>
-                    <div id="category">
-                        <span id='name'>Enter your {mfgValue ? mfgValue : 'Parent'}'s name 👨‍👩‍👧‍👧</span>
-                        <select name="mfg" id="mfg-select" value={mfgValue} onChange={(e)=> handleMfg(e)}>
-                            <option name='parent' value="parent">Select Parent</option>
-                            <option name='mom' value="mom">Mother</option>
-                            <option name='dad' value="dad">Father</option>
-                            <option name='guardian' value="guardian">Guardian</option>
-                        </select>
-                        <input title={`Enter your ${mfgValue ? mfgValue : 'Parent'}'s name`} placeholder={`Enter your ${mfgValue ? mfgValue : 'Parent'}'s name`} type="text" name="parentName" id="parentName-input" 
-                            value={ parentName ? parentName.substring(2) : ''} onChange={(e)=> handleParentName(e)}/>
-                        {/* <p id='value'>{profile.parentName && profile.parentName.substring(0,1) == 'm' ? 'Mom :  ' : 'Dad :  '} {profile.parentName.substring(2)}</p> */}
-                    </div>
-                    <div id="category">
-                        <span id='name'>Enter your {mfgValue ? mfgValue : 'Parent'}'s Number📞</span>
-                        <input title='Enter number with country code' placeholder='Enter number with country code' type="number" name="parentNumber" id="parentNumber-input" value={parentNumber} onChange={(e)=> handleParentNumber(e)}/>
-                        {/* <p id='value'>📞{profile.parentNumber.substring(0,5)+'*****'}</p> */}
-                        Check the bottom note
-                    </div>
-                    <div id="category">
-                        <span id='name'>Email Id📧</span>
-                        <input title='Enter your Email id' placeholder="Enter your Email id" type="email" name="email" id="email-input" value={email} onChange={(e)=> handleEmail(e)}/>
-                        {/* <p id='value'><a href={'mailto:'+profile.email}>{profile.email}</a></p> */}
-                    </div>
-                    <div id="category">
-                        <span id='name'>Social Media Handles📲</span>
-                        <input title="Put your Page's link" placeholder="Put your Page's link" 
-                        type="text" name="socialLinks" id="socialLinks-input" value={socialLinks} onChange={(e)=> handleSocialLinks(e)}
-                        style={{width: '250px'}}/>
-                        Paste your Social Media profile page's link here                       
-                        {/* <p id='value'><a target={'_blank'} 
-                            href={profile.socialLinks}>{profile.socialLinks && profile.socialLinks.includes('instagram') ? 'Instagram' :   profile.socialLinks.includes('facebook') ? 'Facebook' : profile.socialLinks.includes('twitter') ? 'Twitter' : 'Social Media' }  </a></p> */}
-                    </div>
-                    <div id="category">
-                        <span id='name'>Mobile Number📞</span>
-                        <input title='Enter Mobile Number with country code' placeholder='Enter Mobile number with country code' type="number" name="mobileNumber" id="mobileNumber-input" value={mobileNumber} onChange={(e)=> handleMobileNumber(e)}/>
-                        {/* <p id='value'>{profile.mobileNumber.substring(0,5)+'*****'}</p> */}
-                        Check the bottom note
-                    </div>
+                        <p id="title">Religious Information</p>
+                        <div id="category">
+                            <div class="switch-field"><b style={{marginRight: '10px'}}>Revert</b>
+		                        <input type="radio" id="radio-one" name="switch-one" value={true} onChange={(e)=> handleIsRevert(e)}/>
+		                        <label for="radio-one">Yes</label>
+		                        <input type="radio" id="radio-two" name="switch-one" value={false} defaultChecked onChange={(e)=> handleIsRevert(e)} />
+		                        <label for="radio-two">No</label>
+	                        </div>
+                        </div>
+                        <div id="category">
+                            <span id='name'>Started Practicing from 📆</span>
+                            <input placeholder='Enter rough date' title='Enter rough date' type='date' id='value' value={startedPracticing} onChange={(e)=>handleStartedPracticing(e)}/>
+                        </div>
+                        <div id="category">
+                            <label id='name' htmlFor="sect">Select your sect👩‍👩‍👧‍👦</label>
+                            <select title='Select your sect' name="sect" id="sect-input" value={sect} onChange={(e)=>handleSectInput(e)}>
+                                <option value="sunni" name="sunni">Sunni</option>
+                                <option value="preferNotToSay" name="preferNotToSay">PreferNotToSay</option>
+                                <option value="shia" name="shia">Shia</option>
+                                <option value="zaydiya" name="zaydiya">Zaydiya</option>
+                                <option value="ismayiliya" name="ismayiliya">Ismayiliya</option>
+                                <option value="ibadiya" name="ibadiya">Ibadiya</option>
+                                <option value="ahmediya" name="ahmediya">Ahmediya</option>
+                                <option value="nizari" name="nizari">Nizari</option>
+                                <option value="sufi" name="sufi">Sufi</option>
+                                <option value="salafi" name="salafi">Salafi</option>
+                                <option value="wahhabi" name="wahhabi">Wahhabi</option>
+                                <option value="deobandi" name="deobandi">Deobandi</option>
+                                <option value="barelvi" name="barelvi">Barelvi</option>
+                                <option value="others" name="others">Others</option>
+                            </select>
+                        </div>
+                        <div id="category">
+                            <label htmlFor="Salah Pattern" id="name">Salah Pattern🤲🏼</label>
+                            <select title='Select your Salah Pattern' name="select" id="salahPattern-input" value={salahPattern} required onChange={(e)=> handleSalahPattern(e)}
+                            style={{maxWidth: '240px'}}>
+                                <option value="select">Select your Salah patern</option>
+                                <option value="veryHigh">Never Leave Fardh</option>
+                                <option value="high">Always Pray but leaves occasionaly</option>
+                                <option value="medium">Pray Sometimes</option>
+                                <option value="low">Pray Only Jummah and Eid</option>
+                                <option value="kafir">Never Prays</option>
+                            </select>
+                        </div>
+                        <div id="category">
+                            <label htmlFor="Practicing level" id="name">Practicing level🕌</label>
+                            <select title='Select your practicing level of deen' name="select" id="practicingLevel-input" value={practicingLevel} required 
+                            onChange={(e)=> handlePracticingLevel(e)}
+                            style={{maxWidth: '240px'}}>
+                                <option value="select">Select your practicing Level</option>
+                                <option value="excellent">Fullfills All the Fardh and AllMost of the Sunnah acts And abstain from all the major & minor sins</option>
+                                <option value="veryHigh">Fullfills fardh and abstain from major sins</option>
+                                <option value="high">Fullfills fardh</option>
+                                <option value="medium">Partially Fullfills the Fardh</option>
+                                <option value="low">Occasionaly Practice Islam</option>
+                                <option value="kafir">I'm a modern liberal</option>
+                            </select>
+                        </div>
+                        <div id="category">
+                            <label htmlFor="scholars" id='name'>Name Some of the Scholars you follow👨‍🏫</label>
+                            <input title='Enter some scholars name whom you follow' type="text" name="scholars" id="scholars-input"
+                            placeholder='Enter multiple scholars seperated by comma'
+                            value={scholars} onChange={(e)=> handleScholars(e)}/>(seperated by comma)
+                        </div>
+                        
                     </div>
                 </div>
                 <div id="description">
@@ -365,12 +523,26 @@ function EditMyProfile(){
                         <textarea className='textarea2' type="text" name="quranVerse" id="quranVerse-input" value={quranVerse} onChange={(e)=> handleQuranVerse(e)}
                         title='Suggest One Quran Verse' placeholder="Suggest One Quran Verse along with the reference. For Example : '...They(wife) are a clothing for you and you are a clothing for them...'(Quran 2:187) "    style={{resize : 'both', marginBottom : '10px', minHeight : '150px'}} />
                     </div>
+                    <div id="description-container" className='d-block justify-content-center'>
+                        <span id="title">My Taste</span><br/>
+                        <div id="category">
+                            <label htmlFor="youtubeChannels" id='name'>Name some youtube channels you like</label>
+                            <input title='Enter some youtube channels name you follow' type="text" name="youtubeChannels" id="youtubeChannels-input"
+                            placeholder='Enter some youtube channels name you follow'
+                            value={youtubeChannels} onChange={(e)=> handleYoutubeChannels(e)}/>(seperated by comma)
+                        </div>
+                        <div id="category">
+                            <label htmlFor="socialMediaInfluencers" id='name'>Name some Social Media Pages you like</label>
+                            <input title='Enter some Social Media Pages/Influencers you follow' type="text" name="socialMediaInfluencers" id="socialMediaInfluencers-input"
+                            placeholder='Enter some Social Media Pages/Influencers you follow'
+                            value={socialMediaInfluencers} onChange={(e)=> handleSocialMediaInfluencers(e)}/>(seperated by comma)
+                        </div>
+                    </div>
                 </div>
-                
-
             </div>
-            <div id="submit" className='d-flex justify-content-center' style={{margin : '20px'}}>
-                <button id='submit-button' className="btn btn-dark" onClick={(e)=>handleSubmit(e)}>Update Profile</button>
+            <div id="submit" className='d-flex justify-content-center' style={{margin : '20px', gap:'20px'}}>
+                <button id='submit-button' className="btn btn-success" onClick={(e)=>handleSubmit(e)}>Update Profile</button>
+                <a id='cancel-button' href='/myprofile' className="btn btn-dark">Cancel</a>
             </div>
             <p id='value' style={{margin : '10px'}}><b>Note : </b>⚠️We will not expose any of the user's mobile number because of spamming and privacy concerns. Entering your MobileNumber is upto your preference but we won't disclose or expose any of the user's mobile number to any of the user. The reason we collect your mobile number is to send the SMS if someone clicks on "Show Interest" button.</p>
         </div>

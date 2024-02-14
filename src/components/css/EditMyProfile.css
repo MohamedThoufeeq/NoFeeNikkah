@@ -66,7 +66,7 @@
 #edit-my-profile-header span {
     margin: 10px 0;
 }
-#edit-my-profile-header #name h2 {
+#edit-my-profile-header #name input {
     color: rgb(218, 0, 0);
     background-color: white;
     border-radius: 5px;
@@ -137,8 +137,12 @@
     background-color: white;
     padding: 5px 10px;
     border-radius: 8px;
-    margin: 5px 10px;
+    margin: 15px 10px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+#category select, #category input {
+    border: 1px solid gray;
+    border-radius: 3px;
 }
 #description {
     display: flex;
@@ -172,4 +176,93 @@
     #edit-my-profile-container {
         width: 90vw;
     }
+}
+.switch-field {
+	display: flex;
+	/* margin-bottom: 36px; */
+	overflow: hidden;
+}
+
+.switch-field input {
+	position: absolute !important;
+	clip: rect(0, 0, 0, 0);
+	height: 1px;
+	width: 1px;
+	border: 0;
+	overflow: hidden;
+}
+
+.switch-field label {
+	background-color: #e4e4e4;
+	color: rgba(0, 0, 0, 0.6);
+	font-size: 14px;
+	line-height: 1;
+	text-align: center;
+	padding: 8px 16px;
+	margin-right: -1px;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+	transition: all 0.1s ease-in-out;
+}
+
+.switch-field label:hover {
+	cursor: pointer;
+}
+
+.switch-field input:checked + label {
+	background-color: #a5dc86;
+	box-shadow: none;
+}
+
+.switch-field label:first-of-type {
+	border-radius: 4px 0 0 4px;
+}
+
+.switch-field label:last-of-type {
+	border-radius: 0 4px 4px 0;
+}
+/* PWD */
+.pwd-switch-field {
+	display: flex;
+	/* margin-bottom: 36px; */
+	overflow: hidden;
+}
+
+.pwd-switch-field input {
+	position: absolute !important;
+	clip: rect(0, 0, 0, 0);
+	height: 1px;
+	width: 1px;
+	border: 0;
+	overflow: hidden;
+}
+
+.pwd-switch-field label {
+	background-color: #e4e4e4;
+	color: rgba(0, 0, 0, 0.6);
+	font-size: 14px;
+	line-height: 1;
+	text-align: center;
+	padding: 8px 16px;
+	margin-right: -1px;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+	transition: all 0.1s ease-in-out;
+}
+
+.pwd-switch-field label:hover {
+	cursor: pointer;
+}
+
+.pwd-switch-field input:checked + label {
+	background-color: #a5dc86;
+	box-shadow: none;
+}
+
+.pwd-switch-field label:first-of-type {
+	border-radius: 4px 0 0 4px;
+}
+
+.pwd-switch-field label:last-of-type {
+	border-radius: 0 4px 4px 0;
 }
