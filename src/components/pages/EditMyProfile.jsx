@@ -32,104 +32,60 @@ function EditMyProfile(){
 
     //profileName
     const [profileName, setProfileName] = useState(profile.fullname);
-    const handleProfileName = (e) => {
-        setProfileName(e.target.value);
-    }
                                                 //Basic Information
     //dob, age
     const [dob, setDob] = useState(profile.dateOfBirth);
     const age = AgeCalculator(dob);
-    const handleDob = (e) => {
-        setDob(e.target.value ? e.target.value : profile.dateOfBirth);
-    }
+
     //countryStateCity
     const { renderCSC, selectedCountry, selectedState, selectedCity } = CountryStateCity(profile);
     //languages
     const [languages, setLanguages] = useState(profile.languagesKnown);
-    const handleLanguages = (e) => {
-        setLanguages(e.target.value);
-    }
     //maritalStatus
     const [maritalStatus, setMaritalStatus] = useState(profile.maritalStatus);
-    const handleMaritalStatus = (e) => {
-        setMaritalStatus(e.target.value);
-    }
     //height
     const [height, setHeight] = useState(profile.height);
-    const handleHeight = (e) => {
-        setHeight(e.target.value);
-    }
     //weight
     const [weight, setWeight] = useState(profile.weight);
-    const handleWeight = (e) => {
-        setWeight(e.target.value);
-    }
     //bmi
     let bmi = (weight / ((height * height) / 10000)).toFixed(2);
     //pwd
     const [pwd, setPwd] = useState('no');
-    const handlePwd = (e) => {
-        console.log("Event value : "+e.target.value)
+    // const handlePwd = (e) => {
+    //     console.log("Event value : "+e.target.value)
 
-        console.log('pwd before setting : '+pwd);
-        setPwd(e.target.value);
-        console.log('pwd after setting : '+pwd);
-        if(pwd === 'yes'){//If he is PWD , then ask for the Type of PWD
-            console.log('if block , pwd :'+pwd);
-            document.querySelector('#pwd-type-input').style.display='block';
-        } else {
-            console.log('else block , pwd :'+pwd);
-            document.querySelector('#pwd-type-input').style.display='none !important';
-        }
-        console.log(pwd);
-    }
+    //     console.log('pwd before setting : '+pwd);
+    //     setPwd(e.target.value);
+    //     console.log('pwd after setting : '+pwd);
+    //     if(pwd === 'yes'){//If he is PWD , then ask for the Type of PWD
+    //         console.log('if block , pwd :'+pwd);
+    //         document.querySelector('#pwd-type-input').style.display='block';
+    //     } else {
+    //         console.log('else block , pwd :'+pwd);
+    //         document.querySelector('#pwd-type-input').style.display='none !important';
+    //     }
+    //     console.log(pwd);
+    // }
     //bloodgroup
     const [pwdType, setPwdType] = useState(profile.pwdType);
-    const handlePwdType = (e) => {
-        setPwdType(e.target.value);
-    }
     //bloodgroup
     const [bloodGroup, setBloodGroup] = useState(profile.bloodGroup);
-    const handleBloodGroup = (e) => {
-        setBloodGroup(e.target.value);
-    }
                                                     //Professional background
     //education
     const [education, setEducation] = useState(profile.education);
-    const handleEducation = (e) => {
-        setEducation(e.target.value);
-    }
     //occupation
     const [occupation, setOccupation] = useState(profile.occupation);
-    const handleOccupation = (e) => {
-        setOccupation(e.target.value);
-    }
     //income
     const [income, setIncome] = useState(profile.income);
-    const handleIncome = (e) => {
-        setIncome(e.target.value);
-    }
     //company
     const [company, setCompany] = useState(profile.company);
-    const handleCompany = (e) => {
-        setCompany(e.target.value);
-    }
     //workLocation
     const [workLocation, setWorkLocation] = useState(profile.workLocation);
-    const handleWorkLocation = (e) => {
-        setWorkLocation(e.target.value);
-    }
     //experience
     const [workExperience, setWorkExperience] = useState(profile.workExperience);
-    const handleWorkExperience = (e) => {
-        setWorkExperience(e.target.value);
-    }
                                                     //Contact Information
     //fatherOccupation
     const [fatherOccupation, setFatherOccupation] = useState(profile.fatherOccupation);
-    const handleFatherOccupation = (e) => {
-        setFatherOccupation(e.target.value);
-    }
     //mfg - mother , father, guardian
     const [mfg, setMfg] = useState('');
     const [mfgValue, setMfgValue] = useState(
@@ -149,83 +105,52 @@ function EditMyProfile(){
     }
     //parentNumber
     const [parentNumber, setParentNumber] = useState(profile.parentNumber);
-    const handleParentNumber = (e) => {
-        setParentNumber(e.target.value);
-    }
     //socialLinks
     const [socialLinks, setSocialLinks] = useState(profile.socialLinks);
-    const handleSocialLinks = (e) => {
-        setSocialLinks(e.target.value);
-    }
     //email
     const [email, setEmail] = useState(profile.email);
-    const handleEmail = (e) => {
-        setEmail(e.target.value);
-    }
     //mobileNumber
     const [mobileNumber, setMobileNumber] = useState(profile.mobileNumber);
-    const handleMobileNumber = (e) => {
-        setMobileNumber(e.target.value);
-    }
                                                     //Religious information
     //isRevert
     const [isRevert, setIsRevert] = useState(profile.isRevert);
-    const handleIsRevert = (e) => {
-        setIsRevert(e.target.value);
-    }
     //startedPracticing
     const [startedPracticing, setStartedPracticing] = useState(profile.startedPracticing);
-    const handleStartedPracticing = (e) => {
-        setStartedPracticing(e.target.value);
-    }
     //sect
     const [sect, setSect] = useState(profile.sect);
-    const handleSectInput = (e) => {
-        setSect(e.target.value);
-    }
     //salahPattern
     const [salahPattern, setSalahPattern] = useState(profile.salahPattern);//veryHigh, high, medium, low, kafir
-    const handleSalahPattern = (e) => {
-        setSalahPattern(e.target.value);
-    }
     //practicingLevel
     const [practicingLevel, setPracticingLevel] = useState(profile.practicingLevel);//excellent, veryHigh, high, medium, low, kafir
-    const handlePracticingLevel = (e) => {
-        setPracticingLevel(e.target.value);
-    }
                                                     //description
     //aboutMe
     const [aboutMe, setAboutMe] = useState(profile.aboutMe);
-    const handleAboutMe = (e) => {
-        setAboutMe(e.target.value);
-    }
     //myExpectation
     const [myExpectation, setMyExpectation] = useState(profile.myExpectation);
-    const handleMyExpectation = (e) => {
-        setMyExpectation(e.target.value);
-    }
     //quranVerse
     const [quranVerse, setQuranVerse] = useState(profile.quranVerse);
-    const handleQuranVerse = (e) => {
-        setQuranVerse(e.target.value);
-    }
                                                     //myTaste
     //scholars
     const [scholars, setScholars] = useState(profile.scholars);
-    const handleScholars = (e) => {
-        setScholars(e.target.value);
-    }
     //youtubeChannels
     const [youtubeChannels, setYoutubeChannels] = useState(profile.youtubeChannels);
-    const handleYoutubeChannels = (e) => {
-        setYoutubeChannels(e.target.value);
-    }
     //socialMediaInfluencers
     const [socialMediaInfluencers, setSocialMediaInfluencers] = useState(profile.socialMediaInfluencers);
-    const handleSocialMediaInfluencers = (e) => {
-        setSocialMediaInfluencers(e.target.value);
-    }
-
+    useEffect(() => {
+        const handlePwdRadioChange = (e) => {
+            const pwdTypeInput = document.getElementById('pwd-type-input');
+            pwdTypeInput.style.display = e.target.value === 'yes' ? 'block' : 'none';
+        };
+    
+        document.getElementById('pwd-radio-one').addEventListener('change', handlePwdRadioChange);
+        document.getElementById('pwd-radio-two').addEventListener('change', handlePwdRadioChange);
+    
+        // Clean up function
+        return () => {
+            document.getElementById('pwd-radio-one').removeEventListener('change', handlePwdRadioChange);
+            document.getElementById('pwd-radio-two').removeEventListener('change', handlePwdRadioChange);
+        };
+    }, []);
     const profileData = {
         'dateOfBirth': dob,
         'languagesKnown': languages,
@@ -233,6 +158,7 @@ function EditMyProfile(){
         'height': height,
         'weight': weight,
         'pwd':pwd,
+        'pwdType':pwdType,
         'bloodGroup': bloodGroup,
         'education': education,
         'occupation': occupation,
@@ -297,7 +223,7 @@ function EditMyProfile(){
                     <img src="../../../public/profile_img_boy.jpg" className={image ? 'd-none' : 'd-flex'} alt="Profile Picture" />
                 </div>
                 <span id="name">
-                    <h2><input type="text" value={profileName} onChange={(e)=> handleProfileName(e)} /></h2>
+                    <h2><input type="text" value={profileName} onChange={(e)=> setProfileName(e.target.value)} /></h2>
                 </span>
             </div>
             <div id="border" ></div>
@@ -307,7 +233,7 @@ function EditMyProfile(){
                         <p id='title'>Basic Information</p>
                         <div id="category">
                             <span id='name'>Date Of Birth 📆</span>
-                            <input placeholder='Enter DOB' title='Enter DOB' type='date' id='value' value={dob} onChange={(e)=>handleDob(e)}/>
+                            <input placeholder='Enter DOB' title='Enter DOB' type='date' id='value' value={dob} onChange={(e)=>setDob(e.target.value)}/>
                         </div>
                         <div id="category">
                             <span id='name'>Age 🔢</span>
@@ -320,13 +246,13 @@ function EditMyProfile(){
                         <div id="category">
                             <span id='name'>Languages Known 🗣️</span>
                             <input title='Enter All the know languages seperated by comma' placeholder='Enter All the know languages seperated by comma' 
-                                type="text" name="language" id="language-input" value={languages} onChange={(e)=> handleLanguages(e)}
+                                type="text" name="language" id="language-input" value={languages} onChange={(e)=> setLanguages(e.target.value)}
                                 style={{width: '250px'}}/>(seperated by comma)
                             {/* <p id='value'>🗣️{profile.languagesKnown}</p> */}
                         </div>
                         <div id="category">
                             <span id='name'>Marital Status ⚭</span>
-                            <select name="maritalStatus" id="maritalStatus-input" value={maritalStatus} onChange={(e)=> handleMaritalStatus(e)}>
+                            <select name="maritalStatus" id="maritalStatus-input" value={maritalStatus} onChange={(e)=> setMaritalStatus(e.target.value)}>
                                 <option value="single">Single</option>
                                 <option value="married">Married</option>
                                 <option value="divorcee">Divorcee</option>
@@ -338,25 +264,25 @@ function EditMyProfile(){
                         <div id="category">
                             <span id='name'>Physical Information 💪🏻</span>
                             <div id='value'>
-                            <b>Height : </b><input title='Enter height' placeholder='Enter height' type="number" name="height" id="height-input" style={{width : '100px'}} value={height} onChange={(e) => handleHeight(e)} />{' CM'}<br />
-                            <b>Weight : </b><input title='Enter weight' placeholder='Enter weight' type="number" name="weight" id="weight-input" style={{width : '100px'}} value={weight} onChange={(e) => handleWeight(e)} />{' Kg'}<br />
+                            <b>Height : </b><input title='Enter height' placeholder='Enter height' type="number" name="height" id="height-input" style={{width : '100px'}} value={height} onChange={(e) => setHeight(e.target.value)} />{' CM'}<br />
+                            <b>Weight : </b><input title='Enter weight' placeholder='Enter weight' type="number" name="weight" id="weight-input" style={{width : '100px'}} value={weight} onChange={(e) => setWeight(e.target.value)} />{' Kg'}<br />
                                {/* <b> Weight</b> - {profile.weight}{'Kg  '} */}
                                <b> BMI index</b> - {bmi}
                             </div>
                             <div class="pwd-switch-field"><b style={{}}>Differently Abled ?</b>
-		                        <input title='Are you Differently Abled ?' type="radio" id="pwd-radio-one" name="pwd-switch-one" value={'yes'} onChange={(e)=> handlePwd(e)}/>
+		                        <input title='Are you Differently Abled ?' type="radio" id="pwd-radio-one" name="pwd-switch-one" value={'yes'} onChange={(e)=> setPwd(e.target.value)}/>
 		                        <label for="pwd-radio-one">Yes</label>
-		                        <input title='Are you Differently Abled ?' type="radio" id="pwd-radio-two" name="pwd-switch-one" value={'no'} onChange={(e)=> handlePwd(e)} />
+		                        <input title='Are you Differently Abled ?' type="radio" id="pwd-radio-two" name="pwd-switch-one" value={'no'} onChange={(e)=> setPwd(e.target.value)} />
 		                        <label for="pwd-radio-two">No</label>
 	                        </div>
                             <div id="pwd-type-input" style={{display:'none'}}>
                                 <label htmlFor="pwd-type">Type Of Disability</label>
-                                <input type="text" name="pwd-type-input" id="pwt-type-input" value={pwdType} onChange={(e)=> handlePwdType(e)} />
+                                <input type="text" name="pwd-type-input" id="pwt-type-input" value={pwdType} onChange={(e)=> setPwdType(e.target.value)} />
                             </div>
                         </div>
                         <div id="category">
                             <span id='name'>Blood Group 🩸</span>
-                            <input title='Enter your Blood Group' placeholder='Enter your Blood Group' type="text" name="bloodGroup" id="bloodGroup-input" value={bloodGroup} onChange={(e)=> handleBloodGroup(e)} />
+                            <input title='Enter your Blood Group' placeholder='Enter your Blood Group' type="text" name="bloodGroup" id="bloodGroup-input" value={bloodGroup} onChange={(e)=> setBloodGroup(e.target.value)} />
                             {/* <p id='value'>{profile.bloodGroup}</p> */}
                         </div>
 
@@ -366,30 +292,30 @@ function EditMyProfile(){
                         <div id="category">
                             <span id='name'>Education👨🏻‍🎓</span>
                             <input title='Enter your highest degree of qualification' placeholder='Enter your highest degree' 
-                            type="text" name="education" id="education-input" value={education} onChange={(e)=> handleEducation(e)}
+                            type="text" name="education" id="education-input" value={education} onChange={(e)=> setEducation(e.target.value)}
                             style={{width: '250px'}}/>
                         </div>
                         <div id="category">
                             <span id='name'>Occupation💼</span>
-                            <input title='Enter your Job/Occupation' placeholder='Enter your Job/Occupation' type="text" name="occupation" id="occupation-input" value={occupation} onChange={(e)=> handleOccupation(e)}/>
+                            <input title='Enter your Job/Occupation' placeholder='Enter your Job/Occupation' type="text" name="occupation" id="occupation-input" value={occupation} onChange={(e)=> setOccupation(e.target.value)}/>
                         </div>
                         <div id="category">
                             <span id='name'>Income ₹</span>
-                            <input title='Enter your Salary/Income' placeholder='Enter Salary/Income' type="number" name="income" id="income-input" value={income} onChange={(e)=> handleIncome(e)}/>
+                            <input title='Enter your Salary/Income' placeholder='Enter Salary/Income' type="number" name="income" id="income-input" value={income} onChange={(e)=> setIncome(e.target.value)}/>
                         </div>
                         <div id="category">
                             <span id='name'>Now Working at 🏬</span>
-                            <input title='Enter your Company/Organization' placeholder='Enter Company/Organization' type="text" name="comapeny" id="company-input" value={company} onChange={(e)=> handleCompany(e)}/>
+                            <input title='Enter your Company/Organization' placeholder='Enter Company/Organization' type="text" name="comapeny" id="company-input" value={company} onChange={(e)=> setCompany(e.target.value)}/>
                         </div>
                         <div id="category">
                             <span id='name'>Work Location📍</span>
-                            <input title='Enter your Current Work Location' placeholder='Enter your Work Location' type="text" name="location" id="location-input" value={workLocation} onChange={(e)=> handleWorkLocation(e)}/>
+                            <input title='Enter your Current Work Location' placeholder='Enter your Work Location' type="text" name="location" id="location-input" value={workLocation} onChange={(e)=> setWorkLocation(e.target.value)}/>
                         </div>
                         <div id="category">
                             <span id='name'>Work Experience✅</span>
                             <div className="d-flex">
                                 <input title='Enter No. of years of Experience' placeholder='Enter No. of years' 
-                                type="number" name="workExperience" id="workExperience-input" value={workExperience} onChange={(e)=> handleWorkExperience(e)}
+                                type="number" name="workExperience" id="workExperience-input" value={workExperience} onChange={(e)=> setWorkExperience(e.target.value)}
                                 style={{width : '150px', margin : '0 10px 0 0'}} />years
                             </div>
                         </div>
@@ -398,35 +324,39 @@ function EditMyProfile(){
                         <p id="title">Contact Information</p>
                         <div id="category">
                             <span id='name'>Father's Occupation🏗</span>
-                            <input title="Enter your Father's occupation" placeholder="Enter your Father's occupation" type="text" name="fatherOccupation" id="fatherOccupation-input" value={fatherOccupation} onChange={(e)=> handleFatherOccupation(e)}/>
+                            <input title="Enter your Father's occupation" placeholder="Enter your Father's occupation" 
+                            type="text" name="fatherOccupation" id="fatherOccupation-input" value={fatherOccupation} 
+                            onChange={(e)=> setFatherOccupation(e.target.value)}/>
                         </div>
                         <div id="category">
                             <span id='name'>Enter your {mfgValue ? mfgValue : 'Parent'}'s name 👨‍👩‍👧‍👧</span>
-                            <select name="mfg" id="mfg-select" value={mfgValue} onChange={(e)=> handleMfg(e)}>
+                            <select name="mfg" id="mfg-select" value={mfgValue} onChange={(e)=> handleMfg(e.target.value)}>
                                 <option name='parent' value="parent">Select Parent</option>
                                 <option name='mom' value="mom">Mother</option>
                                 <option name='dad' value="dad">Father</option>
                                 <option name='guardian' value="guardian">Guardian</option>
                             </select>
                             <input title={`Enter your ${mfgValue ? mfgValue : 'Parent'}'s name`} placeholder={`Enter your ${mfgValue ? mfgValue : 'Parent'}'s name`} type="text" name="parentName" id="parentName-input" 
-                                value={ parentName ? parentName.substring(2) : ''} onChange={(e)=> handleParentName(e)}/>
+                                value={ parentName ? parentName.substring(2) : ''} onChange={(e)=> handleParentName(e.target.value)}/>
                             {/* <p id='value'>{profile.parentName && profile.parentName.substring(0,1) == 'm' ? 'Mom :  ' : 'Dad :  '} {profile.parentName.substring(2)}</p> */}
                         </div>
                         <div id="category">
                             <span id='name'>Enter your {mfgValue ? mfgValue : 'Parent'}'s Number📞</span>
-                            <input title='Enter number with country code' placeholder='Enter number with country code' type="number" name="parentNumber" id="parentNumber-input" value={parentNumber} onChange={(e)=> handleParentNumber(e)}/>
+                            <input title='Enter number with country code' placeholder='Enter number with country code' 
+                            type="number" name="parentNumber" id="parentNumber-input" value={parentNumber} onChange={(e)=> setParentNumber(e.target.value)}/>
                             {/* <p id='value'>📞{profile.parentNumber.substring(0,5)+'*****'}</p> */}
                             Check the bottom note
                         </div>
                         <div id="category">
                             <span id='name'>Email Id📧</span>
-                            <input title='Enter your Email id' placeholder="Enter your Email id" type="email" name="email" id="email-input" value={email} onChange={(e)=> handleEmail(e)}/>
+                            <input title='Enter your Email id' placeholder="Enter your Email id" type="email" name="email" id="email-input" 
+                            value={email} onChange={(e)=> setEmail(e.target.value)}/>
                             {/* <p id='value'><a href={'mailto:'+profile.email}>{profile.email}</a></p> */}
                         </div>
                         <div id="category">
                             <span id='name'>Social Media Handles📲</span>
                             <input title="Put your Page's link" placeholder="Put your Page's link" 
-                            type="text" name="socialLinks" id="socialLinks-input" value={socialLinks} onChange={(e)=> handleSocialLinks(e)}
+                            type="text" name="socialLinks" id="socialLinks-input" value={socialLinks} onChange={(e)=> setSocialLinks(e.target.value)}
                             style={{width: '250px'}}/>
                             Paste your Social Media profile page's link here                       
                             {/* <p id='value'><a target={'_blank'} 
@@ -434,7 +364,8 @@ function EditMyProfile(){
                         </div>
                         <div id="category">
                             <span id='name'>Mobile Number📞</span>
-                            <input title='Enter Mobile Number with country code' placeholder='Enter Mobile number with country code' type="number" name="mobileNumber" id="mobileNumber-input" value={mobileNumber} onChange={(e)=> handleMobileNumber(e)}/>
+                            <input title='Enter Mobile Number with country code' placeholder='Enter Mobile number with country code' 
+                            type="number" name="mobileNumber" id="mobileNumber-input" value={mobileNumber} onChange={(e)=> setMobileNumber(e.target.value)}/>
                             {/* <p id='value'>{profile.mobileNumber.substring(0,5)+'*****'}</p> */}
                             Check the bottom note
                         </div>
@@ -443,19 +374,19 @@ function EditMyProfile(){
                         <p id="title">Religious Information</p>
                         <div id="category">
                             <div class="switch-field"><b style={{marginRight: '10px'}}>Revert</b>
-		                        <input type="radio" id="radio-one" name="switch-one" value={true} onChange={(e)=> handleIsRevert(e)}/>
+		                        <input type="radio" id="radio-one" name="switch-one" value={true} onChange={(e)=> setIsRevert(e.target.value)}/>
 		                        <label for="radio-one">Yes</label>
-		                        <input type="radio" id="radio-two" name="switch-one" value={false} defaultChecked onChange={(e)=> handleIsRevert(e)} />
+		                        <input type="radio" id="radio-two" name="switch-one" value={false} defaultChecked onChange={(e)=> setIsRevert(e.target.value)} />
 		                        <label for="radio-two">No</label>
 	                        </div>
                         </div>
                         <div id="category">
                             <span id='name'>Started Practicing from 📆</span>
-                            <input placeholder='Enter rough date' title='Enter rough date' type='date' id='value' value={startedPracticing} onChange={(e)=>handleStartedPracticing(e)}/>
+                            <input placeholder='Enter rough date' title='Enter rough date' type='date' id='value' value={startedPracticing} onChange={(e)=>setStartedPracticing(e.target.value)}/>
                         </div>
                         <div id="category">
                             <label id='name' htmlFor="sect">Select your sect👩‍👩‍👧‍👦</label>
-                            <select title='Select your sect' name="sect" id="sect-input" value={sect} onChange={(e)=>handleSectInput(e)}>
+                            <select title='Select your sect' name="sect" id="sect-input" value={sect} onChange={(e)=>setSectInput(e.target.value)}>
                                 <option value="sunni" name="sunni">Sunni</option>
                                 <option value="preferNotToSay" name="preferNotToSay">PreferNotToSay</option>
                                 <option value="shia" name="shia">Shia</option>
@@ -474,7 +405,7 @@ function EditMyProfile(){
                         </div>
                         <div id="category">
                             <label htmlFor="Salah Pattern" id="name">Salah Pattern🤲🏼</label>
-                            <select title='Select your Salah Pattern' name="select" id="salahPattern-input" value={salahPattern} required onChange={(e)=> handleSalahPattern(e)}
+                            <select title='Select your Salah Pattern' name="select" id="salahPattern-input" value={salahPattern} required onChange={(e)=> setSalahPattern(e.target.value)}
                             style={{maxWidth: '240px'}}>
                                 <option value="select">Select your Salah patern</option>
                                 <option value="veryHigh">Never Leave Fardh</option>
@@ -486,8 +417,8 @@ function EditMyProfile(){
                         </div>
                         <div id="category">
                             <label htmlFor="Practicing level" id="name">Practicing level🕌</label>
-                            <select title='Select your practicing level of deen' name="select" id="practicingLevel-input" value={practicingLevel} required 
-                            onChange={(e)=> handlePracticingLevel(e)}
+                            <select title='Select your practicing level of deen' name="select" id="practicingLevel-input" 
+                            value={practicingLevel} required onChange={(e)=> setPracticingLevel(e.target.value)}
                             style={{maxWidth: '240px'}}>
                                 <option value="select">Select your practicing Level</option>
                                 <option value="excellent">Fullfills All the Fardh and AllMost of the Sunnah acts And abstain from all the major & minor sins</option>
@@ -502,7 +433,7 @@ function EditMyProfile(){
                             <label htmlFor="scholars" id='name'>Name Some of the Scholars you follow👨‍🏫</label>
                             <input title='Enter some scholars name whom you follow' type="text" name="scholars" id="scholars-input"
                             placeholder='Enter multiple scholars seperated by comma'
-                            value={scholars} onChange={(e)=> handleScholars(e)}/>(seperated by comma)
+                            value={scholars} onChange={(e)=> setScholars(e.target.value)}/>(seperated by comma)
                         </div>
                         
                     </div>
@@ -510,17 +441,19 @@ function EditMyProfile(){
                 <div id="description">
                     <div id="description-container">
                         <span id="title">About Me</span><br/>
-                        <textarea className='textarea' type="text" name="aboutMe" id="aboutMe-input" value={aboutMe} onChange={(e)=> handleAboutMe(e)}
+                        <textarea className='textarea' type="text" name="aboutMe" id="aboutMe-input" 
+                         value={aboutMe} onChange={(e)=> setAboutMe(e.target.value)}
                          title='Enter About yourself in great detail' placeholder='Enter About yourself in great detail'    style={{resize : 'both', marginBottom : '10px', minHeight : 'fit-content'}} />
                     </div>
                     <div id="description-container">
                         <span id="title">My Expectation</span><br/>
-                        <textarea className='textarea1' type="text" name="myExpectation" id="myExpectation-input" value={myExpectation} onChange={(e)=> handleMyExpectation(e)}
+                        <textarea className='textarea1' type="text" name="myExpectation" id="myExpectation-input" 
+                        value={myExpectation} onChange={(e)=> setMyExpectation(e.target.value)}
                         title='Describe your Expectation in Great detail' placeholder='Describe your Expectation in Great detail'    style={{resize : 'both', marginBottom : '10px', minHeight : '150px'}} />
                     </div>
                     <div id="description-container">
                         <span id="title">Quran Verse Which I Suggest</span><br/>
-                        <textarea className='textarea2' type="text" name="quranVerse" id="quranVerse-input" value={quranVerse} onChange={(e)=> handleQuranVerse(e)}
+                        <textarea className='textarea2' type="text" name="quranVerse" id="quranVerse-input" value={quranVerse} onChange={(e)=> setQuranVerse(e.target.value)}
                         title='Suggest One Quran Verse' placeholder="Suggest One Quran Verse along with the reference. For Example : '...They(wife) are a clothing for you and you are a clothing for them...'(Quran 2:187) "    style={{resize : 'both', marginBottom : '10px', minHeight : '150px'}} />
                     </div>
                     <div id="description-container" className='d-block justify-content-center'>
@@ -529,13 +462,13 @@ function EditMyProfile(){
                             <label htmlFor="youtubeChannels" id='name'>Name some youtube channels you like</label>
                             <input title='Enter some youtube channels name you follow' type="text" name="youtubeChannels" id="youtubeChannels-input"
                             placeholder='Enter some youtube channels name you follow'
-                            value={youtubeChannels} onChange={(e)=> handleYoutubeChannels(e)}/>(seperated by comma)
+                            value={youtubeChannels} onChange={(e)=> setYoutubeChannels(e.target.value)}/>(seperated by comma)
                         </div>
                         <div id="category">
                             <label htmlFor="socialMediaInfluencers" id='name'>Name some Social Media Pages you like</label>
                             <input title='Enter some Social Media Pages/Influencers you follow' type="text" name="socialMediaInfluencers" id="socialMediaInfluencers-input"
                             placeholder='Enter some Social Media Pages/Influencers you follow'
-                            value={socialMediaInfluencers} onChange={(e)=> handleSocialMediaInfluencers(e)}/>(seperated by comma)
+                            value={socialMediaInfluencers} onChange={(e)=> setSocialMediaInfluencers(e.target.value)}/>(seperated by comma)
                         </div>
                     </div>
                 </div>
