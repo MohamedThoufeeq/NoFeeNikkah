@@ -1,21 +1,25 @@
 import samplejsonprofile from '../../../public/GetAllProfilesSample.json';
 import { FaFileUpload } from "react-icons/fa";
 import { useRef, useEffect, useState } from 'react';
-import '../css/EditMyProfile.css'
+import '../css/EditMyProfile.css';
 import AgeCalculator from '../EditMyProfile/AgeCalculator.js';
 import CountryStateCity from '../EditMyProfile/CountyStateCity1';
-
+import MultipleSelectInput from '../EditMyProfile/MultipleSelectInput';
+import languageJson from '../files/LanguageList.json';
 
 function EditMyProfile(){
     const profile = samplejsonprofile.profiles[5];
     
     useEffect(()=> {
-        document.querySelector('.textarea').style.width = document.querySelector('#description-container').offsetWidth + 'px'; 
-        document.querySelector('.textarea').style.maxWidth = document.querySelector('#description-container').offsetWidth - 20 + 'px'; 
-        document.querySelector('.textarea1').style.width = document.querySelector('#description-container').offsetWidth + 'px'; 
-        document.querySelector('.textarea1').style.maxWidth = document.querySelector('#description-container').offsetWidth - 20 + 'px'; 
-        document.querySelector('.textarea2').style.width = document.querySelector('#description-container').offsetWidth + 'px'; 
-        document.querySelector('.textarea2').style.maxWidth = document.querySelector('#description-container').offsetWidth - 20 + 'px'; 
+        const dcOffsetWidth = document.querySelector('#description-container').offsetWidth;
+            
+            document.querySelector('.textarea').style.width = dcOffsetWidth + 'px'; 
+            document.querySelector('.textarea').style.maxWidth = dcOffsetWidth - 20 + 'px'; 
+            document.querySelector('.textarea1').style.width = dcOffsetWidth + 'px'; 
+            document.querySelector('.textarea1').style.maxWidth = dcOffsetWidth - 20 + 'px'; 
+            document.querySelector('.textarea2').style.width = dcOffsetWidth + 'px'; 
+            document.querySelector('.textarea2').style.maxWidth = dcOffsetWidth - 20 + 'px'; 
+
     }, []);
     
     const inputref = useRef(null);
@@ -33,6 +37,8 @@ function EditMyProfile(){
     //profileName
     const [profileName, setProfileName] = useState(profile.fullname);
                                                 //Basic Information
+    //gender
+    const [gender, setGender] = useState(profile.gender);     
     //dob, age
     const [dob, setDob] = useState(profile.dateOfBirth);
     const age = AgeCalculator(dob);
@@ -40,7 +46,7 @@ function EditMyProfile(){
     //countryStateCity
     const { renderCSC, selectedCountry, selectedState, selectedCity } = CountryStateCity(profile);
     //languages
-    const [languages, setLanguages] = useState(profile.languagesKnown);
+    // const [languages, setLanguages] = useState(profile.languagesKnown);
     //maritalStatus
     const [maritalStatus, setMaritalStatus] = useState(profile.maritalStatus);
     //height
@@ -51,21 +57,6 @@ function EditMyProfile(){
     let bmi = (weight / ((height * height) / 10000)).toFixed(2);
     //pwd
     const [pwd, setPwd] = useState('no');
-    // const handlePwd = (e) => {
-    //     console.log("Event value : "+e.target.value)
-
-    //     console.log('pwd before setting : '+pwd);
-    //     setPwd(e.target.value);
-    //     console.log('pwd after setting : '+pwd);
-    //     if(pwd === 'yes'){//If he is PWD , then ask for the Type of PWD
-    //         console.log('if block , pwd :'+pwd);
-    //         document.querySelector('#pwd-type-input').style.display='block';
-    //     } else {
-    //         console.log('else block , pwd :'+pwd);
-    //         document.querySelector('#pwd-type-input').style.display='none !important';
-    //     }
-    //     console.log(pwd);
-    // }
     //bloodgroup
     const [pwdType, setPwdType] = useState(profile.pwdType);
     //bloodgroup
@@ -113,7 +104,9 @@ function EditMyProfile(){
     const [mobileNumber, setMobileNumber] = useState(profile.mobileNumber);
                                                     //Religious information
     //isRevert
-    const [isRevert, setIsRevert] = useState(profile.isRevert);
+    const [isRevert, setIsRevert] = useState('no');
+    //revertedFrom
+    const [revertedFrom, setRevertedFrom] = useState(profile.revertedFrom);
     //startedPracticing
     const [startedPracticing, setStartedPracticing] = useState(profile.startedPracticing);
     //sect
@@ -131,29 +124,57 @@ function EditMyProfile(){
     const [quranVerse, setQuranVerse] = useState(profile.quranVerse);
                                                     //myTaste
     //scholars
-    const [scholars, setScholars] = useState(profile.scholars);
+    // const [scholars, setScholars] = useState(profile.scholars);
+    const initialOptionsForScholars = [
+        { value: 'ahmeddeedat', label: 'Ahmed Deedat' },
+        { value: 'zakirnaik', label: 'Zakir Naik' },
+        { value: 'shabirally', label: 'Shabir Ally' },
+        // Add more options as needed
+      ];
+    const [scholarArray, setScholarArray] = useState([]);
+    //languagesKnown
+    const [languagesKnownArray, setLanguagesKnownAray] = useState([]);
     //youtubeChannels
     const [youtubeChannels, setYoutubeChannels] = useState(profile.youtubeChannels);
     //socialMediaInfluencers
     const [socialMediaInfluencers, setSocialMediaInfluencers] = useState(profile.socialMediaInfluencers);
     useEffect(() => {
-        const handlePwdRadioChange = (e) => {
+        profile.isRevert === 'no' || profile.isRevert === null ? document.getElementById('radio-two').setAttribute('checked', true) 
+            : profile.isRevert === 'yes' ? document.getElementById('radio-one').setAttribute('checked', true) : null;
+
+        profile.pwd === 'no' || profile.pwd === null ? document.getElementById('pwd-radio-two').setAttribute('checked', true) 
+            : profile.pwd === 'yes' ? document.getElementById('pwd-radio-one').setAttribute('checked', true) : null;
+        
+            const handlePwdRadioChange = (e) => {
             const pwdTypeInput = document.getElementById('pwd-type-input');
             pwdTypeInput.style.display = e.target.value === 'yes' ? 'block' : 'none';
         };
-    
+
+        document.getElementById('radio-one').addEventListener('change', ()=> {
+            document.getElementById('radio-one').value === 'yes' ? document.getElementById('revertedFrom').style.display="block" : null;
+        })
+        document.getElementById('radio-two').addEventListener('change', ()=> {
+            document.getElementById('radio-two').value === 'no' ? document.getElementById('revertedFrom').style.display="none" : null;
+        })
+
+
         document.getElementById('pwd-radio-one').addEventListener('change', handlePwdRadioChange);
         document.getElementById('pwd-radio-two').addEventListener('change', handlePwdRadioChange);
-    
         // Clean up function
         return () => {
+            document.getElementById('revertedFrom').style.display="none";
             document.getElementById('pwd-radio-one').removeEventListener('change', handlePwdRadioChange);
             document.getElementById('pwd-radio-two').removeEventListener('change', handlePwdRadioChange);
         };
     }, []);
     const profileData = {
+        'gender': gender,
         'dateOfBirth': dob,
-        'languagesKnown': languages,
+        'country': selectedCountry,
+        'state': selectedState,
+        'city': selectedCity,
+        // 'languagesKnown': languages,
+        'languagesKnownArray': languagesKnownArray,
         'maritalStatus': maritalStatus,
         'height': height,
         'weight': weight,
@@ -175,9 +196,11 @@ function EditMyProfile(){
         'aboutMe': aboutMe,
         'myExpectation': myExpectation,
         'isRevert': isRevert,
+        'revertedFrom': revertedFrom,
         'startedPracticing': startedPracticing,
         'sect': sect,
-        'scholars': scholars,
+        // 'scholars': scholars,
+        'scholarArray': scholarArray,
         'youtubeChannels': youtubeChannels,
         'socialMediaInfluencers': socialMediaInfluencers
     };
@@ -232,6 +255,14 @@ function EditMyProfile(){
                     <div id="categories">
                         <p id='title'>Basic Information</p>
                         <div id="category">
+                            <span id='name'>♀ Gender ♂</span>
+                            <select name="gender" id="gender-input" value={gender} onChange={(e)=> setGender(e.target.value)}>
+                                <option value={null}>Select Gender</option>
+                                <option value="male">Male ♂ </option>
+                                <option value="female">Female ♀ </option>
+                            </select>
+                        </div>
+                        <div id="category">
                             <span id='name'>Date Of Birth 📆</span>
                             <input placeholder='Enter DOB' title='Enter DOB' type='date' id='value' value={dob} onChange={(e)=>setDob(e.target.value)}/>
                         </div>
@@ -243,23 +274,23 @@ function EditMyProfile(){
                             <span id='name'>Living in 📍</span>
                             <div id='value'>{renderCSC}</div>
                         </div>
-                        <div id="category">
+                    </div>
+                    <div id="categories">
+                    <p id='title'>Basic Information</p>
+                    <div id="category">
                             <span id='name'>Languages Known 🗣️</span>
-                            <input title='Enter All the know languages seperated by comma' placeholder='Enter All the know languages seperated by comma' 
-                                type="text" name="language" id="language-input" value={languages} onChange={(e)=> setLanguages(e.target.value)}
-                                style={{width: '250px'}}/>(seperated by comma)
-                            {/* <p id='value'>🗣️{profile.languagesKnown}</p> */}
+                            <MultipleSelectInput onCreateOption={false} inputData={languageJson.lang} setArray={setLanguagesKnownAray} isLanguage={true}/>
                         </div>
                         <div id="category">
                             <span id='name'>Marital Status ⚭</span>
                             <select name="maritalStatus" id="maritalStatus-input" value={maritalStatus} onChange={(e)=> setMaritalStatus(e.target.value)}>
+                                <option value={null}>Select Marital Status</option>
                                 <option value="single">Single</option>
                                 <option value="married">Married</option>
                                 <option value="divorcee">Divorcee</option>
                                 <option value="widow">Widow</option>
                                 <option value="widower">Widower</option>
                             </select>
-                            {/* <p id='value'>⚭{profile.maritalStatus}</p> */}
                         </div>
                         <div id="category">
                             <span id='name'>Physical Information 💪🏻</span>
@@ -269,15 +300,19 @@ function EditMyProfile(){
                                {/* <b> Weight</b> - {profile.weight}{'Kg  '} */}
                                <b> BMI index</b> - {bmi}
                             </div>
-                            <div class="pwd-switch-field"><b style={{}}>Differently Abled ?</b>
-		                        <input title='Are you Differently Abled ?' type="radio" id="pwd-radio-one" name="pwd-switch-one" value={'yes'} onChange={(e)=> setPwd(e.target.value)}/>
-		                        <label for="pwd-radio-one">Yes</label>
+                        </div>
+                        <div id="category">
+                            <span id="name">PWD♿️</span>
+                            <div class="pwd-switch-field">Differently Abled ?
+		                        <input  title='Are you Differently Abled ?' type="radio" id="pwd-radio-one" name="pwd-switch-one" value={'yes'} onChange={(e)=> setPwd(e.target.value)}/>
+		                        <label style={{marginLeft:'10px'}} for="pwd-radio-one">Yes</label>
 		                        <input title='Are you Differently Abled ?' type="radio" id="pwd-radio-two" name="pwd-switch-one" value={'no'} onChange={(e)=> setPwd(e.target.value)} />
 		                        <label for="pwd-radio-two">No</label>
 	                        </div>
                             <div id="pwd-type-input" style={{display:'none'}}>
-                                <label htmlFor="pwd-type">Type Of Disability</label>
-                                <input type="text" name="pwd-type-input" id="pwt-type-input" value={pwdType} onChange={(e)=> setPwdType(e.target.value)} />
+                                <label htmlFor="pwd-type">Type Of Disability :</label>
+                                <input type="text" name="pwd-type-input" id="pwt-type-input" value={pwdType} 
+                                onChange={(e)=> setPwdType(e.target.value)} placeholder='Enter your Type of Disability' style={{width : '100%'}}/>
                             </div>
                         </div>
                         <div id="category">
@@ -285,7 +320,6 @@ function EditMyProfile(){
                             <input title='Enter your Blood Group' placeholder='Enter your Blood Group' type="text" name="bloodGroup" id="bloodGroup-input" value={bloodGroup} onChange={(e)=> setBloodGroup(e.target.value)} />
                             {/* <p id='value'>{profile.bloodGroup}</p> */}
                         </div>
-
                     </div>
                     <div id="categories">
                         <p id='title'>Professional background</p>
@@ -374,11 +408,13 @@ function EditMyProfile(){
                         <p id="title">Religious Information</p>
                         <div id="category">
                             <div class="switch-field"><b style={{marginRight: '10px'}}>Revert</b>
-		                        <input type="radio" id="radio-one" name="switch-one" value={true} onChange={(e)=> setIsRevert(e.target.value)}/>
+		                        <input type="radio" id="radio-one" name="switch-one" value={'yes'} onChange={(e)=> setIsRevert(e.target.value)}/>
 		                        <label for="radio-one">Yes</label>
-		                        <input type="radio" id="radio-two" name="switch-one" value={false} defaultChecked onChange={(e)=> setIsRevert(e.target.value)} />
+		                        <input type="radio" id="radio-two" name="switch-one" value={'no'} onChange={(e)=>setIsRevert(e.target.value)}/>
 		                        <label for="radio-two">No</label>
 	                        </div>
+                            <label htmlFor="Reverted from" id='revertedFrom'><b>Reverted From</b>
+                            <input type="text" placeholder='Enter your past faith'  value={revertedFrom} onChange={(e)=> setRevertedFrom(e.target.value)}/></label>
                         </div>
                         <div id="category">
                             <span id='name'>Started Practicing from 📆</span>
@@ -407,7 +443,7 @@ function EditMyProfile(){
                             <label htmlFor="Salah Pattern" id="name">Salah Pattern🤲🏼</label>
                             <select title='Select your Salah Pattern' name="select" id="salahPattern-input" value={salahPattern} required onChange={(e)=> setSalahPattern(e.target.value)}
                             style={{maxWidth: '240px'}}>
-                                <option value="select">Select your Salah patern</option>
+                                <option value={null}>Select your Salah patern</option>
                                 <option value="veryHigh">Never Leave Fardh</option>
                                 <option value="high">Always Pray but leaves occasionaly</option>
                                 <option value="medium">Pray Sometimes</option>
@@ -431,9 +467,7 @@ function EditMyProfile(){
                         </div>
                         <div id="category">
                             <label htmlFor="scholars" id='name'>Name Some of the Scholars you follow👨‍🏫</label>
-                            <input title='Enter some scholars name whom you follow' type="text" name="scholars" id="scholars-input"
-                            placeholder='Enter multiple scholars seperated by comma'
-                            value={scholars} onChange={(e)=> setScholars(e.target.value)}/>(seperated by comma)
+                            <MultipleSelectInput onCreateOption={true} inputData={initialOptionsForScholars} setArray={setScholarArray} isLanguage={false}/>
                         </div>
                         
                     </div>
@@ -451,11 +485,6 @@ function EditMyProfile(){
                         value={myExpectation} onChange={(e)=> setMyExpectation(e.target.value)}
                         title='Describe your Expectation in Great detail' placeholder='Describe your Expectation in Great detail'    style={{resize : 'both', marginBottom : '10px', minHeight : '150px'}} />
                     </div>
-                    <div id="description-container">
-                        <span id="title">Quran Verse Which I Suggest</span><br/>
-                        <textarea className='textarea2' type="text" name="quranVerse" id="quranVerse-input" value={quranVerse} onChange={(e)=> setQuranVerse(e.target.value)}
-                        title='Suggest One Quran Verse' placeholder="Suggest One Quran Verse along with the reference. For Example : '...They(wife) are a clothing for you and you are a clothing for them...'(Quran 2:187) "    style={{resize : 'both', marginBottom : '10px', minHeight : '150px'}} />
-                    </div>
                     <div id="description-container" className='d-block justify-content-center'>
                         <span id="title">My Taste</span><br/>
                         <div id="category">
@@ -470,6 +499,11 @@ function EditMyProfile(){
                             placeholder='Enter some Social Media Pages/Influencers you follow'
                             value={socialMediaInfluencers} onChange={(e)=> setSocialMediaInfluencers(e.target.value)}/>(seperated by comma)
                         </div>
+                    </div>
+                    <div id="description-container">
+                        <span id="title">Quran Verse Which I Suggest</span><br/>
+                        <textarea className='textarea2' type="text" name="quranVerse" id="quranVerse-input" value={quranVerse} onChange={(e)=> setQuranVerse(e.target.value)}
+                        title='Suggest One Quran Verse' placeholder="Suggest One Quran Verse along with the reference. For Example : '...They(wife) are a clothing for you and you are a clothing for them...'(Quran 2:187) "    style={{resize : 'both', marginBottom : '10px', minHeight : '150px'}} />
                     </div>
                 </div>
             </div>

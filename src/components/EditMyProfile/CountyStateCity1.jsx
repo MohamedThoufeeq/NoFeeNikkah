@@ -14,12 +14,12 @@ function CountryStateCity1(profile) {
   
   useEffect(() => {
     setData(jsondata.content);
-    if(selectedCountry){
-      document.querySelector("#state-input").style.display = "block";
-    }
-    if(selectedState){
-      document.querySelector("#city-input").style.display = "block";
-    }
+    // if(selectedCountry){
+    //   document.querySelector("#state-input").style.display = "block";
+    // }
+    // if(selectedState){
+    //   document.querySelector("#city-input").style.display = "block";
+    // }
   }, []);
 
   //removing duplicate country names
@@ -33,7 +33,7 @@ function CountryStateCity1(profile) {
     let singleCountry = data.filter((item) => item.country === value);
     let states = [...new Set(singleCountry.map((item) => item.subcountry))];
     setState(states);
-    document.querySelector("#state-input").style.display = "block";
+    // document.querySelector("#state-input").style.display = "block";
   };
 
   const handleStateSelect = (value) => {
@@ -42,7 +42,7 @@ function CountryStateCity1(profile) {
       .filter((item) => item.subcountry === value)
       .map((item) => item.name); // Extract city names from objects
     setCity(cities);
-    document.querySelector("#city-input").style.display = "block";
+    // document.querySelector("#city-input").style.display = "block";
   };
 
   const countryData = { selectedCountry, selectedState, selectedCity };
