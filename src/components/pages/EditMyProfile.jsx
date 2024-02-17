@@ -55,6 +55,10 @@ function EditMyProfile(){
                                                     //Professional background
     //education
     const [education, setEducation] = useState(profile.education);
+    //ugCourse
+    const [ugCourse, setUgCourse] = useState(profile.ugCourse);
+    //pgCourse
+    const [pgCourse, setPgCourse] = useState(profile.pgCourse);
     //occupation
     const [occupationArray, setOccupationArray] = useState(profile.occupationArray);
     //occupation
@@ -99,6 +103,8 @@ function EditMyProfile(){
     const [sect, setSect] = useState(profile.sect);
     //salahPattern
     const [salahPattern, setSalahPattern] = useState(profile.salahPattern);//veryHigh, high, medium, low, kafir
+    //salahPattern
+    const [quranRead, setQuranRead] = useState(profile.quranRead);//daily, veryOften, often, ramadhan, not, never
     //practicingLevel
     const [practicingLevel, setPracticingLevel] = useState(profile.practicingLevel);//excellent, veryHigh, high, medium, low, kafir
                                                     //description
@@ -170,7 +176,7 @@ function EditMyProfile(){
         'pwdType':pwdType,
         'bloodGroup': bloodGroup,
         'education': education,
-        'occupation': occupation,
+        'occupationArray': occupationArray,
         'income': income,
         'company': company,
         'workLocation': workLocation,
@@ -188,10 +194,11 @@ function EditMyProfile(){
         'aboutMe': aboutMe,
         'myExpectation': myExpectation,
         'isRevert': isRevert,
+        'quranVerse': quranVerse,
+        'quranRead': quranRead,
         'revertedFrom': revertedFrom,
         'startedPracticing': startedPracticing,
         'sect': sect,
-        // 'scholars': scholars,
         'scholarArray': scholarArray,
         'youtubeChannels': youtubeChannels,
         'socialMediaInfluencers': socialMediaInfluencers
@@ -335,18 +342,33 @@ function EditMyProfile(){
                         <p id='title'>Professional background</p>
                         <div id="category">
                             <span id='name'>Education👨🏻‍🎓</span>
-                            <input title='Enter your highest degree of qualification' placeholder='Enter your highest degree' 
+                            <select 
                             type="text" name="education" id="education-input" value={education} onChange={(e)=> setEducation(e.target.value)}
-                            style={{width: '250px'}}/>
+                            style={{width: '250px'}}>
+                                <option value={null}>Select your highest qualification</option>
+                                <option value="primary">Primary (Grade 1-7)</option>
+                                <option value="secondary">Secondary (Grade 8-10)</option>
+                                <option value="higher">Higher (Grade 10-12)</option>
+                                <option value="diploma">Diploma (Polytechnic)</option>
+                                <option value="ug">Bachelor's (UG)</option>
+                                <option value="pg">Master's (PG)</option>
+                                <option value="phd">Doctoral degree (Ph.D)</option>
+                            </select><br />
+                            <input type="text" title={'Enter your Stream in '+{education}}
+                            className={education ?( education == 'primary'|| education == 'secondary' || education == 'higher'  ? 'd-none' : 'block' ) : 'd-none' }
+                            placeholder={'Enter your Stream in '+education} value={ugCourse} onChange={(e)=> setUgCourse(e.target.value)}/>
+                           
+                            <input className={education ?( education == 'pg'|| education == 'phd' ? 'block' : 'd-none' ) : 'd-none' } type="text" 
+                            title={'Enter your Stream in '+ education} placeholder={'Enter your Stream in '+ education} value={pgCourse} onChange={(e)=> setPgCourse(e.target.value)}/>
                         </div>
                         <div id="category">
                             <span id='name'>Occupation💼</span>
-                            <MultipleSelectInput onCreateOption={true} inputData={JobsList.occupations} setArray={setOccupationArray} isLanguage={true}/>
-                            <input title='Enter your Job/Occupation' placeholder='Enter your Job/Occupation' type="text" name="occupation" id="occupation-input" value={occupation} onChange={(e)=> setOccupation(e.target.value)}/>
+                            <MultipleSelectInput onCreateOption={false} inputData={JobsList.occupations} setArray={setOccupationArray} isLanguage={false}/>
+                            Enter your Job/Occupation
                         </div>
                         <div id="category">
-                            <span id='name'>Income ₹</span>
-                            <input title='Enter your Salary/Income' placeholder='Enter Salary/Income' type="number" name="income" id="income-input" value={income} onChange={(e)=> setIncome(e.target.value)}/>
+                            <span id='name'>Income per month ₹</span>
+                            <input title='Enter your Salary/Income per month' placeholder='Enter Salary/Income per month' type="number" name="income" id="income-input" value={income} onChange={(e)=> setIncome(e.target.value)}/>
                         </div>
                         <div id="category">
                             <span id='name'>Now Working at 🏬</span>
@@ -456,6 +478,18 @@ function EditMyProfile(){
                             </select>
                         </div>
                         <div id="category">
+                            <span id="name">How Often you read the Quran</span>
+                            <select title='Enter your consistency' name="quranRead" id="quranRead-input" value={quranRead} onChange={(e)=> setQuranRear(e.target.value)} style={{maxWidth: '240px'}}>
+                                <option value={null}>Select your Consistency</option>
+                                <option value="daily">Daily</option>
+                                <option value="veryOften">More than Once a Week</option>
+                                <option value="often">Often Read</option>
+                                <option value="ramadhan">Only in Ramadhan</option>
+                                <option value="not">I don't have time to read consistently</option>
+                                <option value="never">Not Interested to read the Quran</option>
+                            </select>
+                        </div>
+                        <div id="category">
                             <label htmlFor="Practicing level" id="name">Practicing level🕌</label>
                             <select title='Select your practicing level of deen' name="select" id="practicingLevel-input" 
                             value={practicingLevel} required onChange={(e)=> setPracticingLevel(e.target.value)}
@@ -479,25 +513,26 @@ function EditMyProfile(){
                 <div id="description">
                     <div id="description-container">
                         <span id='title'>Contact information</span>
-                        <div id="category">
+                        <div className='dc-fields' style={{ paddingBottom:'15px'}}>
                             <span id='name'>Email Id📧</span>
                             <input title='Enter your Email id' placeholder="Enter your Email id" type="email" name="email" id="email-input" 
-                            value={email} onChange={(e)=> setEmail(e.target.value)}/>
+                            value={email} onChange={(e)=> setEmail(e.target.value)} style={{width:'90%'}}/>
                             {/* <p id='value'><a href={'mailto:'+profile.email}>{profile.email}</a></p> */}
                         </div>
-                        <div id="category">
+                        <div className='dc-fields'>
                             <span id='name'>Social Media Handles📲</span>
                             <input title="Put your Page's link" placeholder="Put your Page's link" 
                             type="text" name="socialLinks" id="socialLinks-input" value={socialLinks} onChange={(e)=> setSocialLinks(e.target.value)}
-                            />
+                            style={{width:'90%'}}/>
                             Paste your Social Media profile page's link here                       
                             {/* <p id='value'><a target={'_blank'} 
                                 href={profile.socialLinks}>{profile.socialLinks && profile.socialLinks.includes('instagram') ? 'Instagram' :   profile.socialLinks.includes('facebook') ? 'Facebook' : profile.socialLinks.includes('twitter') ? 'Twitter' : 'Social Media' }  </a></p> */}
                         </div>
-                        <div id="category">
+                        <div className='dc-fields'>
                             <span id='name'>Mobile Number📞</span>
                             <input title='Enter Mobile Number with country code' placeholder='Enter Mobile number with country code' 
-                            type="number" name="mobileNumber" id="mobileNumber-input" value={mobileNumber} onChange={(e)=> setMobileNumber(e.target.value)}/>
+                            type="number" name="mobileNumber" id="mobileNumber-input" value={mobileNumber} onChange={(e)=> setMobileNumber(e.target.value)}
+                            style={{width:'90%'}}/>
                             {/* <p id='value'>{profile.mobileNumber.substring(0,5)+'*****'}</p> */}
                             Check the bottom note
                         </div>
@@ -535,7 +570,8 @@ function EditMyProfile(){
                     <div id="description-container">
                         <span id="title">Quran Verse Which I Suggest</span><br/>
                         <textarea className='textarea2' type="text" name="quranVerse" id="quranVerse-input" value={quranVerse} onChange={(e)=> setQuranVerse(e.target.value)}
-                        title='Suggest One Quran Verse' placeholder="Suggest One Quran Verse along with the reference. For Example : '...They(wife) are a clothing for you and you are a clothing for them...'(Quran 2:187) "    style={{resize : 'both', marginBottom : '10px', minHeight : '150px'}} />
+                        title='Suggest One Quran Verse' placeholder="Suggest One Quran Verse along with the reference. For Example : '...They(wife) are a clothing for you and you are a clothing for them...'(Quran 2:187) "    
+                        style={{resize : 'both', marginBottom : '10px', minHeight : '150px', width:'90%'}} />
                     </div>
                 </div>
             </div>

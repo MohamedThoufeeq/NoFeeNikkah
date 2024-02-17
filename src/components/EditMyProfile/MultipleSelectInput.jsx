@@ -9,7 +9,7 @@ const MultipleSelectInput = ({ inputData, setArray, isLanguage, onCreateOption }
   useEffect(() => {
     setOptions(inputData.map(item => ({
       value: item.code || item.value || item, // Assuming language has "code" and scholars have "value"
-      label: isLanguage ? `${item.name} (${item.nativeName})` : (item.label ? item.label : item)// Format label differently for language and scholars
+      label: isLanguage ? `${item.name} (${item.nativeName})` : (item.label ? item.label : item.toLocaleUpperCase())// Format label differently for language and scholars
     })));
   }, [inputData, isLanguage]);
 

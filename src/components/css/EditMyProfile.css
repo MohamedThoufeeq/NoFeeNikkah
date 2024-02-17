@@ -166,7 +166,15 @@
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
     text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
 
+}
+#descrpition-container textarea{
+    max-width: 600px;
 }
 @media screen and (min-width : 520px) {
     
@@ -175,18 +183,33 @@
         /* display: none; */
     }
 }
-#description-container #title {
+#description-container #title , #name{
     color: red;
 }
 #description-container p {
     padding: 10px;
 }
+.dc-fields {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    width: 70%;
+    padding: 5px 10px;
+    border-radius: 8px;
+    margin: 15px 10px;
+    box-shadow: rgb(0 0 0 / 16%) 0px 3px 6px, rgb(0 0 0 / 23%) 0px 3px 6px;
+}
 @media screen and (max-width : 425px) {
     #edit-my-profile-container {
-        width: 90vw;
+        width: 95vw;
     }
     #edit-my-profile-header #name input {
         max-width: 250px;
+    }
+    .dc-fields{
+        width: 95%;
     }
 }
 .switch-field {
