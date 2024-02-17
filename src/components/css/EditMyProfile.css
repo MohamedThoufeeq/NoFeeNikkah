@@ -1,3 +1,4 @@
+
 #myprofile{
     justify-content: center;
     display: flex;
@@ -75,6 +76,14 @@
     margin-bottom: 0;
     padding: 5px 10px;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+#username {
+    background: none; 
+    background-color: #e3dfdf;
+    /* backdrop-filter: blur(4px); */
+    padding: 1px 8px 4px 8px;
+    border-radius: 7px;
+    box-shadow: 6px 6px 3px 0px;
 }
 /* .interest-btn {
     background-color: black;
@@ -175,6 +184,9 @@
 @media screen and (max-width : 425px) {
     #edit-my-profile-container {
         width: 90vw;
+    }
+    #edit-my-profile-header #name input {
+        max-width: 250px;
     }
 }
 .switch-field {

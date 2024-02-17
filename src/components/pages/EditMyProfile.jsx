@@ -6,21 +6,10 @@ import AgeCalculator from '../EditMyProfile/AgeCalculator.js';
 import CountryStateCity from '../EditMyProfile/CountyStateCity1';
 import MultipleSelectInput from '../EditMyProfile/MultipleSelectInput';
 import languageJson from '../files/LanguageList.json';
+import JobsList from '../files/JobsList.json';
 
 function EditMyProfile(){
     const profile = samplejsonprofile.profiles[5];
-    
-    useEffect(()=> {
-        const dcOffsetWidth = document.querySelector('#description-container').offsetWidth;
-            
-            document.querySelector('.textarea').style.width = dcOffsetWidth + 'px'; 
-            document.querySelector('.textarea').style.maxWidth = dcOffsetWidth - 20 + 'px'; 
-            document.querySelector('.textarea1').style.width = dcOffsetWidth + 'px'; 
-            document.querySelector('.textarea1').style.maxWidth = dcOffsetWidth - 20 + 'px'; 
-            document.querySelector('.textarea2').style.width = dcOffsetWidth + 'px'; 
-            document.querySelector('.textarea2').style.maxWidth = dcOffsetWidth - 20 + 'px'; 
-
-    }, []);
     
     const inputref = useRef(null);
     const handleImgClick = () => {
@@ -45,10 +34,12 @@ function EditMyProfile(){
 
     //countryStateCity
     const { renderCSC, selectedCountry, selectedState, selectedCity } = CountryStateCity(profile);
-    //languages
-    // const [languages, setLanguages] = useState(profile.languagesKnown);
     //maritalStatus
     const [maritalStatus, setMaritalStatus] = useState(profile.maritalStatus);
+    //children
+    const [children, setChildren] = useState(profile.children ? profile.children : '');
+    //childrenCount
+    const [childrenCount, setChildrenCount] = useState(profile.childrenCount ? profile.childrenCount : '');
     //height
     const [height, setHeight] = useState(profile.height);
     //weight
@@ -65,6 +56,8 @@ function EditMyProfile(){
     //education
     const [education, setEducation] = useState(profile.education);
     //occupation
+    const [occupationArray, setOccupationArray] = useState(profile.occupationArray);
+    //occupation
     const [occupation, setOccupation] = useState(profile.occupation);
     //income
     const [income, setIncome] = useState(profile.income);
@@ -77,23 +70,16 @@ function EditMyProfile(){
                                                     //Contact Information
     //fatherOccupation
     const [fatherOccupation, setFatherOccupation] = useState(profile.fatherOccupation);
-    //mfg - mother , father, guardian
-    const [mfg, setMfg] = useState('');
-    const [mfgValue, setMfgValue] = useState(
-        profile.parentName ? 
-            (profile.parentName.substring(0,1)=='m' ? 'mom' : profile.parentName.substring(0,1)=='d' ? 'dad' : profile.parentName.substring(0,1)=='g' ? 'guardian' : '') 
-                : '');
-    const handleMfg = (e) => {
-        let mfgvalue = e.target.value == 'mom' ? "m:" : e.target.value == 'dad' ? "d:" : e.target.value == 'guardian' ? "g:" : '';
-        setMfg(mfgvalue);
-        setMfgValue(e.target.value);
-    }
+    //fatherOccupation
+    const [motherOccupation, setMotherOccupation] = useState(profile.motherOccupation);
+    //parent
+    const [parent, setParent] = useState(profile.parent);
     //parentName
     const [parentName, setParentName] = useState(profile.parentName);
-    const handleParentName = (e) => {
-        let parentNameValue = mfg + e.target.value;
-        setParentName(parentNameValue);
-    }
+    //noOfBrother
+    const [noOfBrother, setNoOfBrother] = useState(profile.noOfBrother);
+    //noOfSister
+    const [noOfSister, setNoOfSister] = useState(profile.noOfSister);
     //parentNumber
     const [parentNumber, setParentNumber] = useState(profile.parentNumber);
     //socialLinks
@@ -104,7 +90,7 @@ function EditMyProfile(){
     const [mobileNumber, setMobileNumber] = useState(profile.mobileNumber);
                                                     //Religious information
     //isRevert
-    const [isRevert, setIsRevert] = useState('no');
+    const [isRevert, setIsRevert] = useState(profile.isRevert);
     //revertedFrom
     const [revertedFrom, setRevertedFrom] = useState(profile.revertedFrom);
     //startedPracticing
@@ -168,14 +154,16 @@ function EditMyProfile(){
         };
     }, []);
     const profileData = {
+        'fullName': profileName,
         'gender': gender,
         'dateOfBirth': dob,
         'country': selectedCountry,
         'state': selectedState,
         'city': selectedCity,
-        // 'languagesKnown': languages,
         'languagesKnownArray': languagesKnownArray,
         'maritalStatus': maritalStatus,
+        'children': children,
+        'childrenCount': childrenCount,
         'height': height,
         'weight': weight,
         'pwd':pwd,
@@ -187,7 +175,11 @@ function EditMyProfile(){
         'company': company,
         'workLocation': workLocation,
         'workExperience': workExperience,
+        'motherOccupation': motherOccupation,
         'fatherOccupation': fatherOccupation,
+        'noOfBrother': noOfBrother,
+        'noOfSister': noOfSister,
+        'parent': parent,
         'parentName': parentName,
         'parentNumber': parentNumber,
         'socialLinks': socialLinks,
@@ -244,9 +236,10 @@ function EditMyProfile(){
                     <input title='Upload your profile photo in 1:1 aspect ration (square)' type="file" ref={inputref} className='d-none' onChange={(e) => handleUpload(e)}></input>
                     <img src={image} id='preview-image' className={image ? 'd-flex' : 'd-none'} alt="Profile Picture Preview" />
                     <img src="../../../public/profile_img_boy.jpg" className={image ? 'd-none' : 'd-flex'} alt="Profile Picture" />
-                </div>
+                </div> <span id='username' title='username'>{profile.username}</span>
+
                 <span id="name">
-                    <h2><input type="text" value={profileName} onChange={(e)=> setProfileName(e.target.value)} /></h2>
+                    <h2><input placeholder='Enter your Full Name' title='Enter your Full Name' type="text" value={profileName} onChange={(e)=> setProfileName(e.target.value)} /></h2>
                 </span>
             </div>
             <div id="border" ></div>
@@ -274,16 +267,16 @@ function EditMyProfile(){
                             <span id='name'>Living in 📍</span>
                             <div id='value'>{renderCSC}</div>
                         </div>
-                    </div>
-                    <div id="categories">
-                    <p id='title'>Basic Information</p>
-                    <div id="category">
+                        <div id="category">
                             <span id='name'>Languages Known 🗣️</span>
                             <MultipleSelectInput onCreateOption={false} inputData={languageJson.lang} setArray={setLanguagesKnownAray} isLanguage={true}/>
                         </div>
+                    </div>
+                    <div id="categories">
+                    <p id='title'>Basic Information</p>
                         <div id="category">
                             <span id='name'>Marital Status ⚭</span>
-                            <select name="maritalStatus" id="maritalStatus-input" value={maritalStatus} onChange={(e)=> setMaritalStatus(e.target.value)}>
+                            <select title='Enter you Marital Status' name="maritalStatus" id="maritalStatus-input" value={maritalStatus} onChange={(e)=> setMaritalStatus(e.target.value)}>
                                 <option value={null}>Select Marital Status</option>
                                 <option value="single">Single</option>
                                 <option value="married">Married</option>
@@ -293,13 +286,31 @@ function EditMyProfile(){
                             </select>
                         </div>
                         <div id="category">
+                            <span id="name">Children (if any)</span>
+                            <select title='Choose your children' id='children-input' value={children} onChange={(e)=> setChildren(e.target.value)} >
+                                <option value=''>Select Children</option>
+                                <option value="son">Son</option>
+                                <option value="daughter">Daughter</option>
+                                <option value="both">Both</option>
+                            </select>
+                            <input type="number" title={'Enter No. of '+children} placeholder={`Enter No. of ${children === '' ? 'Children' : children+"s"}`} value={childrenCount} 
+                            onChange={(e)=> setChildrenCount(e.target.value)} style={{marginTop:'10px'}} />
+                        </div>
+                        <div id="category">
                             <span id='name'>Physical Information 💪🏻</span>
                             <div id='value'>
-                            <b>Height : </b><input title='Enter height' placeholder='Enter height' type="number" name="height" id="height-input" style={{width : '100px'}} value={height} onChange={(e) => setHeight(e.target.value)} />{' CM'}<br />
-                            <b>Weight : </b><input title='Enter weight' placeholder='Enter weight' type="number" name="weight" id="weight-input" style={{width : '100px'}} value={weight} onChange={(e) => setWeight(e.target.value)} />{' Kg'}<br />
-                               {/* <b> Weight</b> - {profile.weight}{'Kg  '} */}
-                               <b> BMI index</b> - {bmi}
+                                {'Height : '}
+                                <input title='Enter height' placeholder='Enter height' type="number" name="height" id="height-input" 
+                                    style={{width : '150px', marginBottom:'10px'}} value={height} onChange={(e) => setHeight(e.target.value)} />{' CM'}<br />
+                                {'Weight : '}
+                                <input title='Enter weight' placeholder='Enter weight' type="number" name="weight" id="weight-input" 
+                                    style={{width : '150px', marginBottom:'10px'}} value={weight} onChange={(e) => setWeight(e.target.value)} />{' Kg'}<br />
+                                   {/* <b> Weight</b> - {profile.weight}{'Kg  '} */}
                             </div>
+                        </div>
+                        <div id="category">
+                            <span id='name'>BMI 🧍🏼</span>
+                            <p id='value'>{bmi}</p>
                         </div>
                         <div id="category">
                             <span id="name">PWD♿️</span>
@@ -318,7 +329,6 @@ function EditMyProfile(){
                         <div id="category">
                             <span id='name'>Blood Group 🩸</span>
                             <input title='Enter your Blood Group' placeholder='Enter your Blood Group' type="text" name="bloodGroup" id="bloodGroup-input" value={bloodGroup} onChange={(e)=> setBloodGroup(e.target.value)} />
-                            {/* <p id='value'>{profile.bloodGroup}</p> */}
                         </div>
                     </div>
                     <div id="categories">
@@ -331,6 +341,7 @@ function EditMyProfile(){
                         </div>
                         <div id="category">
                             <span id='name'>Occupation💼</span>
+                            <MultipleSelectInput onCreateOption={true} inputData={JobsList.occupations} setArray={setOccupationArray} isLanguage={true}/>
                             <input title='Enter your Job/Occupation' placeholder='Enter your Job/Occupation' type="text" name="occupation" id="occupation-input" value={occupation} onChange={(e)=> setOccupation(e.target.value)}/>
                         </div>
                         <div id="category">
@@ -355,7 +366,8 @@ function EditMyProfile(){
                         </div>
                     </div>
                     <div id="categories">
-                        <p id="title">Contact Information</p>
+                        <p id="title">Family Details</p>
+                        
                         <div id="category">
                             <span id='name'>Father's Occupation🏗</span>
                             <input title="Enter your Father's occupation" placeholder="Enter your Father's occupation" 
@@ -363,45 +375,34 @@ function EditMyProfile(){
                             onChange={(e)=> setFatherOccupation(e.target.value)}/>
                         </div>
                         <div id="category">
-                            <span id='name'>Enter your {mfgValue ? mfgValue : 'Parent'}'s name 👨‍👩‍👧‍👧</span>
-                            <select name="mfg" id="mfg-select" value={mfgValue} onChange={(e)=> handleMfg(e.target.value)}>
-                                <option name='parent' value="parent">Select Parent</option>
+                            <span id='name'>Mother's Occupation👩‍💼</span>
+                            <input title="Enter your Mother's occupation" placeholder="Enter your Mother's occupation" 
+                            type="text" name="motherrOccupation" id="motherOccupation-input" value={motherOccupation} 
+                            onChange={(e)=> setMotherOccupation(e.target.value)}/>
+                        </div>
+                        <div id="category">
+                            <span id='name'>Enter your {parent ? parent : 'Parent'}'s name 👨‍👩‍👧‍👧</span>
+                            <select name="mfg" id="mfg-select" value={parent} onChange={(e)=> setParent(e.target.value)}>
+                                <option name='parent' value="">Select Parent</option>
                                 <option name='mom' value="mom">Mother</option>
                                 <option name='dad' value="dad">Father</option>
                                 <option name='guardian' value="guardian">Guardian</option>
                             </select>
-                            <input title={`Enter your ${mfgValue ? mfgValue : 'Parent'}'s name`} placeholder={`Enter your ${mfgValue ? mfgValue : 'Parent'}'s name`} type="text" name="parentName" id="parentName-input" 
-                                value={ parentName ? parentName.substring(2) : ''} onChange={(e)=> handleParentName(e.target.value)}/>
+                            <input title={`Enter your ${parent ? parent : 'Parent'}'s name`} placeholder={`Enter your ${parent ? parent : 'Parent'}'s name`} type="text" name="parentName" id="parentName-input" 
+                                value={ parentName ? parentName.substring(2) : ''} onChange={(e)=> setParentName(e.target.value)}/>
                             {/* <p id='value'>{profile.parentName && profile.parentName.substring(0,1) == 'm' ? 'Mom :  ' : 'Dad :  '} {profile.parentName.substring(2)}</p> */}
                         </div>
                         <div id="category">
-                            <span id='name'>Enter your {mfgValue ? mfgValue : 'Parent'}'s Number📞</span>
+                            <span id='name'>Enter your {parent ? parent : 'Parent'}'s Number📞</span>
                             <input title='Enter number with country code' placeholder='Enter number with country code' 
                             type="number" name="parentNumber" id="parentNumber-input" value={parentNumber} onChange={(e)=> setParentNumber(e.target.value)}/>
                             {/* <p id='value'>📞{profile.parentNumber.substring(0,5)+'*****'}</p> */}
                             Check the bottom note
                         </div>
-                        <div id="category">
-                            <span id='name'>Email Id📧</span>
-                            <input title='Enter your Email id' placeholder="Enter your Email id" type="email" name="email" id="email-input" 
-                            value={email} onChange={(e)=> setEmail(e.target.value)}/>
-                            {/* <p id='value'><a href={'mailto:'+profile.email}>{profile.email}</a></p> */}
-                        </div>
-                        <div id="category">
-                            <span id='name'>Social Media Handles📲</span>
-                            <input title="Put your Page's link" placeholder="Put your Page's link" 
-                            type="text" name="socialLinks" id="socialLinks-input" value={socialLinks} onChange={(e)=> setSocialLinks(e.target.value)}
-                            style={{width: '250px'}}/>
-                            Paste your Social Media profile page's link here                       
-                            {/* <p id='value'><a target={'_blank'} 
-                                href={profile.socialLinks}>{profile.socialLinks && profile.socialLinks.includes('instagram') ? 'Instagram' :   profile.socialLinks.includes('facebook') ? 'Facebook' : profile.socialLinks.includes('twitter') ? 'Twitter' : 'Social Media' }  </a></p> */}
-                        </div>
-                        <div id="category">
-                            <span id='name'>Mobile Number📞</span>
-                            <input title='Enter Mobile Number with country code' placeholder='Enter Mobile number with country code' 
-                            type="number" name="mobileNumber" id="mobileNumber-input" value={mobileNumber} onChange={(e)=> setMobileNumber(e.target.value)}/>
-                            {/* <p id='value'>{profile.mobileNumber.substring(0,5)+'*****'}</p> */}
-                            Check the bottom note
+                        <div id="category" className='d-block'>
+                            <span id='name'>Sibilings👨‍👧‍👦</span><br />
+                            <label htmlFor="brother" style={{paddingRight: '10px'}}>Brother :</label><input type="number" id='brother-input' placeholder='Enter No. Of Brothers' title='No. Of Brothers' value={noOfBrother} onChange={(e)=> setNoOfBrother(e.target.value)} style={{ width:'70%'}}/><br/>
+                            <label htmlFor="brother" style={{paddingRight: '10px'}}>Sister :</label><input type="number" id='sister-input' placeholder='Enter No. Of Sisters' title='No. Of Sisters' value={noOfSister} onChange={(e)=> setNoOfSister(e.target.value)} style={{width:'70%'}}/>
                         </div>
                     </div>
                     <div id="categories">
@@ -422,9 +423,11 @@ function EditMyProfile(){
                         </div>
                         <div id="category">
                             <label id='name' htmlFor="sect">Select your sect👩‍👩‍👧‍👦</label>
-                            <select title='Select your sect' name="sect" id="sect-input" value={sect} onChange={(e)=>setSectInput(e.target.value)}>
-                                <option value="sunni" name="sunni">Sunni</option>
-                                <option value="preferNotToSay" name="preferNotToSay">PreferNotToSay</option>
+                            <select title='Select your sect' name="sect" id="sect-input" value={sect} onChange={(e)=>setSectInput(e.target.value)} width={'250'}
+                            style={{maxWidth: '240px'}}>
+                                <option value="pure-sunni" name="pure-sunni">Pure Sunni</option>
+                                <option value="bidah-sunni" name="bidah-sunni">Sunni (non-Dargah) (Mawlid, Fatiha, etc..) (Ahlul Sunna val Jamath)</option>
+                                <option value="dargah-sunni" name="dargah-sunni">Sunni (Dargah)</option>
                                 <option value="shia" name="shia">Shia</option>
                                 <option value="zaydiya" name="zaydiya">Zaydiya</option>
                                 <option value="ismayiliya" name="ismayiliya">Ismayiliya</option>
@@ -437,6 +440,7 @@ function EditMyProfile(){
                                 <option value="deobandi" name="deobandi">Deobandi</option>
                                 <option value="barelvi" name="barelvi">Barelvi</option>
                                 <option value="others" name="others">Others</option>
+                                <option value="preferNotToSay" name="preferNotToSay">PreferNotToSay</option>
                             </select>
                         </div>
                         <div id="category">
@@ -474,16 +478,44 @@ function EditMyProfile(){
                 </div>
                 <div id="description">
                     <div id="description-container">
+                        <span id='title'>Contact information</span>
+                        <div id="category">
+                            <span id='name'>Email Id📧</span>
+                            <input title='Enter your Email id' placeholder="Enter your Email id" type="email" name="email" id="email-input" 
+                            value={email} onChange={(e)=> setEmail(e.target.value)}/>
+                            {/* <p id='value'><a href={'mailto:'+profile.email}>{profile.email}</a></p> */}
+                        </div>
+                        <div id="category">
+                            <span id='name'>Social Media Handles📲</span>
+                            <input title="Put your Page's link" placeholder="Put your Page's link" 
+                            type="text" name="socialLinks" id="socialLinks-input" value={socialLinks} onChange={(e)=> setSocialLinks(e.target.value)}
+                            />
+                            Paste your Social Media profile page's link here                       
+                            {/* <p id='value'><a target={'_blank'} 
+                                href={profile.socialLinks}>{profile.socialLinks && profile.socialLinks.includes('instagram') ? 'Instagram' :   profile.socialLinks.includes('facebook') ? 'Facebook' : profile.socialLinks.includes('twitter') ? 'Twitter' : 'Social Media' }  </a></p> */}
+                        </div>
+                        <div id="category">
+                            <span id='name'>Mobile Number📞</span>
+                            <input title='Enter Mobile Number with country code' placeholder='Enter Mobile number with country code' 
+                            type="number" name="mobileNumber" id="mobileNumber-input" value={mobileNumber} onChange={(e)=> setMobileNumber(e.target.value)}/>
+                            {/* <p id='value'>{profile.mobileNumber.substring(0,5)+'*****'}</p> */}
+                            Check the bottom note
+                        </div>
+
+                    </div>
+                    <div id="description-container">
                         <span id="title">About Me</span><br/>
                         <textarea className='textarea' type="text" name="aboutMe" id="aboutMe-input" 
                          value={aboutMe} onChange={(e)=> setAboutMe(e.target.value)}
-                         title='Enter About yourself in great detail' placeholder='Enter About yourself in great detail'    style={{resize : 'both', marginBottom : '10px', minHeight : 'fit-content'}} />
+                         title='Enter About yourself in great detail' placeholder='Enter About yourself in great detail'    
+                         style={{resize : 'both', marginBottom : '10px', minHeight : 'fit-content', width: '90%'}} />
                     </div>
                     <div id="description-container">
                         <span id="title">My Expectation</span><br/>
                         <textarea className='textarea1' type="text" name="myExpectation" id="myExpectation-input" 
                         value={myExpectation} onChange={(e)=> setMyExpectation(e.target.value)}
-                        title='Describe your Expectation in Great detail' placeholder='Describe your Expectation in Great detail'    style={{resize : 'both', marginBottom : '10px', minHeight : '150px'}} />
+                        title='Describe your Expectation in Great detail' placeholder='Describe your Expectation in Great detail'    
+                        style={{resize : 'both', marginBottom : '10px', minHeight : '150px',  width: '90%'}} />
                     </div>
                     <div id="description-container" className='d-block justify-content-center'>
                         <span id="title">My Taste</span><br/>
