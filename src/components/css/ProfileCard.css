@@ -118,6 +118,7 @@ span {
     transition: 0.5s;
     align-items: center;
     display: none;
+    min-width: 285px;
 }
 #profile-card-back span {
     display: flex;

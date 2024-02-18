@@ -8,8 +8,8 @@ const MultipleSelectInput = ({ inputData, setArray, isLanguage, onCreateOption }
 
   useEffect(() => {
     setOptions(inputData.map(item => ({
-      value: item.code || item.value || item, // Assuming language has "code" and scholars have "value"
-      label: isLanguage ? `${item.name} (${item.nativeName})` : (item.label ? item.label : item.toLocaleUpperCase())// Format label differently for language and scholars
+      value: item.code || item.value || item.title || item, // Assuming language has "code" and scholars have "value"
+      label: isLanguage ? `${item.name} (${item.nativeName})` : (item.label ? item.label :(item.title ? item.title : item.toLocaleUpperCase()))// Format label differently for language and scholars
     })));
   }, [inputData, isLanguage]);
 
@@ -56,6 +56,7 @@ const customStyles = {
     option: (provided, state) => ({
       ...provided,
       cursor: 'pointer',
+      width: '100%',
       backgroundColor: state.isSelected ? '#f0f0f0' : state.isFocused ? '#cceeff' : 'transparent',
     }),
     control: (provided) => ({
