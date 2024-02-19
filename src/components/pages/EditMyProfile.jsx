@@ -10,6 +10,7 @@ import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
 import JobsList from '../files/JobsList.json';
 import HobbiesList from '../files/HobbiesList.json';
+import EthnicityList from '../files/EthnicityList.json';
 
 function EditMyProfile(){
     const profile = samplejsonprofile.profiles[5];
@@ -55,6 +56,8 @@ function EditMyProfile(){
     const [pwdType, setPwdType] = useState(profile.pwdType);
     //bloodgroup
     const [bloodGroup, setBloodGroup] = useState(profile.bloodGroup);
+    //ethnicity
+    const [ethnicity, setEthnicity] = useState(profile.ethnicity);
                                                     //Professional background
     //education
     const [education, setEducation] = useState(profile.education); //primary, secondary, higher, diploma, ug, pg, phd
@@ -64,8 +67,8 @@ function EditMyProfile(){
     const [pgCourse, setPgCourse] = useState(profile.pgCourse);
     //occupation
     const [occupationArray, setOccupationArray] = useState(profile.occupationArray);
-    //occupation
-    const [occupation, setOccupation] = useState(profile.occupation);
+    // //occupation
+    // const [occupation, setOccupation] = useState(profile.occupation);
     //income
     const [income, setIncome] = useState(profile.income);
     //company
@@ -87,6 +90,10 @@ function EditMyProfile(){
     const [noOfBrother, setNoOfBrother] = useState(profile.noOfBrother);
     //noOfSister
     const [noOfSister, setNoOfSister] = useState(profile.noOfSister);
+    //financialStatus
+    const [financialStatus, setFinancialStatus] = useState(profile.financialStatus);
+    //familyLivingIn
+    const [familyLivingIn, setFamilyLivingIn] = useState(profile.familyLivingIn);
     //parentNumber
     const [parentNumber, setParentNumber] = useState(profile.parentNumber);
     //socialLinks
@@ -192,6 +199,7 @@ function EditMyProfile(){
         'pwd':pwd,
         'pwdType':pwdType,
         'bloodGroup': bloodGroup,
+        'ethnicity': ethnicity,
         'education': education,
         'occupationArray': occupationArray,
         'income': income,
@@ -219,6 +227,7 @@ function EditMyProfile(){
         'scholarArray': scholarArray,
         'youtubeChannels': youtubeChannels,
         'socialMediaInfluencers': socialMediaInfluencers,
+        'hobbies': hobbies,
         'partnerEducated': partnerEducated,
         'partnerEducation': partnerEducation,
         'isPartnerProfessional': isPartnerProfessional,
@@ -295,9 +304,10 @@ function EditMyProfile(){
                             <span id='name'>Living in 📍</span>
                             <div id='value'>{renderCSC}</div>
                         </div>
-                        <div id="category" title='Enter yourknown languages'>
+                        <div id="category" title='Enter your known languages'>
                             <span id='name'>Languages Known 🗣️</span>
-                            <MultipleSelectInput onCreateOption={false} inputData={languageJson.lang} setArray={setLanguagesKnownAray} isLanguage={true}/>
+                            <MultipleSelectInput  onCreateOption={false} inputData={languageJson.lang} setArray={setLanguagesKnownAray} isLanguage={true}
+                                placeholder={'Enter all the languages you know'}/>
                             Select your Mother Tongue as First option
                         </div>
                     </div>
@@ -323,7 +333,7 @@ function EditMyProfile(){
                                 <option value="both">Both</option>
                             </select>
                             <input type="number" title={'Enter No. of '+children} placeholder={`Enter No. of ${children === '' ? 'Children' : children+"s"}`} value={childrenCount} 
-                            onChange={(e)=> setChildrenCount(e.target.value)} style={{marginTop:'10px'}} />
+                                onChange={(e)=> setChildrenCount(e.target.value)} style={{marginTop:'10px'}} />
                         </div>
                         <div id="category" title='Enter your Height and Weight'>
                             <span id='name'>Physical Information 💪🏻</span>
@@ -352,12 +362,17 @@ function EditMyProfile(){
                             <div id="pwd-type-input" style={{display:'none'}} title='Enter your Type of Disability'>
                                 <label htmlFor="pwd-type">Type Of Disability :</label>
                                 <input type="text" name="pwd-type-input" id="pwt-type-input" value={pwdType} 
-                                onChange={(e)=> setPwdType(e.target.value)} placeholder='Enter your Type of Disability' style={{width : '100%'}}/>
+                                    onChange={(e)=> setPwdType(e.target.value)} placeholder='Enter your Type of Disability' style={{width : '100%'}}/>
                             </div>
                         </div>
                         <div id="category" title='Enter your Blood Group'>
                             <span id='name'>Blood Group 🩸</span>
                             <input title='Enter your Blood Group' placeholder='Enter your Blood Group' type="text" name="bloodGroup" id="bloodGroup-input" value={bloodGroup} onChange={(e)=> setBloodGroup(e.target.value)} />
+                        </div>
+                        <div id="category" title='Enter your Ethnicity'>
+                            <span id='name'>Enter your Ethnicity 🗺 </span>
+                            <MultipleSelectInput  onCreateOption={false} inputData={EthnicityList.data} setArray={setEthnicity} isLanguage={false}
+                            placeholder={"Enter your Ethnicity"}/>
                         </div>
                     </div>
                     <div id="categories">
@@ -365,8 +380,8 @@ function EditMyProfile(){
                         <div id="category" title='Fill out your education details'>
                             <span id='name'>Education👨🏻‍🎓</span>
                             <select title='Select your highest degree of qualificatoin'
-                            type="text" name="education" id="education-input" value={education} onChange={(e)=> setEducation(e.target.value)}
-                            style={{width: '250px'}}>
+                                type="text" name="education" id="education-input" value={education} onChange={(e)=> setEducation(e.target.value)}
+                                style={{width: '250px'}}>
                                 <option value={null}>Select your highest qualification</option>
                                 <option value="primary">Primary (Grade 1-7)</option>
                                 <option value="secondary">Secondary (Grade 8-10)</option>
@@ -388,7 +403,8 @@ function EditMyProfile(){
                         </div>
                         <div id="category"  title='Enter your Job / Occupation'>
                             <span id='name'>Occupation💼</span>
-                            <MultipleSelectInput onCreateOption={false} inputData={JobsList.occupations} setArray={setOccupationArray} isLanguage={false}/>
+                            <MultipleSelectInput  onCreateOption={true} inputData={JobsList.occupations} setArray={setOccupationArray} isLanguage={false}
+                                placeholder={'Enter your Profession'}/>
                             Enter your Job/Occupation
                         </div>
                         <div id="category" title='Enter your Salary/Income per month'>
@@ -407,8 +423,8 @@ function EditMyProfile(){
                             <span id='name'>Work Experience✅</span>
                             <div className="d-flex">
                                 <input title='Enter No. of years of Experience' placeholder='Enter No. of years' 
-                                type="number" name="workExperience" id="workExperience-input" value={workExperience} onChange={(e)=> setWorkExperience(e.target.value)}
-                                style={{width : '150px', margin : '0 10px 0 0'}} />years
+                                    type="number" name="workExperience" id="workExperience-input" value={workExperience} onChange={(e)=> setWorkExperience(e.target.value)}
+                                    style={{width : '150px', margin : '0 10px 0 0'}} />years
                             </div>
                         </div>
                     </div>
@@ -417,44 +433,45 @@ function EditMyProfile(){
                         
                         <div id="category" title="Enter your Father's status / occupation">
                             <span id='name'>Father's Status / Occupation🏗</span>
-                            <input placeholder="Enter your Father's status / occupation" 
+                            {/* <input placeholder="Enter your Father's status / occupation" 
                             type="text" name="fatherOccupation" id="fatherOccupation-input" value={fatherOccupation} 
-                            onChange={(e)=> setFatherOccupation(e.target.value)}/>
+                            onChange={(e)=> setFatherOccupation(e.target.value)}/> */}
+                            <MultipleSelectInput  onCreateOption={true} inputData={JobsList.occupations} setArray={setFatherOccupation} isLanguage={false}
+                                placeholder={"Enter your Father's  Profession/Status"}/>
                         </div>
                         <div id="category" title="Enter your Mother's status / occupation">
                             <span id='name'>Mother's Status / Occupation👩‍💼</span>
-                            <input placeholder="Enter your Mother's status / occupation" 
+                            {/* <input placeholder="Enter your Mother's status / occupation" 
                             type="text" name="motherrOccupation" id="motherOccupation-input" value={motherOccupation} 
-                            onChange={(e)=> setMotherOccupation(e.target.value)}/>
-                        </div>
-                        <div id="category" title={`Enter your ${parent ? parent : 'Parent'}'s name`}>
-                            <span id='name'>Enter your {parent ? parent : 'Parent'}'s name 👨‍👩‍👧‍👧</span>
-                            <select name="mfg" id="mfg-select" value={parent} onChange={(e)=> setParent(e.target.value)}>
-                                <option name='parent' value="">Select Parent</option>
-                                <option name='mom' value="mom">Mother</option>
-                                <option name='dad' value="dad">Father</option>
-                                <option name='guardian' value="guardian">Guardian</option>
-                            </select>
-                            <input title={`Enter your ${parent ? parent : 'Parent'}'s name`} placeholder={`Enter your ${parent ? parent : 'Parent'}'s name`} type="text" name="parentName" id="parentName-input" 
-                                value={ parentName ? parentName.substring(2) : ''} onChange={(e)=> setParentName(e.target.value)}/>
-                            {/* <p id='value'>{profile.parentName && profile.parentName.substring(0,1) == 'm' ? 'Mom :  ' : 'Dad :  '} {profile.parentName.substring(2)}</p> */}
-                        </div>
-                        <div id="category" title='Enter number with country code'>
-                            <span id='name'>Enter your {parent ? parent : 'Parent'}'s Number📞</span>
-                            <PhoneInput international defaultCountry="IN" value={parentNumber} onChange={setParentNumber}/>
-                            {/* <input placeholder='Enter number with country code' 
-                            type="phone" name="parentNumber" id="parentNumber-input" value={parentNumber} onChange={(e)=> setParentNumber(e.target.value)}/> */}
-                            {/* <p id='value'>📞{profile.parentNumber.substring(0,5)+'*****'}</p> */}
-                            Check the bottom note
+                            onChange={(e)=> setMotherOccupation(e.target.value)}/> */}
+                            <MultipleSelectInput  onCreateOption={true} inputData={JobsList.occupations} setArray={setMotherOccupation} isLanguage={false}
+                                placeholder={"Enter your Mother's  Profession/Status"}/>
                         </div>
                         <div id="category" className='d-block' title='Enter your sibilings data'>
                             <span id='name'>Sibilings👨‍👧‍👦</span><br />
                             <label htmlFor="brother" style={{paddingRight: '10px'}}>Brother :</label>
                             <input type="number" id='brother-input' placeholder='Enter No. Of Brothers' title='No. Of Brothers' 
-                            value={noOfBrother} onChange={(e)=> setNoOfBrother(e.target.value)} style={{ width:'70%', marginBottom: '10px'}}/><br/>
+                                value={noOfBrother} onChange={(e)=> setNoOfBrother(e.target.value)} style={{ width:'70%', marginBottom: '10px'}}/><br/>
                             <label htmlFor="brother" style={{paddingRight: '10px'}}>Sister :</label>
                             <input type="number" id='sister-input' placeholder='Enter No. Of Sisters' title='No. Of Sisters' 
-                            value={noOfSister} onChange={(e)=> setNoOfSister(e.target.value)} style={{width:'70%'}}/>
+                                value={noOfSister} onChange={(e)=> setNoOfSister(e.target.value)} style={{width:'70%'}}/>
+                        </div>
+                        <div id="category" title='Enter your sibilings data'>
+                            <span id='name'>Family's financial status 💵</span>
+                            <select name="financial-status" id="financialStatus-select" value={financialStatus} onChange={(e)=> setFinancialStatus(e.target.value)}>
+                                <option value={null}>Select</option>
+                                <option value="affluent">Affluent</option>
+                                <option value="rich">Rich</option>
+                                <option value="upper">Upper Middle Class</option>
+                                <option value="middle">Middle Class</option>
+                                <option value="lower">Lower Middle Class</option>
+                                <option value="poor">Poor</option>
+                                <option value="no">Prefer Not To Say</option>
+                            </select>
+                        </div>
+                        <div id="category" title='Enter the location of Family Living in'>
+                        <span id='name'>Family living in 👨‍👨‍👧‍👧 📍</span>
+                        <input type="text" placeholder='City, State, Country' value={familyLivingIn} onChange={(e)=> setFamilyLivingIn(e.target.value)} />
                         </div>
                     </div>
                     <div id="categories">
@@ -476,7 +493,7 @@ function EditMyProfile(){
                         <div id="category"  title='Select your sect'>
                             <label id='name' htmlFor="sect">Select your sect👩‍👩‍👧‍👦</label>
                             <select name="sect" id="sect-input" value={sect} onChange={(e)=>setSectInput(e.target.value)} width={'250'}
-                            style={{maxWidth: '240px'}}>
+                                style={{maxWidth: '240px'}}>
                                 <option value="pure-sunni" name="pure-sunni">Pure Sunni</option>
                                 <option value="bidah-sunni" name="bidah-sunni">Sunni (non-Dargah) (Mawlid, Fatiha, etc..) (Ahlul Sunna val Jamath)</option>
                                 <option value="dargah-sunni" name="dargah-sunni">Sunni (Dargah)</option>
@@ -498,7 +515,7 @@ function EditMyProfile(){
                         <div id="category"  title='Select your Salah Pattern'>
                             <label htmlFor="Salah Pattern" id="name">Salah Pattern🤲🏼</label>
                             <select name="select" id="salahPattern-input" value={salahPattern} required onChange={(e)=> setSalahPattern(e.target.value)}
-                            style={{maxWidth: '240px'}}>
+                                style={{maxWidth: '240px'}}>
                                 <option value={null}>Select your Salah patern</option>
                                 <option value="veryHigh">Never Leave Fardh</option>
                                 <option value="high">Always Pray but leaves occasionaly</option>
@@ -508,7 +525,7 @@ function EditMyProfile(){
                             </select>
                         </div>
                         <div id="category" title='Enter your consistency'>
-                            <span id="name">How Often you read the Quran</span>
+                            <span id="name">How Often you read the Quran 📖</span>
                             <select name="quranRead" id="quranRead-input" value={quranRead} onChange={(e)=> setQuranRear(e.target.value)} style={{maxWidth: '240px'}}>
                                 <option value={null}>Select your Consistency</option>
                                 <option value="daily">Daily</option>
@@ -522,8 +539,8 @@ function EditMyProfile(){
                         <div id="category" title='Select your practicing level of deen'>
                             <label htmlFor="Practicing level" id="name">Practicing level🕌</label>
                             <select name="select" id="practicingLevel-input" 
-                            value={practicingLevel} required onChange={(e)=> setPracticingLevel(e.target.value)}
-                            style={{maxWidth: '240px'}}>
+                                value={practicingLevel} required onChange={(e)=> setPracticingLevel(e.target.value)}
+                                style={{maxWidth: '240px'}}>
                                 <option value="select">Select your practicing Level</option>
                                 <option value="excellent">Fullfills All the Fardh and AllMost of the Sunnah acts And abstain from all the major & minor sins</option>
                                 <option value="veryHigh">Fullfills fardh and abstain from major sins</option>
@@ -535,9 +552,71 @@ function EditMyProfile(){
                         </div>
                         <div id="category" title='Enter the scholars you like / follow'>
                             <label htmlFor="scholars" id='name'>Name Some of the Scholars you follow👨‍🏫</label>
-                            <MultipleSelectInput onCreateOption={true} inputData={initialOptionsForScholars} setArray={setScholarArray} isLanguage={false}/>
+                            <MultipleSelectInput  onCreateOption={true} inputData={initialOptionsForScholars} setArray={setScholarArray} isLanguage={false}
+                                placeholder={'Enter some scholars which you follow'}/>
                         </div>
-                        
+                    </div>
+                    <div id="categories">
+                        <p id='title'>My Taste and Preferences</p>
+                        <div id="category" title='Enter some youtube channels name you follow' >
+                            <label htmlFor="youtubeChannels" id='name'>Name some youtube channels you like</label>
+                            <input type="text" name="youtubeChannels" id="youtubeChannels-input"
+                                placeholder='Enter some youtube channels name you follow'
+                                value={youtubeChannels} onChange={(e)=> setYoutubeChannels(e.target.value)}/>(multiple entries seperated by comma)
+                        </div>
+                        <div id="category" title='Enter some Social Media Pages/Influencers you follow'>
+                            <label htmlFor="socialMediaInfluencers" id='name'>Name some Social Media Pages you like</label>
+                            <input type="text" name="socialMediaInfluencers" id="socialMediaInfluencers-input"
+                                placeholder='Enter some Social Media Pages/Influencers you follow'
+                                value={socialMediaInfluencers} onChange={(e)=> setSocialMediaInfluencers(e.target.value)}/>(multiple entries seperated by comma)
+                        </div>
+                        <div id='category' title='Select your political awareness'>
+                            <span id='name'>How political are you ?</span>
+                            <select id='political-select' value={political} onChange={(e)=> setPolitical(e.target.value)} 
+                            style={{width:'100%'}}>
+                                <option value={null}>Selct your awareness</option>
+                                <option value='high'>Highly aware (GeoPoliitics)</option>
+                                <option value='medium'>Aware of (Local Politics)</option>
+                                <option value='low'>Unaware of Politics</option>
+                                <option value='never'>Not interested in knowing politics</option>
+                            </select>
+                        </div>
+                        <div id='category' title='Enter your Interests'>
+                            <span id="name">Hobbies / Interests</span>
+                            <MultipleSelectInput  isLanguage={false} onCreateOption={true} inputData={HobbiesList.hobbies} setArray={setHobbies}
+                                placeholder={'Enter your hobbies and interests'}/>
+                        </div>
+                        <div id="category">
+                            <span id="name"> Do you want your Partner to be working professional ?</span>
+                            <select name="partner-professional" id="partner-professional-select" value={isPartnerProfessional} onChange={(e)=> setIsPartnerProfessional(e.target.value)} >
+                                <option value={null}>Select</option>
+                                <option value={'yes'}>Yes</option>
+                                <option value={'no'}>No</option>
+                            </select>
+                            <div style={{textAlign: 'left'}} className={isPartnerProfessional ? (isPartnerProfessional == 'yes' ? 'd-block text-align-left' : 'd-none text-align-left') : 'd-none text-align-left' }>
+                                <MultipleSelectInput  onCreateOption={true} inputData={JobsList.occupations} setArray={setPartnersProfession} isLanguage={false} placeholder={'Select the professions that you are ok with it'}/>
+                            </div>
+                        </div>
+                        <div id="category">
+                            <span id="name"> Do you want your Partner to be Educated ?</span>
+                            <select name="partner-educated" id="partner-educated-select" value={partnerEducated} onChange={(e)=> setPartnerEducated(e.target.value)}>
+                                <option value={null}>Select</option>
+                                <option value={'yes'}>Yes</option>
+                                <option value={'no'}>No</option>
+                            </select>
+                            <select className={partnerEducated ? (partnerEducated == 'yes' ? 'd-block' : 'd-none') : 'd-none'} title="Select your partner's highest degree of qualificatoin"
+                                name="partner-education" id="partner-education-input" value={partnerEducation} onChange={(e)=> setPartnerEducation(e.target.value)}
+                                style={{width: '100%'}}>
+                                <option value={null}>Select your partner's highest qualification</option>
+                                <option value="primary">Primary (Grade 1-7)</option>
+                                <option value="secondary">Secondary (Grade 8-10)</option>
+                                <option value="higher">Higher (Grade 11-12)</option>
+                                <option value="diploma">Diploma (Polytechnic)</option>
+                                <option value="ug">Bachelor's (UG)</option>
+                                <option value="pg">Master's (PG)</option>
+                                <option value="phd">Doctoral degree (Ph.D)</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div id="description">
@@ -546,14 +625,14 @@ function EditMyProfile(){
                         <div className='dc-fields' title='Enter your Email id' style={{ paddingBottom:'15px'}}>
                             <span id='name'>Email Id📧</span>
                             <input placeholder="Enter your Email id" type="email" name="email" id="email-input" 
-                            value={email} onChange={(e)=> setEmail(e.target.value)} style={{width:'90%'}}/>
+                                value={email} onChange={(e)=> setEmail(e.target.value)} style={{width:'90%'}}/>
                             {/* <p id='value'><a href={'mailto:'+profile.email}>{profile.email}</a></p> */}
                         </div>
                         <div className='dc-fields' title="Put your Page's link">
                             <span id='name'>Social Media Handles📲</span>
                             <input  placeholder="Put your Page's link" 
-                            type="text" name="socialLinks" id="socialLinks-input" value={socialLinks} onChange={(e)=> setSocialLinks(e.target.value)}
-                            style={{width:'90%'}}/>
+                                type="text" name="socialLinks" id="socialLinks-input" value={socialLinks} onChange={(e)=> setSocialLinks(e.target.value)}
+                                style={{width:'90%'}}/>
                             Paste your Social Media profile page's link here                       
                             {/* <p id='value'><a target={'_blank'} 
                                 href={profile.socialLinks}>{profile.socialLinks && profile.socialLinks.includes('instagram') ? 'Instagram' :   profile.socialLinks.includes('facebook') ? 'Facebook' : profile.socialLinks.includes('twitter') ? 'Twitter' : 'Social Media' }  </a></p> */}
@@ -567,95 +646,46 @@ function EditMyProfile(){
                             {/* <p id='value'>{profile.mobileNumber.substring(0,5)+'*****'}</p> */}
                             Check the bottom note
                         </div>
-
+                        <div id="category" title={`Enter your ${parent ? parent : 'Parent'}'s name`}>
+                            <span id='name'>Enter your {parent ? parent : 'Parent'}'s name 👨‍👩‍👧‍👧</span>
+                            <select name="mfg" id="mfg-select" value={parent} onChange={(e)=> setParent(e.target.value)}>
+                                <option name='parent' value="">Select Parent</option>
+                                <option name='mom' value="mom">Mother</option>
+                                <option name='dad' value="dad">Father</option>
+                                <option name='guardian' value="guardian">Guardian</option>
+                            </select>
+                            <input title={`Enter your ${parent ? parent : 'Parent'}'s name`} placeholder={`Enter your ${parent ? parent : 'Parent'}'s name`} type="text" name="parentName" id="parentName-input" 
+                                value={ parentName ? parentName.substring(2) : ''} onChange={(e)=> setParentName(e.target.value)}/>
+                            {/* <p id='value'>{profile.parentName && profile.parentName.substring(0,1) == 'm' ? 'Mom :  ' : 'Dad :  '} {profile.parentName.substring(2)}</p> */}
+                        </div>
+                        <div id="category" title='Enter number with country code'>
+                            <span id='name'>Enter your {parent ? parent : 'Parent'}'s Number📞</span>
+                            <PhoneInput international defaultCountry="IN" value={parentNumber} onChange={setParentNumber}/>
+                            {/* <input placeholder='Enter number with country code' 
+                            type="phone" name="parentNumber" id="parentNumber-input" value={parentNumber} onChange={(e)=> setParentNumber(e.target.value)}/> */}
+                            {/* <p id='value'>📞{profile.parentNumber.substring(0,5)+'*****'}</p> */}
+                            Check the bottom note
+                        </div>
                     </div>
                     <div id="description-container" title='Enter About yourself in great detail'>
-                        <span id="title">About Me</span><br/>
+                        <br /><span id="title">About Me</span><br/>
                         <textarea className='textarea' type="text" name="aboutMe" id="aboutMe-input" 
                          value={aboutMe} onChange={(e)=> setAboutMe(e.target.value)}
                          placeholder='Enter About yourself in great detail'    
                          style={{resize : 'vertical', marginBottom : '10px', minHeight : '150px', width: '90%'}} />
                     </div>
-                    <div id="description-container">
-                        <span id="title">My Expectation</span>
-                        <div id="category" className='d-flex flex-wrap flex-direction-column' style={{maxWidth:'95%'}}>
-                            <span id="name"> Do you want your Partner to be Educated ?</span>
-                            <div className='d-flex justify-content-center'>
-                                <select name="partner-educated" id="partner-educated-select" value={partnerEducated} onChange={(e)=> setPartnerEducated(e.target.value)} style={{width:'100px'}}>
-                                    <option value={null}>Select</option>
-                                    <option value={'yes'}>Yes</option>
-                                    <option value={'no'}>No</option>
-                                </select>
-                                <select className={partnerEducated ? (partnerEducated == 'yes' ? 'd-block' : 'd-none') : 'd-none'} title="Select your partner's highest degree of qualificatoin"
-                                    name="partner-education" id="partner-education-input" value={partnerEducation} onChange={(e)=> setPartnerEducation(e.target.value)}>
-                                    <option value={null}>Select your partner's highest qualification</option>
-                                    <option value="primary">Primary (Grade 1-7)</option>
-                                    <option value="secondary">Secondary (Grade 8-10)</option>
-                                    <option value="higher">Higher (Grade 11-12)</option>
-                                    <option value="diploma">Diploma (Polytechnic)</option>
-                                    <option value="ug">Bachelor's (UG)</option>
-                                    <option value="pg">Master's (PG)</option>
-                                    <option value="phd">Doctoral degree (Ph.D)</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div id="category">
-                            <span id="name"> Do you want your Partner to be working professional ?</span>
-                            <div className='d-flex justify-content-center'>
-                                <select name="partner-educated" id="partner-educated-select" value={isPartnerProfessional} onChange={(e)=> setIsPartnerProfessional(e.target.value)} style={{width:'100px'}}>
-                                    <option value={null}>Select</option>
-                                    <option value={'yes'}>Yes</option>
-                                    <option value={'no'}>No</option>
-                                </select>
-                                <div style={{width:'70%'}} className={isPartnerProfessional ? (isPartnerProfessional == 'yes' ? 'd-block text-align-left' : 'd-none text-align-left') : 'd-none text-align-left' }>
-                                    <MultipleSelectInput onCreateOption={false} inputData={JobsList.occupations} setArray={setPartnersProfession} isLanguage={false}/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div id="description-container" title='Describe your Expectation in Great detail'>
-                        <span id='title'>Describe your Expectation in words</span>
+                        <br /><span id='title'>Describe your Expectation in words</span><br />
                         <textarea className='textarea1' type="text" name="myExpectation" id="myExpectation-input" 
-                        value={myExpectation} onChange={(e)=> setMyExpectation(e.target.value)}
-                        placeholder='Describe your Expectation in Great detail'    
-                        style={{resize : 'vertical', marginBottom : '10px', minHeight : '150px',  width: '90%'}} />
-                    </div>
-                    <div id="description-container" className='d-block justify-content-center'>
-                        <span id="title">My Taste</span><br/>
-                        <div id="category" title='Enter some youtube channels name you follow' >
-                            <label htmlFor="youtubeChannels" id='name'>Name some youtube channels you like</label>
-                            <input type="text" name="youtubeChannels" id="youtubeChannels-input"
-                            placeholder='Enter some youtube channels name you follow'
-                            value={youtubeChannels} onChange={(e)=> setYoutubeChannels(e.target.value)}/>(multiple entries seperated by comma)
-                        </div>
-                        <div id="category" title='Enter some Social Media Pages/Influencers you follow'>
-                            <label htmlFor="socialMediaInfluencers" id='name'>Name some Social Media Pages you like</label>
-                            <input type="text" name="socialMediaInfluencers" id="socialMediaInfluencers-input"
-                            placeholder='Enter some Social Media Pages/Influencers you follow'
-                            value={socialMediaInfluencers} onChange={(e)=> setSocialMediaInfluencers(e.target.value)}/>(multiple entries seperated by comma)
-                        </div>
-                        <div id="box" className='d-flex flex-wrap justify-content-center'>
-                            <div id='category' title='Select your political awareness'>
-                                <span id='name'>How political are you ?</span>
-                                <select id='political-select' value={political} onChange={(e)=> setPolitical(e.target.value)}>
-                                    <option value={null}>Selct your awareness</option>
-                                    <option value='high'>Highly aware (GeoPoliitics)</option>
-                                    <option value='medium'>Aware of (Local Politics)</option>
-                                    <option value='low'>Unaware of Politics</option>
-                                    <option value='never'>Not interested in knowing politics</option>
-                                </select>
-                            </div>
-                            <div id='category' title='Enter your Interests'>
-                                <span id="name">Hobbies / Interests</span>
-                                <MultipleSelectInput isLanguage={false} onCreateOption={true} inputData={HobbiesList.hobbies} setArray={setHobbies}/>
-                            </div>
-                        </div>
+                            value={myExpectation} onChange={(e)=> setMyExpectation(e.target.value)}
+                            placeholder='Describe your Expectation in Great detail'    
+                            style={{resize : 'vertical', marginBottom : '10px', minHeight : '150px',  width: '90%'}} />
                     </div>
                     <div id="description-container" title='Suggest One Quran Verse'>
-                        <span id="title">Quran Verse Which I Suggest</span><br/>
+                        <br /><span id="title">Quran Verse Which I Suggest</span><br/>
                         <textarea className='textarea2' type="text" name="quranVerse" id="quranVerse-input" value={quranVerse} onChange={(e)=> setQuranVerse(e.target.value)}
-                        placeholder="Suggest One Quran Verse along with the reference. For Example : '...They(wife) are a clothing for you and you are a clothing for them...'(Quran 2:187) "    
-                        style={{resize : 'vertical', marginBottom : '10px', minHeight : '150px', width:'90%'}} />
+                            placeholder="Suggest One Quran Verse along with the reference. For Example : '...They(wife) are a clothing for you and you are a clothing for them...'(Quran 2:187) "    
+                            style={{resize : 'vertical', marginBottom : '10px', minHeight : '150px', width:'90%'}} />
                     </div>
                 </div>
             </div>

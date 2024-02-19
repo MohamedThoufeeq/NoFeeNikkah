@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import CreatableSelect from 'react-select/creatable';
 import Select from 'react-select';
 
-const MultipleSelectInput = ({ inputData, setArray, isLanguage, onCreateOption }) => {
+const MultipleSelectInput = ({ inputData, setArray, isLanguage, onCreateOption, placeholder }) => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [options, setOptions] = useState([]);
 
   useEffect(() => {
     setOptions(inputData.map(item => ({
-      value: item.code || item.value || item.title || item, // Assuming language has "code" and scholars have "value"
-      label: isLanguage ? `${item.name} (${item.nativeName})` : (item.label ? item.label :(item.title ? item.title : item.toLocaleUpperCase()))// Format label differently for language and scholars
+      value: item.fields ? item.fields.ethnicity : ( item.code || item.value || item.title|| item ), // Assuming language has "code" and scholars have "value"
+      label: isLanguage ? `${item.name} (${item.nativeName})` : (item.label ? item.label :(item.title ? item.title : (item.fields ? `${item.fields.synonym}(${item.fields.ethnicity})` : item.toUpperCase())))// Format label differently for language and scholars
     })));
   }, [inputData, isLanguage]);
 
@@ -35,7 +35,7 @@ const MultipleSelectInput = ({ inputData, setArray, isLanguage, onCreateOption }
           value={selectedOptions}
           onChange={handleChange}
           onCreateOption={ onCreateOption ? handleCreate : null}
-          placeholder="Type to search..."
+          placeholder={placeholder}
           styles={customStyles}
         />
       );
@@ -46,7 +46,7 @@ const MultipleSelectInput = ({ inputData, setArray, isLanguage, onCreateOption }
                 options={options}
                 value={selectedOptions}
                 onChange={handleChange}
-                placeholder="Type to search..."
+                placeholder={placeholder}
                 styles={customStyles}
             />
     )
@@ -56,7 +56,7 @@ const customStyles = {
     option: (provided, state) => ({
       ...provided,
       cursor: 'pointer',
-      width: '100%',
+      width: '90%',
       backgroundColor: state.isSelected ? '#f0f0f0' : state.isFocused ? '#cceeff' : 'transparent',
     }),
     control: (provided) => ({
