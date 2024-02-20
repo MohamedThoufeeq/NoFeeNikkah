@@ -173,9 +173,12 @@
     align-items: center;
 
 }
-#descrpition-container textarea{
+textarea{
     resize: vertical;
     max-width: 600px;
+    margin-bottom: 40px;
+    min-height : 150px;
+    width: 90%;
 }
 @media screen and (min-width : 520px) {
     

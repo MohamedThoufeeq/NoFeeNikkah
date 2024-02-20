@@ -3,23 +3,17 @@ import jsondata from "../files/country-state-city.json";
 import "../css/CountryStateCity.css";
 import Autocomplete from "./Autocomplete.jsx";
 
-function CountryStateCity1(profile) {
+function CountryStateCity1({profile, updateSelectedCountry, updateSelectedState, updateSelectedCity, name}) {
   const [data, setData] = useState([]);
   const [state, setState] = useState([]);
   const [city, setCity] = useState([]);
 
-  const [selectedCountry, setSelectedCountry] = useState(profile.country);
-  const [selectedState, setSelectedState] = useState(profile.state);
-  const [selectedCity, setSelectedCity] = useState(profile.city);
+  const [selectedCountry, setSelectedCountry] = useState(name == 'permenant' ? profile.permenantCountry :( name == 'country' ?  profile.country : (name == 'partner' ? profile.partnerCountry : '')));
+  const [selectedState, setSelectedState] = useState(name == 'permenant' ? profile.permenantState :( name == 'country' ?  profile.state : (name == 'partner' ? profile.partnerState : '')));
+  const [selectedCity, setSelectedCity] = useState(name == 'permenant' ? profile.permenantCity :( name == 'country' ?  profile.city : (name == 'partner' ? profile.partnerCity : '')));
   
   useEffect(() => {
     setData(jsondata.content);
-    // if(selectedCountry){
-    //   document.querySelector("#state-input").style.display = "block";
-    // }
-    // if(selectedState){
-    //   document.querySelector("#city-input").style.display = "block";
-    // }
   }, []);
 
   //removing duplicate country names
@@ -27,7 +21,8 @@ function CountryStateCity1(profile) {
   country.sort();
 
   const handleCountrySelect = (value) => {
-    setSelectedCity(value);
+    setSelectedCountry(value);
+    updateSelectedCountry(value);
     setState("Select State");
     setCity([]); // Clear city array when country is selected
     let singleCountry = data.filter((item) => item.country === value);
@@ -38,6 +33,7 @@ function CountryStateCity1(profile) {
 
   const handleStateSelect = (value) => {
     setSelectedState(value);
+    updateSelectedState(value);
     let cities = data
       .filter((item) => item.subcountry === value)
       .map((item) => item.name); // Extract city names from objects
@@ -45,14 +41,13 @@ function CountryStateCity1(profile) {
     // document.querySelector("#city-input").style.display = "block";
   };
 
+  const handleCitySelect = (value) => {
+    setSelectedCity(value);
+    updateSelectedCity(value);
+  }
   const countryData = { selectedCountry, selectedState, selectedCity };
-
   
-  return {
-    selectedCountry,
-    selectedState,
-    selectedCity,
-    renderCSC: (
+  return (
       <>
         {/* Country Selection */}
         <div className="onefield" id="country-input">
@@ -82,13 +77,13 @@ function CountryStateCity1(profile) {
             data={city}
             label="City:"
             value={selectedCity}
-            onChange={(value) => setSelectedCity(value)}
+            handleCitySelect={handleCitySelect}
+            // onChange={(e) => handleSelectedCity(e)}
             countryData={countryData.selectedCity}
           />
         </div>
       </>
-    ),
-  };
+    );
 }
 
 export default CountryStateCity1;

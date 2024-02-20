@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./AutoComplete.css"
 
-function Autocomplete({ data, label , handleCountrySelect, handleStateSelect, countryData}) {
+function Autocomplete({ data, label , handleCountrySelect, handleStateSelect, handleCitySelect, countryData}) {
   // create state variables for input and suggestions
   const [input, setInput] = useState(countryData);
   const [suggestions, setSuggestions] = useState([]);
@@ -32,6 +32,8 @@ function Autocomplete({ data, label , handleCountrySelect, handleStateSelect, co
         handleCountrySelect(value);
     } else if(handleStateSelect) {
         handleStateSelect(value);
+    } else if (handleCitySelect){
+      handleCitySelect(value)
     }
     setInput(value);
     // clear the suggestions state
