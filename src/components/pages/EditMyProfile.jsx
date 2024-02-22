@@ -11,6 +11,7 @@ import PhoneInput from 'react-phone-number-input'
 import JobsList from '../files/JobsList.json';
 import HobbiesList from '../files/HobbiesList.json';
 import EthnicityList from '../files/EthnicityList.json';
+import ScholarsList from '../files/ScholarsList.json';
 
 function EditMyProfile(){
     const profile = samplejsonprofile.profiles[5];
@@ -151,12 +152,7 @@ function EditMyProfile(){
                                                     //myTaste
     //scholars
     // const [scholars, setScholars] = useState(profile.scholars);
-    const initialOptionsForScholars = [
-        { value: 'ahmeddeedat', label: 'Ahmed Deedat' },
-        { value: 'zakirnaik', label: 'Zakir Naik' },
-        { value: 'shabirally', label: 'Shabir Ally' },
-        // Add more options as needed
-      ];
+    const initialOptionsForScholars = ScholarsList.scholars;
     const [scholarArray, setScholarArray] = useState([]);
     //languagesKnown
     const [languagesKnownArray, setLanguagesKnownAray] = useState([]);
@@ -519,9 +515,9 @@ function EditMyProfile(){
                             <label id='name' htmlFor="sect">Select your sect👩‍👩‍👧‍👦</label>
                             <select name="sect" id="sect-input" value={sect} onChange={(e)=>setSect(e.target.value)} width={'250'}
                                 style={{maxWidth: '250px'}}>
-                                <option value="pure-sunni" name="pure-sunni">Pure Sunni</option>
-                                <option value="bidah-sunni" name="bidah-sunni">Sunni (non-Dargah) (Mawlid, Fatiha, etc..) (Ahlul Sunna val Jamath)</option>
-                                <option value="dargah-sunni" name="dargah-sunni">Sunni (Dargah)</option>
+                                <option value="pureSunni" name="pureSunni">Pure Sunni</option>
+                                <option value="bidahSunni" name="bidahSunni">Sunni (non-Dargah) (Mawlid, Fatiha, etc..) (Ahlul Sunna val Jamath)</option>
+                                <option value="dargahSunni" name="dargahSunni">Sunni (Dargah)</option>
                                 <option value="shia" name="shia">Shia</option>
                                 <option value="zaydiya" name="zaydiya">Zaydiya</option>
                                 <option value="ismayiliya" name="ismayiliya">Ismayiliya</option>
@@ -534,7 +530,7 @@ function EditMyProfile(){
                                 <option value="deobandi" name="deobandi">Deobandi</option>
                                 <option value="barelvi" name="barelvi">Barelvi</option>
                                 <option value="others" name="others">Others</option>
-                                <option value="preferNotToSay" name="preferNotToSay">PreferNotToSay</option>
+                                <option value="preferNotToSay" name="preferNotToSay">Prefer Not ToSay</option>
                             </select>
                         </div>
                         <div id="category"  title='Select your Salah Pattern'>
@@ -680,6 +676,7 @@ function EditMyProfile(){
                             <span id="name"> Enter your Patner's preferred location 📍</span>
                             <CountryStateCity profile={profile} updateSelectedCountry={setPartnerSelectedCountry} updateSelectedState={setPartnerSelectedState} 
                                 updateSelectedCity={setPartnerSelectedCity} name={'partner'}/>
+                                Leave the city blank if you want anywhere in the state
                         </div>
                     </div>
                     <div id="categories">
