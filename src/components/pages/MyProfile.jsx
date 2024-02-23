@@ -69,13 +69,19 @@ function MyProfile(){
         "low": "Occasionaly Practice Islam",
         "kafir": "I'm a modern liberal"
     }`;
+    const politicalDefn = `{
+        "high":"Highly Aware (GeoPolitics and Local Politics)",
+        "medium":"Aware of Local Politics",
+        "no":"Unaware of Politics",
+        "never":"Not interested in knowing politics"
+    }`;
     const educationJson = JSON.parse(educationDefn);
     const financialStatusJson = JSON.parse(financialStatusDefn);
     const sectDefnJson = JSON.parse(sectDefn);
     const salahPatternJson = JSON.parse(salahPatternDefn);
     const quranReadJson = JSON.parse(quranReadDefn);
     const practicingLevelJson = JSON.parse(practicingLevelDefn);
-
+    const politicalJson = JSON.parse(politicalDefn);
     const age = AgeCalculator(profile.dateOfBirth);
     
     const scholars = [];
@@ -120,23 +126,26 @@ function MyProfile(){
                             <p id='value'>🔢{age}</p>
                         </div>
                         <div id="category">
+                            <span id='name'>Marital Status</span>
+                            <p id='value'>⚭  {profile.maritalStatus}</p>
+                        </div>
+                        <div id="category">
                             <span id='name'>Living in</span>
                             <p id='value'>📍{profile.city}, {profile.state}, {profile.country}</p>
                         </div>
+                    </div>
+                    <div id="categories">
+                        <p id='title'>Basic Information</p>
                         <div id="category">
                             <span id='name'>Languages Known</span>
                             <p id='value'>🗣️{profile.languagesKnownArray.join(", ")}</p>
                         </div>
                         <div id="category">
-                            <span id='name'>Marital Status</span>
-                            <p id='value'>⚭  {profile.maritalStatus}</p>
-                        </div>
-                        <div id="category">
                             <span id='name'>Children</span>
-                            <p id='value'>{'Children :  '+profile.children}
-                                {profile.children == 'both' ?  (', No. of '+"Sons and Daughters"+' : '+profile.childrenCount) : 
+                            <p id='value'>{'Children :  '+profile.children}<br />
+                                {profile.children == 'both' ?  ('No. of '+"Sons and Daughters"+' : '+profile.childrenCount) : 
                                     profile.children != '' 
-                                    ? (', No. of '+ profile.children+' : '+profile.childrenCount)
+                                    ? ('No. of '+ profile.children+' : '+profile.childrenCount)
                                     : null
                                 }
                             </p>
@@ -144,8 +153,8 @@ function MyProfile(){
                         <div id="category">
                             <span id='name'>Physical Information 💪🏻</span>
                             <p id='value'>
-                               <b>Height</b> -{profile.height}{'CM  '}
-                               <b> Weight</b> - {profile.weight}{'Kg  '}
+                               <b>Height</b> -{profile.height}{'CM  '}<br />
+                               <b> Weight</b> - {profile.weight}{'Kg  '}<br />
                                <b> BMI index</b> - {bmi}
                             </p>
                         </div>
@@ -241,19 +250,47 @@ function MyProfile(){
                     </div>
                 </div>    
                 <div id="categories">
-                    <p id="title">Contact Information</p>
+                    <p id="title">My Taste and Preferences</p>
+                    <div id="category">
+                        <span id="name">Youtube Channels i like / follow</span>
+                        <p id="value">▶️ {profile.youtubeChannels}</p>
+                    </div>
+                    <div id="category">
+                        <span id="name">Social Media Pages i like / follow</span>
+                        <p id="value">📱 {profile.socialMediaInfluencers}</p>
+                    </div>
+                    <div id="category">
+                        <span id="name">How Political i am</span>
+                        <p id="value">🗳 {politicalJson[profile.political]}</p>
+                    </div>
+                    <div id="category">
+                        <span id="name">Hobbies and Interests</span>
+                        <p id="value">🤾‍♂ {profile.hobbies.join(", ")}</p>
+                    </div>
+                </div>
+                <div id="categories">
+                    <p id="title">Partner Preferences</p>
+                    <div id="category">
+                        <span id="name">Do you want your partner to be Educated ?</span>
+                        <p id="value">🧑‍🎓 {profile.partnerEducated}<br />
+                        {profile.partnerEducated == 'yes' ? "Preferred Minimum Education : "+ educationJson[profile.partnerEducation] : null}
+                        </p>
+                    </div>
+                    <div id="category">
+                        <span id="name">Partner's preferred Age</span>
+                        <p id="value">🔢Between {profile.fromAge} and {profile.toAge}</p>
+                    </div>
+                    <div id="category">
+                        <span id="name">Partner's preferred Sect</span>
+                        <p id="value">👩‍👩‍👧‍👦 {sectDefnJson[profile.partnerSect]}</p>
+                    </div>
+                    <div id="category">
+                        <span id="name">Partner's preferred Location</span>
+                        <p id="value">{profile.partnersPreferredCountry}, {profile.partnersPreferredState}, {profile.partnersPreferredCity}</p>
+                    </div>
                 </div>
                 <div id="categories">
                     <p id="title">Contact Information</p>
-                    <div id="category">
-                        <span id='name'>Parent's Name</span>
-                        <p id='value'>👨‍👩‍👧‍👧{profile.parentName && profile.parentName.substring(0,1) == 'm' ? 'Mom :  ' : profile.parentName.substring(0,1) == 'd' ? 'Dad :  ' : profile.parentName.substring(0,1) == 'g' ? 'Guardian : ':''} {profile.parentName.substring(2)}</p>
-                    </div>
-                    <div id="category">
-                        <span id='name'>Parent's Contact Number</span>
-                        <p id='value'>📞{profile.parentNumber.substring(0,5)+'*****'}</p>
-                        Check the bottom note
-                    </div>
                     <div id="category">
                         <span id='name'>Email Id</span>
                         <p id='value'>📧<a href={'mailto:'+profile.email}>{profile.email}</a></p>
@@ -265,19 +302,33 @@ function MyProfile(){
                     </div>
                     <div id="category">
                         <span id='name'>Mobile Number</span>
-                        <p id='value'>📞{profile.mobileNumber.substring(0,5)+'*****'}</p>
+                        <p id='value'>📞{profile.mobileNumber.substring(0,7)+'*****'}</p>
+                        Check the bottom note
+                    </div>
+                    <div id="category">
+                        <span id='name'>Parent's Name</span>
+                        <p id="value">{profile.parent} : {profile.parentName}</p>
+                        {/* <p id='value'>👨‍👩‍👧‍👧{profile.parentName && profile.parentName.substring(0,1) == 'm' ? 'Mom :  ' : profile.parentName.substring(0,1) == 'd' ? 'Dad :  ' : profile.parentName.substring(0,1) == 'g' ? 'Guardian : ':''} {profile.parentName.substring(2)}</p> */}
+                    </div>
+                    <div id="category">
+                        <span id='name'>Parent's Contact Number</span>
+                        <p id='value'>📞{profile.parentNumber.substring(0,7)+'*****'}</p>
                         Check the bottom note
                     </div>
                 </div>
              </div>
                 <div id="description">
                     <div id="description-container">
-                        <span id="title">About Me</span>
+                        <span id="title" className='d-title'>About Me</span>
                         <p>{profile.aboutMe}</p>
                     </div>
                     <div id="description-container">
-                        <span id="title">My Expectation</span>
+                        <span id="title" className='d-title'>My Expectation</span>
                         <p>{profile.myExpectation}</p>
+                    </div>
+                    <div id="description-container">
+                        <span id="title" className='d-title'>Quran Verse Which I Suggest</span>
+                        <p>{profile.quranVerse}</p>
                     </div>
                 </div>
                 <p id='value'><b>Note : </b>⚠️We will not expose any of the user's mobile number because of spamming and privacy concerns. Click on the "Show Interest" button which will send your mobile number to them And they will contact you. Otherwise, contact them directly via Email or any of the Social Media handles.</p>

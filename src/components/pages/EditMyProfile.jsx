@@ -250,9 +250,9 @@ function EditMyProfile(){
         'fromAge': fromAge,
         'toAge': toAge,
         'partnerSect': partnerSect,
-        'partnerSelectedCountry': partnerSelectedCountry,
-        'partnerSelectedState': partnerSelectedState,
-        'partnerSelectedCity': partnerSelectedCity
+        'partnersPreferredCountry': partnerSelectedCountry,
+        'partnersPreferredState': partnerSelectedState,
+        'partnersPreferredCity': partnerSelectedCity
     };
     const jsonProfileData = JSON.stringify(profileData);
 

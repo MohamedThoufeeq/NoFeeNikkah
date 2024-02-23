@@ -139,6 +139,12 @@
     text-align: center;
 
 }
+.d-title{
+    margin: 10px 0px;
+    padding: 2px 8px;
+    border-radius: 5px;
+    background-color: #a3a3a32a;
+}
 @media screen and (min-width : 520px) {
     
     #description-container {
