@@ -75,6 +75,33 @@ function MyProfile(){
         "no":"Unaware of Politics",
         "never":"Not interested in knowing politics"
     }`;
+    const registeredForDefn = `{
+        "self" : "Registered For Myself",
+        "son" : "Registered For My Son",
+        "daughter" : "Registered For My Daughter",
+        "brother" : "Registered For My Brother",
+        "sister" : "Registered For My Sister",
+        "cousin" : "Registered For My Cousin",
+        "friend" : "Registered For My Friend",
+        "other" : "Registered for Other relative"
+    }`;
+    const eatingHabitsDefn = `{
+        "halal" : "Eat Only Halal Foods",
+        "any" : "Eat Any Foods",
+        "veg" : "Eat Only Vegetarian Foods",
+        "vegan" : "Eat Only Vegan Foods"
+    }`;
+    const smokeAndDrinkDefn = `{
+        "haram" : "Strictly Not (Haram)",
+        "smoke" : "Smoke Only",
+        "nonAlchohol" : "Non Alchohol Drinks Only",
+        "alchohl" : "Alchohol Drinks Only",
+        "smokeAndNonAlchohol" : "Smoking And Non Alchohol Drinks",
+        "smokeAndAlchohol" : "Smoking And Alchohol",
+        "hooka" : "Hooka (Shisha)",
+        "weed" : "Weed Only",
+        "all" : "All the Intoxicants"
+    }`;
     const educationJson = JSON.parse(educationDefn);
     const financialStatusJson = JSON.parse(financialStatusDefn);
     const sectDefnJson = JSON.parse(sectDefn);
@@ -82,6 +109,10 @@ function MyProfile(){
     const quranReadJson = JSON.parse(quranReadDefn);
     const practicingLevelJson = JSON.parse(practicingLevelDefn);
     const politicalJson = JSON.parse(politicalDefn);
+    const registeredForJson = JSON.parse(registeredForDefn);
+    const eatingHabitsJson = JSON.parse(eatingHabitsDefn);
+    const smokeAndDrinkJson = JSON.parse(smokeAndDrinkDefn);
+
     const age = AgeCalculator(profile.dateOfBirth);
     
     const scholars = [];
@@ -97,22 +128,26 @@ function MyProfile(){
         <div id="myprofile">
         <div id="my-profile-container">
             <div id="edit" title='Edit Your Profile'>
-            <a href="/edit-myprofile" title='Edit Your Profile'><FaUserEdit/></a>
+                <a href="/edit-myprofile" title='Edit Your Profile'><FaUserEdit/></a>
             </div>
             <div id="my-profile-header">
                 <div id="header-img" className='mt-10'>
                     <img src="../../../public/profile_img_boy.jpg" alt="Profile Picture" />
                 </div>
+                <span id='username' title='username'>{profile.username}</span>
                 <span id="name">
                     <h2>{profile.fullname}</h2>
                 </span>
-                <span id='interest'><a className='btn btn-success interest-btn hover' href={`http:localhost:8080/api/${profile.id}/senInterest/${profile.id}`}> Send Interest</a> </span>
             </div>
             <div id="border" ></div>
             <div id="my-profile-main">
                 <div id="category-group">
                     <div id="categories">
                         <p id='title'>Basic Information</p>
+                        <div id="category">
+                            <span id='name'>Registerer</span>
+                            <p id='value'>{registeredForJson[profile.registeredFor]}</p>
+                        </div>
                         <div id="category">
                             <span id='name'>Gender </span>
                             <p id='value'>{profile.gender ? profile.gender == 'male' ? '♂ Male' : 'Female ♀ ' : ''}</p>
@@ -126,10 +161,6 @@ function MyProfile(){
                             <p id='value'>🔢{age}</p>
                         </div>
                         <div id="category">
-                            <span id='name'>Marital Status</span>
-                            <p id='value'>⚭  {profile.maritalStatus}</p>
-                        </div>
-                        <div id="category">
                             <span id='name'>Living in</span>
                             <p id='value'>📍{profile.city}, {profile.state}, {profile.country}</p>
                         </div>
@@ -141,11 +172,19 @@ function MyProfile(){
                             <p id='value'>🗣️{profile.languagesKnownArray.join(", ")}</p>
                         </div>
                         <div id="category">
+                            <span id='name'>Permenant Address</span>
+                            <p id='value'>📍{profile.permenantCity}, {profile.permenantState}, {profile.permenantCountry}</p>
+                        </div>
+                        <div id="category">
+                            <span id='name'>Marital Status</span>
+                            <p id='value'>⚭  {profile.maritalStatus}</p>
+                        </div>
+                        <div id="category">
                             <span id='name'>Children</span>
-                            <p id='value'>{'Children :  '+profile.children}<br />
-                                {profile.children == 'both' ?  ('No. of '+"Sons and Daughters"+' : '+profile.childrenCount) : 
+                            <p id='value'>{'Children :  '+profile.children}
+                                {profile.children == 'both' ?  (', No. of '+"Sons and Daughters"+' : '+profile.childrenCount) : 
                                     profile.children != '' 
-                                    ? ('No. of '+ profile.children+' : '+profile.childrenCount)
+                                    ? (', No. of '+ profile.children+' : '+profile.childrenCount)
                                     : null
                                 }
                             </p>
@@ -162,7 +201,6 @@ function MyProfile(){
                             <span id='name'>Blood Group</span>
                             <p id='value'>🩸{profile.bloodGroup}</p>
                         </div>
-
                     </div>
                     <div id="categories">
                         <p id='title'>Professional background</p>
@@ -193,10 +231,6 @@ function MyProfile(){
                     </div>
                     <div id="categories">
                         <p id="title">Family Details</p>
-                        <div id="category">
-                            <span id='name'>Permenant Address</span>
-                            <p id='value'>📍{profile.permenantCity}, {profile.permenantState}, {profile.permenantCountry}</p>
-                        </div>
                         <div id="category">
                             <span id='name'>Father's Status / Occupation</span>
                             <p id='value'>🏗  {profile.fatherOccupation.join(", ")}</p>
@@ -236,7 +270,10 @@ function MyProfile(){
                         <span id="name">Salah Pattern</span>
                         <p id="value">🤲🏼 {salahPatternJson[profile.salahPattern]}</p>
                     </div>
-                    <div id="category">
+                </div>    
+                <div id="categories">
+                <p id="title">Religious Information</p>
+                <div id="category">
                         <span id="name">Quran Reading Consistency</span>
                         <p id="value">📖 {quranReadJson[profile.quranRead]}</p>
                     </div>
@@ -245,12 +282,16 @@ function MyProfile(){
                         <p id="value">🕌 {practicingLevelJson[profile.practicingLevel]}</p>
                     </div>
                     <div id="category">
-                        <span id="name">Islamic Scholars i follow</span>
+                        <span id="name">Islamic Scholars / Daees i follow</span>
                         <p id="value">👨‍🏫 {scholars.join(", ")}</p>
                     </div>
-                </div>    
+                </div>
                 <div id="categories">
-                    <p id="title">My Taste and Preferences</p>
+                    <p id="title">My Taste</p>
+                    <div id="category">
+                        <span id="name">My Inspiration</span>
+                        <p id="value">⭐ {profile.myInspirationArray.join(", ")}</p>
+                    </div>
                     <div id="category">
                         <span id="name">Youtube Channels i like / follow</span>
                         <p id="value">▶️ {profile.youtubeChannels}</p>
@@ -263,9 +304,20 @@ function MyProfile(){
                         <span id="name">How Political i am</span>
                         <p id="value">🗳 {politicalJson[profile.political]}</p>
                     </div>
+                </div>
+                <div id="categories">
+                    <p id="title">My Habits</p>
                     <div id="category">
                         <span id="name">Hobbies and Interests</span>
                         <p id="value">🤾‍♂ {profile.hobbies.join(", ")}</p>
+                    </div>
+                    <div id="category">
+                        <span id="name">Eating Habits</span>
+                        <p id="value">🍽 {eatingHabitsJson[profile.eatingHabits]}</p>
+                    </div>
+                    <div id="category">
+                        <span id="name">Smoking 🚬 & Drinking 🍾</span>
+                        <p id="value">{smokeAndDrinkJson[profile.smokeAndDrink]}</p>
                     </div>
                 </div>
                 <div id="categories">
@@ -331,11 +383,13 @@ function MyProfile(){
                         <p>{profile.quranVerse}</p>
                     </div>
                 </div>
-                <p id='value'><b>Note : </b>⚠️We will not expose any of the user's mobile number because of spamming and privacy concerns. Click on the "Show Interest" button which will send your mobile number to them And they will contact you. Otherwise, contact them directly via Email or any of the Social Media handles.</p>
-
+                <div className='d-flex justif-content-center' style={{flexDirection: 'column', alignItems: 'center'}}>
+                    <span id='interest' style={{margin: '20px'}}><a className='btn btn-success interest-btn hover' href={`http:localhost:8080/api/${profile.id}/senInterest/${profile.id}`}> Send Interest</a> </span>
+                    <p id='value'><b>Note : </b>⚠️We will not expose any of the user's mobile number because of spamming and privacy concerns. Click on the "Show Interest" button which will send your mobile number to them And they will contact you. Otherwise, contact them directly via Email or any of the Social Media handles.</p>
+                </div>
             </div>
         </div>
     </div>
     )
 }
-export default MyProfile
+export default MyProfile;

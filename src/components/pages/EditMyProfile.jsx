@@ -12,6 +12,7 @@ import JobsList from '../files/JobsList.json';
 import HobbiesList from '../files/HobbiesList.json';
 import EthnicityList from '../files/EthnicityList.json';
 import ScholarsList from '../files/ScholarsList.json';
+import Peoples from '../files/people.json';
 
 function EditMyProfile(){
     const profile = samplejsonprofile.profiles[5];
@@ -28,6 +29,8 @@ function EditMyProfile(){
         document.querySelector('#preview-image').style.filter="brightness(1)";
     }
 
+    //profileName
+    const [registeredFor, setRegisteredFor] = useState(profile.registeredFor);
     //profileName
     const [profileName, setProfileName] = useState(profile.fullname);
                                                 //Basic Information
@@ -154,6 +157,8 @@ function EditMyProfile(){
     // const [scholars, setScholars] = useState(profile.scholars);
     const initialOptionsForScholars = ScholarsList.scholars;
     const [scholarArray, setScholarArray] = useState([]);
+    //myInspiration
+    const [myInspiration, setMyInspiration] = useState(profile.myInspirationArray);
     //languagesKnown
     const [languagesKnownArray, setLanguagesKnownAray] = useState([]);
     //youtubeChannels
@@ -164,6 +169,10 @@ function EditMyProfile(){
     const [political, setPolitical] = useState(profile.political); //high, medium, low, never
     //hobbies
     const [hobbies, setHobbies] = useState(profile.hobbies);
+    //hobbies
+    const [eatingHabits, setEatingHabits] = useState(profile.eatingHabits); //onlyHalal, any, vegetarian, vegan
+    //smokeAndDrink
+    const [smokeAndDrink, setSmokeAndDrink] = useState(profile.smokeAndDrink); //onlyHalal, any, vegetarian, vegan
 
     useEffect(() => {
         profile.isRevert === 'no' || profile.isRevert === null ? document.getElementById('radio-two').setAttribute('checked', true) 
@@ -196,6 +205,7 @@ function EditMyProfile(){
         };
     }, []);
     const profileData = {
+        'registeredFor': registeredFor,
         'fullName': profileName,
         'gender': gender,
         'dateOfBirth': dob,
@@ -243,6 +253,9 @@ function EditMyProfile(){
         'youtubeChannels': youtubeChannels,
         'socialMediaInfluencers': socialMediaInfluencers,
         'hobbies': hobbies,
+        'myInspirationArray': myInspiration,
+        'eatingHabits': eatingHabits,
+        'smokeAndDrink': smokeAndDrink,
         'partnerEducated': partnerEducated,
         'partnerEducation': partnerEducation,
         'isPartnerProfessional': isPartnerProfessional,
@@ -308,6 +321,21 @@ function EditMyProfile(){
                 <div id="category-group">
                     <div id="categories">
                         <p id='title'>Basic Information</p>
+                        <div id="category" title='Chooose For whom you are Registering ?'>
+                            <span id="name">For Whom You are Registering ?</span>
+                            <select name="registeringFor" id="registeringFor-input" value={registeredFor} 
+                                onChange={(e)=> setRegisteredFor(e.target.validationMessage)} style={{maxWidth: '250px'}}>
+                                <option value={null}>Select</option>
+                                <option value={"self"}>Registering For Myself</option>
+                                <option value={"son"}>Registering For My Son</option>
+                                <option value={"daughter"}>Registering For My Daughter</option>
+                                <option value={"brother"}>Registering For My Brother</option>
+                                <option value={"sister"}>Registering For My Sister</option>
+                                <option value={"cousin"}>Registering For My Cousin</option>
+                                <option value={"friend"}>Registering For My Friend</option>
+                                <option value={"other"}>Registering For My Other Relative</option>
+                            </select>
+                        </div>
                         <div id="category" title='Chooose Gender'>
                             <span id='name'>♀ Gender ♂</span>
                             <select name="gender" id="gender-input" value={gender} onChange={(e)=> setGender(e.target.value)}>
@@ -571,14 +599,19 @@ function EditMyProfile(){
                                 <option value="kafir">I'm a modern liberal</option>
                             </select>
                         </div>
-                        <div id="category" title='Enter the scholars you like / follow'>
-                            <label htmlFor="scholars" id='name'>Name Some of the Scholars you follow👨‍🏫</label>
+                        <div id="category" title='Enter the scholars / Daees you like / follow'>
+                            <label htmlFor="scholars" id='name'>Name Some of the Scholars / Daees you follow👨‍🏫</label>
                             <MultipleSelectInput  onCreateOption={true} inputData={initialOptionsForScholars} setArray={setScholarArray} isLanguage={false}
-                                placeholder={'Enter some scholars which you follow'}/>
+                                placeholder={'Enter some scholars / Daees which you follow'}/>
                         </div>
                     </div>
                     <div id="categories">
-                        <p id='title'>My Taste and Preferences</p>
+                        <p id='title'>My Taste and My Habits</p>
+                        <div id="category" title='Enter Who is your Inspiration' >
+                        <label htmlFor="myInspiration" id='name'>Enter your Inspiration</label>
+                            <MultipleSelectInput  onCreateOption={true} inputData={Peoples.peoples} setArray={setMyInspiration} isLanguage={false}
+                                placeholder={'Enter the human biengs who all are Inspirational to you'}/>
+                        </div>
                         <div id="category" title='Enter some youtube channels name you follow' >
                             <label htmlFor="youtubeChannels" id='name'>Name some youtube channels you like ▶️</label>
                             <input type="text" name="youtubeChannels" id="youtubeChannels-input"
@@ -606,6 +639,31 @@ function EditMyProfile(){
                             <span id="name">Hobbies / Interests 🤾‍♂</span>
                             <MultipleSelectInput  isLanguage={false} onCreateOption={true} inputData={HobbiesList.hobbies} setArray={setHobbies}
                                 placeholder={'Enter your hobbies and interests'}/>
+                        </div>
+                        <div id="category" title='Enter your Eating Habits'>
+                            <span id="name">Eating Habits 🍽</span>
+                            <select name="eatingHabits" id="eatingHabits-select" value={eatingHabits} onChange={(e)=> setEatingHabits(e.target.value)}>
+                                <option value={null}>Select</option>
+                                <option value={'halal'}>Eat Only Halal Foods</option>
+                                <option value={'any'}>Eat Any Foods</option>
+                                <option value={'veg'}>Eat Only Vegitarian Foods</option>
+                                <option value={'vegan'}>Eat Only Vegan Foods</option>
+                            </select>
+                        </div>
+                        <div id="category" title='Enter your Smoking and Drinking Habits'>
+                            <span id="name">Smoking 🚬  & Drinking Habits 🍾</span>
+                            <select name="smokeAndDrink" id="smokeAndDrink-select" value={smokeAndDrink} onChange={(e)=> setSmokeAndDrink(e.target.value)}>
+                                <option value={null}>Select</option>
+                                <option value={'haram'}>Strictly Not (Haram)</option>
+                                <option value={'smoke'}>Smoke Only</option>
+                                <option value={'nonAlchohol'}>Non Alchohol Drinks Only</option>
+                                <option value={'alchohol'}>Alchohol Drinks Only</option>
+                                <option value={'smokeAndNonAlchohol'}>Smoke & Non Alchohol</option>
+                                <option value={'smokeAndAlchohol'}>Smoke & Alchohol</option>
+                                <option value={'hooka'}>Hooka (Shisha) Only</option>
+                                <option value={'weed'}>Weed Only</option>
+                                <option value={'all'}>All the Intoxicants</option>
+                            </select>
                         </div>
                     </div>
                     <div id="categories">
@@ -750,7 +808,7 @@ function EditMyProfile(){
             </div>
             <div id="submit" className='d-flex justify-content-center' style={{margin : '20px', gap:'20px'}}>
                 <button type='submit' id='submit-button' className="btn btn-success" 
-                // onClick={(e)=>handleSubmit(e)}
+                onClick={(e)=>handleSubmit(e)}
                 >Update Profile</button>
                 <a id='cancel-button' href='/myprofile' className="btn btn-dark">Cancel</a>
             </div>

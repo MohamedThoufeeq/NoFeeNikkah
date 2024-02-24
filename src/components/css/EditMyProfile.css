@@ -108,13 +108,13 @@
     gap: 20px;
     justify-content: center;
 }
-#category-group {
+#edit-my-profile-main #category-group {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
 }
-#categories {
+#edit-my-profile-main #categories {
     display: block;
     padding: 5px 10px;
     background-color: white;
@@ -133,15 +133,15 @@
     /* padding-bottom: 20px;
     margin-bottom: -10px; */
 }
-#category #name {
+#edit-my-profile-main #category #name {
     margin: 0;
     color: red;
 }
-#category #value {
+#edit-my-profile-main #category #value {
     margin: 0;
 
 }
-#category {
+#edit-my-profile-main #category {
     display: grid;
     background-color: white;
     padding: 5px 10px;
@@ -149,7 +149,7 @@
     margin: 15px 10px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
-#category select, #category input {
+#edit-my-profile-main #category select, #edit-my-profile-main #category input {
     border: 1px solid gray;
     border-radius: 3px;
 }
