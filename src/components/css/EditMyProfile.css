@@ -83,7 +83,7 @@
     /* backdrop-filter: blur(4px); */
     padding: 1px 8px 4px 8px;
     border-radius: 7px;
-    box-shadow: 6px 6px 3px 0px;
+    box-shadow: 0px 6px 2px 0px;
 }
 /* .interest-btn {
     background-color: black;
@@ -123,6 +123,10 @@
     border: 1px solid #a3a3a3;
     max-width: 315px;
     padding-bottom: 10px;
+}
+#categories #title {
+    margin-bottom: 25px;
+
 }
  #title {
     text-align: center;

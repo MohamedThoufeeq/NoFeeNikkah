@@ -1,6 +1,6 @@
 #root {
     /* background-image: linear-gradient(rgb(0, 213, 255), rgb(0, 149, 255), rgba(93, 0, 255, 0.557)); */
-    background-image: url('background.jpg.jpg');
+    background-image: url('../public/background.jpg.jpg');
     background-position: center; /* Center the image */
     background-repeat: repeat; /* Do not repeat the image */
     background-size: contain;
