@@ -1,0 +1,7 @@
+/* Global stylesheet entry point. Import order matters: tokens -> reset ->
+   utilities -> components -> feature composition. */
+@import './tokens.css';
+@import './base.css';
+@import './utilities.css';
+@import './components.css';
+@import './features.css';

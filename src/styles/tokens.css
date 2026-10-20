@@ -1,0 +1,162 @@
+/* ==========================================================================
+   Design tokens
+   --------------------------------------------------------------------------
+   Single source of truth for colour, spacing, typography, radius, elevation
+   and layout. Change a value here and the whole application follows.
+   ========================================================================== */
+
+:root {
+  /* ---------------------------------------------------------------- colour */
+  --color-brand-50: #fdecee;
+  --color-brand-100: #fbd5d9;
+  --color-brand-300: #ef7f8b;
+  --color-brand-500: #e01a2d;
+  --color-brand-600: #c71627;
+  --color-brand-700: #a31220;
+  --color-brand-900: #5d0a13;
+
+  --color-success-50: #eaf7ef;
+  --color-success-500: #198754;
+  --color-success-600: #146c43;
+  --color-success-soft: #a5dc86;
+
+  --color-warning-50: #fff8e6;
+  --color-warning-500: #b78103;
+  --color-danger-50: #fdecec;
+  --color-danger-500: #b42318;
+  --color-danger-600: #912018;
+
+  --color-info-50: #eff4ff;
+  --color-info-500: #2563eb;
+  --color-info-600: #1d4ed8;
+
+  --color-success-border: rgba(25, 135, 84, 0.24);
+  --color-warning-border: rgba(183, 129, 3, 0.28);
+  --color-danger-border: rgba(180, 35, 24, 0.24);
+  --color-info-border: rgba(29, 78, 216, 0.24);
+
+  --color-ink: #161616;
+  --color-text: #1d1d1f;
+  --color-text-muted: #5f5f66;
+  --color-text-subtle: #85858d;
+  --color-text-inverse: #ffffff;
+
+  --color-canvas: #f2e9df;
+  --color-surface: #ffffff;
+  --color-surface-subtle: #f7f4f1;
+  --color-surface-glass: rgba(255, 255, 255, 0.42);
+  --color-surface-glass-strong: rgba(255, 255, 255, 0.82);
+  --color-surface-glass-soft: rgba(255, 255, 255, 0.24);
+  --color-surface-dark-glass: rgba(15, 15, 18, 0.72);
+
+  --color-border: #d6d1cb;
+  --color-border-strong: #a3a3a3;
+  --color-border-subtle: rgba(120, 112, 104, 0.22);
+  --color-overlay: rgba(15, 15, 18, 0.46);
+
+  /* ------------------------------------------------------------ typography */
+  --font-heading: 'Outfit', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Alata', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.375rem;
+  --font-size-2xl: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  --font-size-3xl: clamp(1.9rem, 1.4rem + 2.4vw, 3rem);
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.2;
+  --line-height-snug: 1.4;
+  --line-height-normal: 1.6;
+
+  --letter-spacing-brand: 0.095em;
+  --letter-spacing-label: 0.02em;
+
+  /* --------------------------------------------------------------- spacing */
+  --space-0: 0;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-7: 1.75rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* ---------------------------------------------------------------- radius */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 28px;
+  --radius-pill: 999px;
+
+  /* ------------------------------------------------------------ elevation */
+  --shadow-xs: 0 1px 2px rgba(22, 22, 22, 0.08);
+  --shadow-sm: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+  --shadow-md: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  --shadow-lg: 0 24px 48px -18px rgba(22, 22, 22, 0.4);
+  --shadow-xl: 0 50px 100px -20px rgba(50, 50, 93, 0.25),
+    0 30px 60px -30px rgba(0, 0, 0, 0.3),
+    0 -2px 6px 0 rgba(10, 37, 64, 0.35) inset;
+  --shadow-nav: 0 0 6px 6px rgba(0, 0, 0, 0.17);
+  --shadow-avatar: 0 10px 22px rgba(0, 0, 0, 0.42);
+  --shadow-title: 0 7px 2px -1px rgba(0, 0, 0, 0.9);
+  --shadow-tooltip: 0 8px 24px rgba(0, 0, 0, 0.18);
+
+  --focus-ring: 0 0 0 3px rgba(224, 26, 45, 0.32);
+  --focus-ring-success: 0 0 0 3px rgba(25, 135, 84, 0.3);
+
+  /* ----------------------------------------------------------------- blur */
+  --blur-xs: 1.2px;
+  --blur-sm: 2px;
+  --blur-md: 5px;
+  --blur-lg: 10px;
+
+  /* --------------------------------------------------------------- layout */
+  --layout-max-width: 1240px;
+  --layout-reading-width: 760px;
+  --layout-gutter: clamp(0.75rem, 0.4rem + 1.6vw, 1.5rem);
+  --layout-nav-height: 60px;
+  --layout-sidebar-width: 280px;
+  --layout-profile-card-width: 300px;
+  --layout-form-card-width: 320px;
+
+  /* -------------------------------------------------------------- z-index */
+  --z-base: 1;
+  --z-panel: 10;
+  --z-sticky: 90;
+  --z-nav: 100;
+  --z-sidebar: 200;
+  --z-toast: 400;
+  --z-tooltip: 500;
+
+  /* ----------------------------------------------------------- transitions */
+  --transition-fast: 140ms ease;
+  --transition-base: 220ms ease;
+  --transition-slow: 400ms ease;
+
+  /* -------------------------------------------------------------- targets */
+  --control-height: 40px;
+  --control-height-sm: 34px;
+  --icon-size: 1.25rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0ms;
+    --transition-base: 0ms;
+    --transition-slow: 0ms;
+  }
+}
